@@ -1,0 +1,6 @@
+framework module Pods_CRMCall092016 {
+  umbrella header "Pods-CRMCall092016-umbrella.h"
+
+  export *
+  module * { export * }
+}
