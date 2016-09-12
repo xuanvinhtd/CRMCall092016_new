@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228402F1D865A720059A0D7 /* CRMCallSocket.swift */; };
+		92E2341A1D812899006C988E /* ModelManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E234191D812899006C988E /* ModelManger.swift */; };
+		92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2341C1D81443F006C988E /* AlamofireManager.swift */; };
+		92E2341F1D81447D006C988E /* SWXMLHashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2341E1D81447D006C988E /* SWXMLHashManager.swift */; };
+		92E234241D814647006C988E /* XMLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E234231D814647006C988E /* XMLRequestBuilder.swift */; };
 		92E3E3131D8004C3008033ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3121D8004C3008033ED /* AppDelegate.swift */; };
 		92E3E3151D8004C3008033ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3141D8004C3008033ED /* ViewController.swift */; };
 		92E3E3171D8004C3008033ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92E3E3161D8004C3008033ED /* Assets.xcassets */; };
 		92E3E31A1D8004C3008033ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92E3E3181D8004C3008033ED /* Main.storyboard */; };
 		92E3E3291D8005E2008033ED /* AESExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3281D8005E2008033ED /* AESExtension.m */; };
-		92E3E32F1D8008B9008033ED /* XMLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E32E1D8008B9008033ED /* XMLRequestBuilder.swift */; };
 		92E3E3311D800947008033ED /* CRMCallConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3301D800947008033ED /* CRMCallConfig.swift */; };
-		92E3E3331D800C8B008033ED /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3321D800C8B008033ED /* SocketManager.swift */; };
+		92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3321D800C8B008033ED /* BaseSocket.swift */; };
 		92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3341D8011FC008033ED /* CRMCallLog.swift */; };
 		A786E68B3F379810ED36B746 /* Pods_CRMCall092016.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2F9C69A515659B29DDA8FF /* Pods_CRMCall092016.framework */; };
 /* End PBXBuildFile section */
@@ -23,6 +27,11 @@
 		0F2F9C69A515659B29DDA8FF /* Pods_CRMCall092016.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRMCall092016.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		638056E88800D61CD44C46F6 /* Pods-CRMCall092016.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMCall092016.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRMCall092016/Pods-CRMCall092016.release.xcconfig"; sourceTree = "<group>"; };
 		867B73DF25B4547C396A7607 /* Pods-CRMCall092016.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMCall092016.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CRMCall092016/Pods-CRMCall092016.debug.xcconfig"; sourceTree = "<group>"; };
+		9228402F1D865A720059A0D7 /* CRMCallSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallSocket.swift; sourceTree = "<group>"; };
+		92E234191D812899006C988E /* ModelManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelManger.swift; sourceTree = "<group>"; };
+		92E2341C1D81443F006C988E /* AlamofireManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireManager.swift; sourceTree = "<group>"; };
+		92E2341E1D81447D006C988E /* SWXMLHashManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHashManager.swift; sourceTree = "<group>"; };
+		92E234231D814647006C988E /* XMLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLRequestBuilder.swift; sourceTree = "<group>"; };
 		92E3E30F1D8004C3008033ED /* CRMCall092016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CRMCall092016.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92E3E3121D8004C3008033ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92E3E3141D8004C3008033ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,9 +41,8 @@
 		92E3E3221D800538008033ED /* CRMCall092016-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CRMCall092016-Bridging-Header.h"; sourceTree = "<group>"; };
 		92E3E3271D8005E2008033ED /* AESExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESExtension.h; sourceTree = "<group>"; };
 		92E3E3281D8005E2008033ED /* AESExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESExtension.m; sourceTree = "<group>"; };
-		92E3E32E1D8008B9008033ED /* XMLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLRequestBuilder.swift; sourceTree = "<group>"; };
 		92E3E3301D800947008033ED /* CRMCallConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallConfig.swift; sourceTree = "<group>"; };
-		92E3E3321D800C8B008033ED /* SocketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		92E3E3321D800C8B008033ED /* BaseSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSocket.swift; sourceTree = "<group>"; };
 		92E3E3341D8011FC008033ED /* CRMCallLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallLog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,6 +58,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92E234181D81281D006C988E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				92E234191D812899006C988E /* ModelManger.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92E234221D8145ED006C988E /* XML */ = {
+			isa = PBXGroup;
+			children = (
+				92E234231D814647006C988E /* XMLRequestBuilder.swift */,
+			);
+			path = XML;
+			sourceTree = "<group>";
+		};
 		92E3E3061D8004C3008033ED = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +95,7 @@
 		92E3E3111D8004C3008033ED /* CRMCall092016 */ = {
 			isa = PBXGroup;
 			children = (
+				92E234181D81281D006C988E /* Models */,
 				92E3E3211D8004F4008033ED /* Helpers */,
 				92E3E32C1D80066C008033ED /* Library */,
 				92E3E32B1D80063C008033ED /* Server */,
@@ -87,6 +112,7 @@
 		92E3E3211D8004F4008033ED /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				92E234221D8145ED006C988E /* XML */,
 				92E3E3261D8005E2008033ED /* AES */,
 				92E3E3221D800538008033ED /* CRMCall092016-Bridging-Header.h */,
 				92E3E3301D800947008033ED /* CRMCallConfig.swift */,
@@ -115,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				92E3E32D1D8007F4008033ED /* Socket */,
-				92E3E32E1D8008B9008033ED /* XMLRequestBuilder.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -123,6 +148,8 @@
 		92E3E32C1D80066C008033ED /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				92E2341C1D81443F006C988E /* AlamofireManager.swift */,
+				92E2341E1D81447D006C988E /* SWXMLHashManager.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -130,7 +157,8 @@
 		92E3E32D1D8007F4008033ED /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				92E3E3321D800C8B008033ED /* SocketManager.swift */,
+				92E3E3321D800C8B008033ED /* BaseSocket.swift */,
+				9228402F1D865A720059A0D7 /* CRMCallSocket.swift */,
 			);
 			path = Socket;
 			sourceTree = "<group>";
@@ -273,12 +301,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92E2341F1D81447D006C988E /* SWXMLHashManager.swift in Sources */,
+				922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */,
+				92E234241D814647006C988E /* XMLRequestBuilder.swift in Sources */,
 				92E3E3151D8004C3008033ED /* ViewController.swift in Sources */,
 				92E3E3131D8004C3008033ED /* AppDelegate.swift in Sources */,
 				92E3E3291D8005E2008033ED /* AESExtension.m in Sources */,
-				92E3E32F1D8008B9008033ED /* XMLRequestBuilder.swift in Sources */,
-				92E3E3331D800C8B008033ED /* SocketManager.swift in Sources */,
+				92E2341A1D812899006C988E /* ModelManger.swift in Sources */,
+				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
+				92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */,
 				92E3E3311D800947008033ED /* CRMCallConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +420,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_SWIFT_FLAGS = "-DDEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvintd.CRMCall092016;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CRMCall092016/Helpers/CRMCall092016-Bridging-Header.h";
@@ -405,6 +437,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvintd.CRMCall092016;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CRMCall092016/Helpers/CRMCall092016-Bridging-Header.h";

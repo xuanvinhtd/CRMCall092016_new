@@ -5,6 +5,9 @@ project 'CRMCall092016.xcodeproj'
 
 target 'CRMCall092016' do
  use_frameworks!
+ 
 pod 'CocoaAsyncSocket'
+pod 'Alamofire'
+pod 'SWXMLHash'
 
 end
