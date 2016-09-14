@@ -20,6 +20,8 @@ class BaseSocket: NSObject {
     
     private var aesExtension: AESExtension
     private var asynSocket: GCDAsyncSocket!
+    
+    private var socketQueue: dispatch_queue_t
 
     private var port: UInt16
     private var host: String
@@ -32,9 +34,11 @@ class BaseSocket: NSObject {
         self.port = port
         self.aesExtension = AESExtension()
         
+        self.socketQueue = dispatch_queue_create("Socket.queue", DISPATCH_QUEUE_SERIAL)
+        
         super.init()
         
-        self.asynSocket = GCDAsyncSocket(delegate: self, delegateQueue: dispatch_get_main_queue())
+        self.asynSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.socketQueue)
     }
     
     override init() {
@@ -42,6 +46,8 @@ class BaseSocket: NSObject {
         self.host = ""
         self.port = 0
         self.aesExtension = AESExtension()
+        
+        self.socketQueue = dispatch_queue_create("Socket.queue", DISPATCH_QUEUE_SERIAL)
         
         super.init()
         
@@ -54,13 +60,18 @@ class BaseSocket: NSObject {
     
     func connect() {
         
-        do {
-
-           try asynSocket.connectToHost(host, onPort: port)
-            
-        } catch let err {
-            println("Error connect socket: \(err)")
-        }
+        //dispatch_async(socketQueue) {
+            do {
+                if self.host != "" && self.port != 0 {
+                    try self.asynSocket.connectToHost(self.host, onPort: self.port)
+                } else {
+                    println("Not enought info host and port")
+                }
+                
+            } catch let err {
+                println("Error connect socket: \(err)")
+            }
+       // }
     }
     
     func disConnect() {
@@ -70,15 +81,19 @@ class BaseSocket: NSObject {
         isConnectedToHost = false
     }
     
-    func configData(withData strData: String) {
+    func configAndSendData(withData strData: String) {
         
-        let encryptData = aesExtension.aesEncryptString(strData)
-        
-        let headerData = String(format: "%05lu", (encryptData?.characters.count)! + 1)
-        
-        let requestData = headerData + String(format: "%@%@", flagEncrypt, encryptData!)
-        
-        sendData(requestData.dataUsingEncoding(NSUTF8StringEncoding)!)
+       // dispatch_async(socketQueue) {
+            let encryptData = self.aesExtension.aesEncryptString(strData)
+            
+            let headerData = String(format: "%05lu", (encryptData?.characters.count)! + 1)
+            
+            let requestData = headerData + String(format: "%@%@", self.flagEncrypt, encryptData!)
+            
+            println("Data request: \(requestData)")
+            
+            self.sendData(requestData.dataUsingEncoding(NSUTF8StringEncoding)!)
+      //  }
     }
     
    private func sendData(data: NSData) {
@@ -96,21 +111,25 @@ class BaseSocket: NSObject {
                 return
             }
             
-            guard let result = NSString(data: _response, encoding: NSUTF8StringEncoding) as? String else {
+            guard let xml = NSString(data: _response, encoding: NSUTF8StringEncoding) as? String else {
                 println("Not found data to server")
                 return
             }
             
-            let resultDic = SWXMLHashManager.parseXMLToDictionary(withXML: result)
-            
-            if let port = resultDic["PORT"], host = resultDic["IP"] {
-                self.port = UInt16(port)!
-                self.host = host
-            } else {
-                println("Cannot parse port and host: \(CRMCallConfig.HostName)")
-            }
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.connectToHost, object: nil, userInfo: nil)
+            SWXMLHashManager.parseXMLToDictionary(withXML: xml, Completion: { result, typeData in
+                
+                if typeData == CRMCallHelpers.TypeData.ServerInfo {
+                    
+                    if let port = result["PORT"], host = result["IP"] {
+                        self.port = UInt16(port)!
+                        self.host = host
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, userInfo: nil)
+                    } else {
+                        println("Cannot parse port and host: \(CRMCallConfig.HostName)")
+                    }
+                }
+            })
         }
     }
 }
@@ -120,49 +139,60 @@ extension BaseSocket: GCDAsyncSocketDelegate {
     
     func socket(sock: GCDAsyncSocket, didReadData data: NSData, withTag tag: Int) {
         
-        if tag == CRMCallConfig.Tab.Header {
-            
-            guard let headerData = NSString(data: data, encoding: NSUTF8StringEncoding) else {
-                fatalError("Not found header data")
-            }
-
-            println("Data header: \(headerData)")
-            
-            let lenghtHeader = (UInt(headerData.substringToIndex(5))! - 1)
-            flagEncrypt = headerData.substringFromIndex(5)
-            
-            asynSocket.readDataToLength(lenghtHeader, withTimeout: readTimeOut , tag: CRMCallConfig.Tab.BodyData)
-            
-            
-        } else if (tag == CRMCallConfig.Tab.BodyData) {
-            
-            guard let bodyData = NSString(data: data, encoding: NSUTF8StringEncoding) as? String else {
-                fatalError("Not found body data")
-            }
-
-            var decryptBodyData = ""
-            
-            if flagEncrypt == "1" {
+      //  dispatch_async(socketQueue) {
+            if tag == CRMCallConfig.Tab.Header {
                 
-                guard let dataDecrypt = aesExtension.aesDecryptString(bodyData) else {
-                    fatalError("Not Decrypt body data")
+                guard let headerData = NSString(data: data, encoding: NSUTF8StringEncoding) else {
+                    fatalError("Not found header data")
                 }
                 
-                decryptBodyData = dataDecrypt
-            } else {
-                decryptBodyData = bodyData
+                println("Recived data header: \(headerData)")
+                
+                let lenghtHeader = (UInt(headerData.substringToIndex(5))! - 1)
+                self.flagEncrypt = headerData.substringFromIndex(5)
+                
+                self.asynSocket.readDataToLength(lenghtHeader, withTimeout: self.readTimeOut , tag: CRMCallConfig.Tab.BodyData)
+                
+                
+            } else if (tag == CRMCallConfig.Tab.BodyData) {
+                
+                guard let bodyData = NSString(data: data, encoding: NSUTF8StringEncoding) as? String else {
+                    fatalError("Not found body data")
+                }
+                
+                var decryptBodyData = ""
+                
+                if self.flagEncrypt == "1" {
+                    
+                    guard let dataDecrypt = self.aesExtension.aesDecryptString(bodyData) else {
+                        fatalError("Not Decrypt body data")
+                    }
+                    
+                    decryptBodyData = dataDecrypt
+                } else {
+                    decryptBodyData = bodyData
+                }
+                
+                println("Recived data body: \(decryptBodyData)")
+                
+                self.asynSocket.readDataToLength(CRMCallConfig.HeaderLength, withTimeout: self.readTimeOut, tag: CRMCallConfig.Tab.Header)
+                
+                SWXMLHashManager.parseXMLToDictionary(withXML: decryptBodyData, Completion: { result, typeData in
+                    
+                    
+                    if typeData == CRMCallHelpers.TypeData.UserLogin {
+                        
+                        println("Data user : \(result)")
+                    }
+                    
+                    if typeData == CRMCallHelpers.TypeData.UserLive {
+                        
+                        println("Data live : \(result)")
+                    }
+
+                })
             }
-            
-            println("Data body: \(decryptBodyData)")
-            
-            asynSocket.readDataToLength(CRMCallConfig.HeaderLength, withTimeout: readTimeOut, tag: CRMCallConfig.Tab.Header)
-            
-            SWXMLHashManager.parseXMLToDictionary(withXML: decryptBodyData)
-        }
-    }
-    
-    func socket(sock: GCDAsyncSocket, didWritePartialDataOfLength partialLength: UInt, tag: Int) {
-        println("lenght: \(partialLength)")
+     //   }
     }
     
     func socket(sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
@@ -174,5 +204,14 @@ extension BaseSocket: GCDAsyncSocketDelegate {
         asynSocket.readDataToLength(CRMCallConfig.HeaderLength, withTimeout: readTimeOut, tag: CRMCallConfig.Tab.Header)
         
         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDidConnected, object: nil, userInfo: nil)
+    }
+    
+    func socketDidDisconnect(sock: GCDAsyncSocket, withError err: NSError?) {
+        
+        println("Error DidDisconnect: \(err)")
+        
+        self.isConnectedToHost = false
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDisConnected, object: nil, userInfo: nil)
     }
 }

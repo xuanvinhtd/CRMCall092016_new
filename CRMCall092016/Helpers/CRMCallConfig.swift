@@ -12,7 +12,10 @@ final class CRMCallConfig {
     
     static let Version = "20150202"
     static let DeviceID = "MAC"
+    
     static let HostName = "global3.hanbiro.com"
+    
+    static let TimerInterval = 10.0
     
     static let HeaderLength:UInt = 6
     
@@ -25,16 +28,14 @@ final class CRMCallConfig {
     
     // MARK: Notification
     struct Notification {
-        static let SocketDidConnected = "SocketManager.SocketDidConnected"
-        static let SocketDisConnected = "SocketManager.SocketDisConnected"
+        static let SocketDidConnected = "CRMCallConfig.Notification.SocketDidConnected"
+        static let SocketDisConnected = "CRMCallConfig.Notification.SocketDisConnected"
+        static let RecivedServerInfor = "CRMCallConfig.Notification.RecivedServerInfor"
     }
     
     // MARK: API
     struct API {
         static let GetPortAndHostURL = "http://\(CRMCallConfig.HostName)/winapp/hcsong/crmcall/\(CRMCallConfig.HostName)/server.xml"
     }
-    
-    
-    
     
 }

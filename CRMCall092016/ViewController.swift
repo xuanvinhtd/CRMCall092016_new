@@ -11,12 +11,12 @@ import Cocoa
 class ViewController: NSViewController {
 
     // MARK: - Properties
-    private var socketManager: BaseSocket!
+    private var crmCallSocket: CRMCallSocket!
     
     private var handlerNotificationSocketDidConnected: AnyObject?
     private var handlerNotificationLoginSuccess: AnyObject?
     private var handlerNotificationLogoutSuccess: AnyObject?
-    private var handlerNotificationConnectToHost: AnyObject?
+    private var handlerNotificationRevicedServerInfor: AnyObject?
     
     @IBOutlet weak var domanTextField: NSTextField!
     @IBOutlet weak var userTextField: NSTextField!
@@ -30,7 +30,7 @@ class ViewController: NSViewController {
         
         registerNotification()
         
-        socketManager = CRMCallSocket()
+        crmCallSocket = CRMCallSocket()
     }
 
     deinit {
@@ -48,19 +48,20 @@ class ViewController: NSViewController {
     
     @IBAction func actionLogin(sender: AnyObject) {
         
-        if socketManager.isConnectedToHost == true {
+        if crmCallSocket.isConnectedToHost == true {
             
-            requestLogin(withUserID: userTextField.stringValue, pass: passTextField.stringValue, domain: domanTextField.stringValue)
+            crmCallSocket.requestLogin(withUserID: userTextField.stringValue, passwold: passTextField.stringValue, domain: domanTextField.stringValue)
+
         } else {
-            println("Waiting connect to server .....")
+            println("Please connect to server .....")
         }
         
     }
     
     @IBAction func actionLogout(sender: AnyObject) {
         
-        if socketManager.isConnectedToHost == true {
-            requestLogOut()
+        if crmCallSocket.isConnectedToHost == true {
+            crmCallSocket.requestLogout()
         } else {
             println("Disconnect to server")
         }
@@ -69,36 +70,34 @@ class ViewController: NSViewController {
     
     // MARK: - Notification
     struct Notification {
-        static let loginSuccess = "LoginSuccessNotification"
-        static let logoutSuccess = "LogoutSuccessNotification"
-        static let connectToHost = "ConnectHostNotification"
+        static let LoginSuccess = "LoginSuccessNotification"
+        static let LogoutSuccess = "LogoutSuccessNotification"
     }
     
     private func registerNotification() {
         
-        handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil) { notification in
+        handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil, usingBlock: { notification in
             
-            println("\(notification)")
-        }
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+        })
         
-        handlerNotificationLoginSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.loginSuccess, object: nil, queue: nil) { notification in
+        handlerNotificationLoginSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginSuccess, object: nil, queue: nil, usingBlock: { notification in
             
-            println("\(notification)")
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             self.statusLogin.hidden = false
-        }
+        })
         
-        handlerNotificationLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.logoutSuccess, object: nil, queue: nil) { notification in
+        handlerNotificationLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
             
-            println("\(notification)")
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             self.statusLogin.hidden = true
-        }
+        })
         
-        handlerNotificationConnectToHost = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.connectToHost, object: nil, queue: nil) { notification in
+        handlerNotificationRevicedServerInfor = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, queue: nil, usingBlock: { notification in
             
-            println("\(notification)")
-            
-            self.socketManager.connect()
-        }
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            self.crmCallSocket.connect()
+        })
     }
     
     private func deRegisterNotification() {
@@ -115,21 +114,9 @@ class ViewController: NSViewController {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
         
-        if let notification = handlerNotificationConnectToHost {
+        if let notification = handlerNotificationRevicedServerInfor {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
-    }
-    
-    // MARK: - USER LOGIN/OUT
-    private func requestLogin(withUserID userID: String, pass: String, domain: String) {
-        
-        let xmlLogin = XMLRequestBuilder.loginRequest(with: userID, pass: pass, domain: domain)
-        
-        socketManager.configData(withData: xmlLogin)
-    }
-    
-    private func requestLogOut() {
-        
     }
 }
 

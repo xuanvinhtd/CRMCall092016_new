@@ -14,22 +14,46 @@ import SWXMLHash
 final class SWXMLHashManager {
     
     // MARK: - XML PARSER
-    static func parseXMLToDictionary(withXML xmlData: String) -> [String: String] {
+    static func parseXMLToDictionary(withXML xmlData: String, Completion completion: (([String: String], CRMCallHelpers.TypeData) ->Void)?) {
+        
+        var result: [String: String] = [:]
+        
+        guard let completion = completion else {
+            
+            println("Do not found closure COMPLETION")
+            return
+        }
         
         let xmlDocument = SWXMLHash.parse(xmlData)
         
         if let _ = xmlDocument["XML"]["USER"].element {
-            return userData(withData: xmlDocument)
+            
+            result =  userData(withData: xmlDocument)
+            completion(result, CRMCallHelpers.TypeData.UserLogin)
+            
+            return
         }
         
         if let _ = xmlDocument["XML"]["SERVERINFO"].element {
-            return getHostAndPost(withData: xmlDocument)
+            
+            result = getHostAndPost(withData: xmlDocument)
+            completion(result, CRMCallHelpers.TypeData.ServerInfo)
+            
+            return
         }
         
-        return [:]
+        if let _ = xmlDocument["XML"]["LIVE"].element {
+            
+            result = getLiveData(withData: xmlDocument)
+            completion(result, CRMCallHelpers.TypeData.UserLive)
+            
+            return
+        }
+        
+        completion(result, CRMCallHelpers.TypeData.None)
     }
     
-    private static func userData(withData data: XMLIndexer) -> [String: String]{
+    private static func userData(withData data: XMLIndexer) -> [String: String] {
         
         if let _ = data["XML"]["USER"]["LOGIN"].element {
             
@@ -40,7 +64,7 @@ final class SWXMLHashManager {
             
             println("Result parse User: --------XXX------- \n \(userDictionnary)")
             
-            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.loginSuccess, object: nil, userInfo: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
             
             return userDictionnary.attributes
         }
@@ -52,9 +76,9 @@ final class SWXMLHashManager {
                 return [:]
             }
 
-            println("Result parse User: --------XXX------- \n \(userDictionnary)")
+            println("Result parse Logout user: --------XXX------- \n \(userDictionnary)")
             
-            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.logoutSuccess, object: nil, userInfo: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
             
             return userDictionnary.attributes
         }
@@ -62,7 +86,7 @@ final class SWXMLHashManager {
         return [:]
     }
 
-    private static func getHostAndPost(withData data: XMLIndexer) -> [String: String]{
+    private static func getHostAndPost(withData data: XMLIndexer) -> [String: String] {
 
         guard let userDictionnary = data["XML"]["SERVERINFO"].element else {
             println("Cannot parse XML: SERVERINFO")
@@ -70,6 +94,18 @@ final class SWXMLHashManager {
         }
         
         println("Result parse SERVERINFO: --------XXX------- \n \(userDictionnary)")
+        
+        return userDictionnary.attributes
+    }
+    
+    private static func getLiveData(withData data: XMLIndexer) -> [String: String] {
+        
+        guard let userDictionnary = data["XML"]["ALARM"].element else {
+            println("Cannot parse XML: LIVE")
+            return [:]
+        }
+        
+        println("Result parse Live: --------XXX------- \n \(userDictionnary)")
         
         return userDictionnary.attributes
     }

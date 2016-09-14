@@ -19,10 +19,10 @@ final class XMLRequestBuilder {
     
     static func logOutRequest() -> String {
         
-        return String(format: "<XML><VER>%@</VER><USER><LOGOUT></LOGOUT></USER></XML>", CRMCallConfig.Version)
+        return String(format: "<XML> <VER>%@</VER> <USER> <LOGOUT> </LOGOUT> </USER> </XML>", CRMCallConfig.Version)
     }
     
     static func liveRequest() -> String {
-        return String(format: "<XML><VER>%@</VER><ALARM><LIVE/></ALARM></XML>", CRMCallConfig.Version)
+        return String(format: "<XML> <VER>PROTOCOL_VER</VER> <ALARM> <LIVE/> </ALARM> </XML> ", CRMCallConfig.Version)
     }
 }
