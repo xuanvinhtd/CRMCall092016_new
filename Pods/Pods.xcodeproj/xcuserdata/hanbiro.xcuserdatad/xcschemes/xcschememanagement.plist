@@ -19,6 +19,16 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>Realm.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>RealmSwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>SWXMLHash 2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -32,12 +42,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4269EA6DE49C90DEABF2DFAEBF5F6BCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>67C63D588DA997BFF7D3C999DA7A5A23</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>6A0818B9C68C8B9F82A2B6E85576006B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6ADBAF7183EDDAB0DE8E8BDEA68D46F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9A1A088A814206B99346C15F88870371</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B146E7512E9CA5F0BB2EDF3F86841CA4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>B37E19CA872A7535725D1E1946E5C271</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5093CA88C13657E0DD6DE84E1F2C951</key>
 		<dict>
 			<key>primary</key>
 			<true/>

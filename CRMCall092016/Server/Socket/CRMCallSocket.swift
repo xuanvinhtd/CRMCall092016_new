@@ -14,7 +14,6 @@ final class CRMCallSocket: BaseSocket {
     var liveTimer: NSTimer?
     
     var handerNotificationLoginSuccess: AnyObject?
-    var handerNotificationLogoutSuccess: AnyObject?
     
     // MARK: - Initialzation
     override init() {
@@ -28,6 +27,9 @@ final class CRMCallSocket: BaseSocket {
         deregisterNotification()
     }
     
+    func deInit() {
+        deregisterNotification()
+    }
     // MARK: - NOTIFICATION
     
     private func registerNotification() {
@@ -40,25 +42,12 @@ final class CRMCallSocket: BaseSocket {
                 self.startLiveTimer()
             })
         }
-        
-        if handerNotificationLogoutSuccess == nil {
-            handerNotificationLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDisConnected, object: nil, queue: nil, usingBlock: { notification in
-                
-                println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-                
-                self.stopLiveTimer()
-            })
-        }
     }
     
-    private func deregisterNotification() {
+    func deregisterNotification() {
         
         if let handerNotificationLoginSuccess = handerNotificationLoginSuccess {
             NSNotificationCenter.defaultCenter().removeObserver(handerNotificationLoginSuccess)
-        }
-        
-        if let handerNotificationLogoutSuccess = handerNotificationLogoutSuccess {
-            NSNotificationCenter.defaultCenter().removeObserver(handerNotificationLogoutSuccess)
         }
     }
     
@@ -88,26 +77,26 @@ final class CRMCallSocket: BaseSocket {
     // MARK: LIVE API
     func startLiveTimer() {
         
-       // dispatch_async(dispatch_get_main_queue()) {
+        dispatch_async(dispatch_get_main_queue()) {
             
             if self.liveTimer == nil {
                 self.liveTimer = NSTimer.scheduledTimerWithTimeInterval(CRMCallConfig.TimerInterval, target: self, selector: #selector(CRMCallSocket.requestLive), userInfo: nil, repeats: true)
                 
                 self.liveTimer?.fire()
             }
-      //  }
+        }
     }
     
     func stopLiveTimer() {
         
-      //  dispatch_async(dispatch_get_main_queue()) {
+        dispatch_async(dispatch_get_main_queue()) {
             guard let _liveTimer = self.liveTimer else {
                 println("liveTimer not init")
                 return
             }
             
             _liveTimer.invalidate()
-     //   }
+        }
     }
     
     func requestLive() {

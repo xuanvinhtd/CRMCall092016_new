@@ -9,5 +9,6 @@ target 'CRMCall092016' do
 pod 'CocoaAsyncSocket'
 pod 'Alamofire'
 pod 'SWXMLHash'
+pod 'RealmSwift'
 
 end

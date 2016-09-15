@@ -28,19 +28,6 @@ class BaseSocket: NSObject {
     
     // MARK: - Initialize
     
-    init(withHost host: String, port: UInt16) {
-
-        self.host = host
-        self.port = port
-        self.aesExtension = AESExtension()
-        
-        self.socketQueue = dispatch_queue_create("Socket.queue", DISPATCH_QUEUE_SERIAL)
-        
-        super.init()
-        
-        self.asynSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.socketQueue)
-    }
-    
     override init() {
         
         self.host = ""
@@ -51,16 +38,20 @@ class BaseSocket: NSObject {
         
         super.init()
         
-        self.asynSocket = GCDAsyncSocket(delegate: self, delegateQueue: dispatch_get_main_queue())
+        self.asynSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.socketQueue)
         
         getIdAndHost()
+    }
+    
+    deinit {
+        self.asynSocket = nil
     }
     
     // MARK: - Socket handling
     
     func connect() {
         
-        //dispatch_async(socketQueue) {
+        dispatch_async(socketQueue) {
             do {
                 if self.host != "" && self.port != 0 {
                     try self.asynSocket.connectToHost(self.host, onPort: self.port)
@@ -71,7 +62,7 @@ class BaseSocket: NSObject {
             } catch let err {
                 println("Error connect socket: \(err)")
             }
-       // }
+        }
     }
     
     func disConnect() {
@@ -83,17 +74,16 @@ class BaseSocket: NSObject {
     
     func configAndSendData(withData strData: String) {
         
-       // dispatch_async(socketQueue) {
+        dispatch_async(socketQueue) {
+            println("Data request server: \(strData)")
             let encryptData = self.aesExtension.aesEncryptString(strData)
             
             let headerData = String(format: "%05lu", (encryptData?.characters.count)! + 1)
             
             let requestData = headerData + String(format: "%@%@", self.flagEncrypt, encryptData!)
             
-            println("Data request: \(requestData)")
-            
             self.sendData(requestData.dataUsingEncoding(NSUTF8StringEncoding)!)
-      //  }
+        }
     }
     
    private func sendData(data: NSData) {
@@ -119,6 +109,8 @@ class BaseSocket: NSObject {
             SWXMLHashManager.parseXMLToDictionary(withXML: xml, Completion: { result, typeData in
                 
                 if typeData == CRMCallHelpers.TypeData.ServerInfo {
+                    
+                    println("---------> Data server infor: \n\(result)")
                     
                     if let port = result["PORT"], host = result["IP"] {
                         self.port = UInt16(port)!
@@ -179,15 +171,23 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 
                 SWXMLHashManager.parseXMLToDictionary(withXML: decryptBodyData, Completion: { result, typeData in
                     
+                    if typeData == CRMCallHelpers.TypeData.UserLogout {
+                        
+                        println("---------> Data logout user : \n\(result)")
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
+                    }
                     
                     if typeData == CRMCallHelpers.TypeData.UserLogin {
                         
-                        println("Data user : \(result)")
+                        println("---------> Data login user : \n\(result)")
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
                     }
                     
                     if typeData == CRMCallHelpers.TypeData.UserLive {
                         
-                        println("Data live : \(result)")
+                        println("---------> Data live : \n\(result)")
                     }
 
                 })

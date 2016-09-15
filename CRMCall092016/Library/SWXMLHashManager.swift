@@ -15,100 +15,84 @@ final class SWXMLHashManager {
     
     // MARK: - XML PARSER
     static func parseXMLToDictionary(withXML xmlData: String, Completion completion: (([String: String], CRMCallHelpers.TypeData) ->Void)?) {
-        
-        var result: [String: String] = [:]
-        
+
         guard let completion = completion else {
             
-            println("Do not found closure COMPLETION")
+            println("Not found closure COMPLETION")
             return
         }
         
         let xmlDocument = SWXMLHash.parse(xmlData)
         
-        if let _ = xmlDocument["XML"]["USER"].element {
+        if let userDic = xmlDocument["XML"]["USER"]["LOGIN"].element {
             
-            result =  userData(withData: xmlDocument)
-            completion(result, CRMCallHelpers.TypeData.UserLogin)
-            
-            return
-        }
-        
-        if let _ = xmlDocument["XML"]["SERVERINFO"].element {
-            
-            result = getHostAndPost(withData: xmlDocument)
-            completion(result, CRMCallHelpers.TypeData.ServerInfo)
+            completion(userDic.attributes, CRMCallHelpers.TypeData.UserLogin)
             
             return
         }
         
-        if let _ = xmlDocument["XML"]["LIVE"].element {
+        if let userDic = xmlDocument["XML"]["USER"]["LOGOUT"].element {
             
-            result = getLiveData(withData: xmlDocument)
-            completion(result, CRMCallHelpers.TypeData.UserLive)
+            completion(userDic.attributes, CRMCallHelpers.TypeData.UserLogout)
             
             return
         }
         
-        completion(result, CRMCallHelpers.TypeData.None)
+        if let dataDic = xmlDocument["XML"]["SERVERINFO"].element {
+            
+            completion(dataDic.attributes, CRMCallHelpers.TypeData.ServerInfo)
+            
+            return
+        }
+        
+        if let dataDic = xmlDocument["XML"]["ALARM"].element {
+            
+            completion(dataDic.attributes, CRMCallHelpers.TypeData.UserLive)
+            
+            return
+        }
+        
+        completion([:], CRMCallHelpers.TypeData.None)
     }
     
-    private static func userData(withData data: XMLIndexer) -> [String: String] {
-        
-        if let _ = data["XML"]["USER"]["LOGIN"].element {
-            
-            guard let userDictionnary = data["XML"]["USER"].element else {
-                println("Cannot parse XML: USER LOGIN")
-                return [:]
-            }
-            
-            println("Result parse User: --------XXX------- \n \(userDictionnary)")
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
-            
-            return userDictionnary.attributes
-        }
-        
-        if let _ = data["XML"]["USER"]["LOGOUT"].element {
+//    private static func userData(withData data: XMLIndexer) -> [String: String] {
+//        
+//        if let userDic = data["XML"]["USER"]["LOGIN"].element {
+//            
+//            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
+//            
+//            return userDic.attributes
+//        }
+//        
+//        if let userDic = data["XML"]["USER"]["LOGOUT"].element {
+//            
+//            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
+//            
+//            return userDic.attributes
+//        }
+//        
+//        return [:]
+//    }
 
-            guard let userDictionnary = data["XML"]["USER"].element else {
-                println("Cannot parse XML: USER LOGIN")
-                return [:]
-            }
-
-            println("Result parse Logout user: --------XXX------- \n \(userDictionnary)")
-            
-            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
-            
-            return userDictionnary.attributes
-        }
-        
-        return [:]
-    }
-
-    private static func getHostAndPost(withData data: XMLIndexer) -> [String: String] {
-
-        guard let userDictionnary = data["XML"]["SERVERINFO"].element else {
-            println("Cannot parse XML: SERVERINFO")
-            return [:]
-        }
-        
-        println("Result parse SERVERINFO: --------XXX------- \n \(userDictionnary)")
-        
-        return userDictionnary.attributes
-    }
-    
-    private static func getLiveData(withData data: XMLIndexer) -> [String: String] {
-        
-        guard let userDictionnary = data["XML"]["ALARM"].element else {
-            println("Cannot parse XML: LIVE")
-            return [:]
-        }
-        
-        println("Result parse Live: --------XXX------- \n \(userDictionnary)")
-        
-        return userDictionnary.attributes
-    }
+//    private static func getHostAndPost(withData data: XMLIndexer) -> [String: String] {
+//
+//        guard let userDic = data["XML"]["SERVERINFO"].element else {
+//            println("Cannot parse XML: SERVERINFO")
+//            return [:]
+//        }
+//
+//        return userDic.attributes
+//    }
+//    
+//    private static func getLiveData(withData data: XMLIndexer) -> [String: String] {
+//        
+//        guard let userDic = data["XML"]["ALARM"].element else {
+//            println("Cannot parse XML: LIVE")
+//            return [:]
+//        }
+//                
+//        return userDic.attributes
+//    }
 }
 
 // MARK: USER

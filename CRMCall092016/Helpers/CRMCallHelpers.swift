@@ -12,6 +12,7 @@ final class CRMCallHelpers {
     
     enum TypeData {
         case UserLogin
+        case UserLogout
         case ServerInfo
         case UserLive
         case None

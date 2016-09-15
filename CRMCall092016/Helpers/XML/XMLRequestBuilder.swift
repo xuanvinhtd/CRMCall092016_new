@@ -13,16 +13,16 @@ final class XMLRequestBuilder {
     // MARK: - LOGIN/LOGOUT
     static func loginRequest(with userID: String, pass: String, domain: String) -> String {
         
-        return  String(format: "<XML> <VER>%@</VER> <USER> <LOGIN ID=\"%@\" PASSWORD=\"%@\" DOMAIN=\"%@\" VER=\"1.0\" ISPTYPE=\"\" PHONE=\"\" DEVICE=\"%@\"></LOGIN> </USER> </XML>", CRMCallConfig.Version, userID, pass, domain, CRMCallConfig.DeviceID)
+        return "<XML> <VER>\(CRMCallConfig.Version)</VER> <USER> <LOGIN ID=\"\(userID)\" PASSWORD=\"\(pass)\" DOMAIN=\"\(domain)\" VER=\"1.0\" ISPTYPE=\"\" PHONE=\"\" DEVICE=\"\(CRMCallConfig.DeviceID)\"></LOGIN> </USER> </XML>"
         
     }
     
     static func logOutRequest() -> String {
         
-        return String(format: "<XML> <VER>%@</VER> <USER> <LOGOUT> </LOGOUT> </USER> </XML>", CRMCallConfig.Version)
+        return "<XML><VER>\(CRMCallConfig.Version)</VER><USER><LOGOUT></LOGOUT></USER></XML>"
     }
     
     static func liveRequest() -> String {
-        return String(format: "<XML> <VER>PROTOCOL_VER</VER> <ALARM> <LIVE/> </ALARM> </XML> ", CRMCallConfig.Version)
+        return "<XML><VER>\(CRMCallConfig.Version)</VER><ALARM><LIVE/></ALARM></XML>"
     }
 }
