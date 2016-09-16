@@ -25,4 +25,19 @@ final class XMLRequestBuilder {
     static func liveRequest() -> String {
         return "<XML><VER>\(CRMCallConfig.Version)</VER><ALARM><LIVE/></ALARM></XML>"
     }
+    
+    // MARK: - USERINFO
+    static func userInfoRequest(with userID: String, phoneNumber: String, status: String) -> String {
+        return "<XML><VER>\(CRMCallConfig.Version)</VER><USER><USERINFO ID=\"\(phoneNumber)\" PHONE=\"\(phoneNumber)\" STATUS=\"\(status)\"/></USER></XML>"
+    }
+    
+    // MARK: - CALLERINFOR
+    
+    static func callerInfoRequest(with ID: String, phone: String, status: String) -> String {
+        return "<XML><VER>\(CRMCallConfig.Version)</VER><USER><CALLERINFO ID=\"\(ID)\" PHONE=\"\(phone)\" STATUS=\"\(status)\"/></USER></XML>"
+    }
+    
+    static func statusRequest(with ID: String, broadcast: String, customer: String, mode: String) -> String {
+        return "<XML> <VER>\(CRMCallConfig.Version)</VER> <USER> <STATUS ID=\"\(ID)\" BROADCAST=\"\(broadcast)\" CUSTOMER=\"\(customer)\" MODE=\"\(mode)\"/></USER></XML>"
+    }
 }

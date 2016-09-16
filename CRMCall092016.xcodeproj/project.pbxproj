@@ -9,7 +9,14 @@
 /* Begin PBXBuildFile section */
 		922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228402F1D865A720059A0D7 /* CRMCallSocket.swift */; };
 		92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */; };
-		92E2341A1D812899006C988E /* ModelManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E234191D812899006C988E /* ModelManger.swift */; };
+		92C261A21D8B85DF00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
+		92C261A31D8B85DF00413F54 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; };
+		92C261A71D8BA54800413F54 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C261A61D8BA54800413F54 /* RealmManager.swift */; };
+		92C261AA1D8BCD9D00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
+		92C261AB1D8BCD9D00413F54 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		92C261AC1D8BCD9D00413F54 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; };
+		92C261AD1D8BCD9D00413F54 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		92E2341A1D812899006C988E /* ModelRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E234191D812899006C988E /* ModelRealm.swift */; };
 		92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2341C1D81443F006C988E /* AlamofireManager.swift */; };
 		92E2341F1D81447D006C988E /* SWXMLHashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2341E1D81447D006C988E /* SWXMLHashManager.swift */; };
 		92E234241D814647006C988E /* XMLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E234231D814647006C988E /* XMLRequestBuilder.swift */; };
@@ -24,13 +31,31 @@
 		A786E68B3F379810ED36B746 /* Pods_CRMCall092016.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2F9C69A515659B29DDA8FF /* Pods_CRMCall092016.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		92C261AE1D8BCD9E00413F54 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				92C261AD1D8BCD9D00413F54 /* RealmSwift.framework in Embed Frameworks */,
+				92C261AB1D8BCD9D00413F54 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0F2F9C69A515659B29DDA8FF /* Pods_CRMCall092016.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CRMCall092016.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		638056E88800D61CD44C46F6 /* Pods-CRMCall092016.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMCall092016.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRMCall092016/Pods-CRMCall092016.release.xcconfig"; sourceTree = "<group>"; };
 		867B73DF25B4547C396A7607 /* Pods-CRMCall092016.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMCall092016.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CRMCall092016/Pods-CRMCall092016.debug.xcconfig"; sourceTree = "<group>"; };
 		9228402F1D865A720059A0D7 /* CRMCallSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallSocket.swift; sourceTree = "<group>"; };
 		92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallHelpers.swift; sourceTree = "<group>"; };
-		92E234191D812899006C988E /* ModelManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelManger.swift; sourceTree = "<group>"; };
+		92C261A01D8B85DF00413F54 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		92C261A11D8B85DF00413F54 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		92C261A61D8BA54800413F54 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		92E234191D812899006C988E /* ModelRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelRealm.swift; sourceTree = "<group>"; };
 		92E2341C1D81443F006C988E /* AlamofireManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireManager.swift; sourceTree = "<group>"; };
 		92E2341E1D81447D006C988E /* SWXMLHashManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHashManager.swift; sourceTree = "<group>"; };
 		92E234231D814647006C988E /* XMLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLRequestBuilder.swift; sourceTree = "<group>"; };
@@ -53,7 +78,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92C261AA1D8BCD9D00413F54 /* Realm.framework in Frameworks */,
+				92C261AC1D8BCD9D00413F54 /* RealmSwift.framework in Frameworks */,
+				92C261A21D8B85DF00413F54 /* Realm.framework in Frameworks */,
 				A786E68B3F379810ED36B746 /* Pods_CRMCall092016.framework in Frameworks */,
+				92C261A31D8B85DF00413F54 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +99,7 @@
 		92E234181D81281D006C988E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				92E234191D812899006C988E /* ModelManger.swift */,
+				92E234191D812899006C988E /* ModelRealm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -159,8 +188,11 @@
 		92E3E32C1D80066C008033ED /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				92C261A01D8B85DF00413F54 /* Realm.framework */,
+				92C261A11D8B85DF00413F54 /* RealmSwift.framework */,
 				92E2341C1D81443F006C988E /* AlamofireManager.swift */,
 				92E2341E1D81447D006C988E /* SWXMLHashManager.swift */,
+				92C261A61D8BA54800413F54 /* RealmManager.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -204,6 +236,7 @@
 				92E3E30D1D8004C3008033ED /* Resources */,
 				F91FFDD284D29713427FBCD4 /* 📦 Embed Pods Frameworks */,
 				6979C8011D18149B559186BF /* 📦 Copy Pods Resources */,
+				92C261AE1D8BCD9E00413F54 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -226,6 +259,7 @@
 				TargetAttributes = {
 					92E3E30E1D8004C3008033ED = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 9689HPSFXL;
 					};
 				};
 			};
@@ -316,10 +350,11 @@
 				922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */,
 				92E234241D814647006C988E /* XMLRequestBuilder.swift in Sources */,
 				92E3E3151D8004C3008033ED /* ViewController.swift in Sources */,
+				92C261A71D8BA54800413F54 /* RealmManager.swift in Sources */,
 				92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */,
 				92E3E3131D8004C3008033ED /* AppDelegate.swift in Sources */,
 				92E3E3291D8005E2008033ED /* AESExtension.m in Sources */,
-				92E2341A1D812899006C988E /* ModelManger.swift in Sources */,
+				92E2341A1D812899006C988E /* ModelRealm.swift in Sources */,
 				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
 				92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */,
@@ -429,12 +464,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CRMCall092016/Library",
+				);
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvintd.CRMCall092016;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvinhtd.CRMCall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CRMCall092016/Helpers/CRMCall092016-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -446,12 +487,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CRMCall092016/Library",
+				);
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvintd.CRMCall092016;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvinhtd.CRMCall;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CRMCall092016/Helpers/CRMCall092016-Bridging-Header.h";
 			};
 			name = Release;

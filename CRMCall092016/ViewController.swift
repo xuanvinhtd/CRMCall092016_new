@@ -159,5 +159,28 @@ class ViewController: NSViewController {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
     }
+    
+    func shack() {
+        let numberOfShakes:Int = 8
+        let durationOfShake:Float = 0.5
+        let vigourOfShake:Float = 0.05
+        
+        let frame:CGRect = (self.view.window?.frame)!
+        let shakeAnimation = CAKeyframeAnimation()
+        
+        let shakePath = CGPathCreateMutable()
+        CGPathMoveToPoint(shakePath, nil, NSMinX(frame), NSMinY(frame))
+        
+        for _ in 1...numberOfShakes{
+            CGPathAddLineToPoint(shakePath, nil, NSMinX(frame) - frame.size.width * CGFloat(vigourOfShake), NSMinY(frame))
+            CGPathAddLineToPoint(shakePath, nil, NSMinX(frame) + frame.size.width * CGFloat(vigourOfShake), NSMinY(frame))
+        }
+        
+        CGPathCloseSubpath(shakePath)
+        shakeAnimation.path = shakePath
+        shakeAnimation.duration = CFTimeInterval(durationOfShake)
+        self.view.window?.animations = ["frameOrigin":shakeAnimation]
+        self.view.window?.animator().setFrameOrigin(self.view.window!.frame.origin)
+    }
 }
 

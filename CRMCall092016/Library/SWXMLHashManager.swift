@@ -54,45 +54,6 @@ final class SWXMLHashManager {
         
         completion([:], CRMCallHelpers.TypeData.None)
     }
-    
-//    private static func userData(withData data: XMLIndexer) -> [String: String] {
-//        
-//        if let userDic = data["XML"]["USER"]["LOGIN"].element {
-//            
-//            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
-//            
-//            return userDic.attributes
-//        }
-//        
-//        if let userDic = data["XML"]["USER"]["LOGOUT"].element {
-//            
-//            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
-//            
-//            return userDic.attributes
-//        }
-//        
-//        return [:]
-//    }
-
-//    private static func getHostAndPost(withData data: XMLIndexer) -> [String: String] {
-//
-//        guard let userDic = data["XML"]["SERVERINFO"].element else {
-//            println("Cannot parse XML: SERVERINFO")
-//            return [:]
-//        }
-//
-//        return userDic.attributes
-//    }
-//    
-//    private static func getLiveData(withData data: XMLIndexer) -> [String: String] {
-//        
-//        guard let userDic = data["XML"]["ALARM"].element else {
-//            println("Cannot parse XML: LIVE")
-//            return [:]
-//        }
-//                
-//        return userDic.attributes
-//    }
 }
 
 // MARK: USER

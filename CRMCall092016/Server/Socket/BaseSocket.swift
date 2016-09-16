@@ -176,11 +176,17 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                         println("---------> Data logout user : \n\(result)")
                         
                         NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
+                        
+                        //DEMO SHOW CACHE
+                        //println("======> Caches:\n \(RealmManager.getUserInfo())")
                     }
                     
                     if typeData == CRMCallHelpers.TypeData.UserLogin {
                         
                         println("---------> Data login user : \n\(result)")
+                        
+                        // CACHES USER DATA
+                       // RealmManager.cacheUserInfo(with: result)
                         
                         NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
                     }

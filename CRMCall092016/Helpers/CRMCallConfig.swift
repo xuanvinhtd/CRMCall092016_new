@@ -13,6 +13,8 @@ final class CRMCallConfig {
     static let Version = "20150202"
     static let DeviceID = "MAC"
     
+    static let AppGroupID = "com.xuanvintd.CRMCall092016"
+    
     static let HostName = "global3.hanbiro.com"
     
     static let TimerInterval = 10.0

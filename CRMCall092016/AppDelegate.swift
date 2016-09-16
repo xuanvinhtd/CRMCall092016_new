@@ -14,6 +14,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        
+        // Config Realm
+        RealmManager.setupConfig()
         // Insert code here to initialize your application
     }
 
