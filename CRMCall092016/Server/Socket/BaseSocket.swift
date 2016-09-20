@@ -131,7 +131,6 @@ extension BaseSocket: GCDAsyncSocketDelegate {
     
     func socket(sock: GCDAsyncSocket, didReadData data: NSData, withTag tag: Int) {
         
-      //  dispatch_async(socketQueue) {
             if tag == CRMCallConfig.Tab.Header {
                 
                 guard let headerData = NSString(data: data, encoding: NSUTF8StringEncoding) else {
@@ -178,17 +177,29 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                         NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
                         
                         //DEMO SHOW CACHE
-                        //println("======> Caches:\n \(RealmManager.getUserInfo())")
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if let info = Cache.shareInstaince.getUserInfo() {
+                                println("======> Caches:\n \(info.first)")
+                            } else {
+                                println("======> Caches: NULL")
+                            }
+                        })
+                    
                     }
                     
                     if typeData == CRMCallHelpers.TypeData.UserLogin {
                         
                         println("---------> Data login user : \n\(result)")
                         
-                        // CACHES USER DATA
-                       // RealmManager.cacheUserInfo(with: result)
-                        
-                        NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
+                        if result["RESULT"] == "2" {
+                            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginFaile, object: nil, userInfo: nil)
+                        } else {
+                            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
+                            // CACHES USER DATA
+                            dispatch_async(dispatch_get_main_queue(), {
+                                Cache.shareInstaince.userInfo(with: result)
+                            })
+                        }
                     }
                     
                     if typeData == CRMCallHelpers.TypeData.UserLive {
@@ -198,7 +209,6 @@ extension BaseSocket: GCDAsyncSocketDelegate {
 
                 })
             }
-     //   }
     }
     
     func socket(sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {

@@ -18,6 +18,7 @@ class ViewController: NSViewController {
     private var handlerNotificationSocketDisConnected: AnyObject?
     private var handlerNotificationSocketDidConnected: AnyObject?
     private var handlerNotificationLoginSuccess: AnyObject?
+    private var handlerNotificationLoginFaile: AnyObject?
     private var handlerNotificationLogoutSuccess: AnyObject?
     private var handlerNotificationRevicedServerInfor: AnyObject?
     
@@ -85,6 +86,7 @@ class ViewController: NSViewController {
     // MARK: - Notification
     struct Notification {
         static let LoginSuccess = "LoginSuccessNotification"
+        static let LoginFaile = "LoginFaileNotification"
         static let LogoutSuccess = "LogoutSuccessNotification"
     }
     
@@ -112,6 +114,12 @@ class ViewController: NSViewController {
             self.statusLogin.hidden = false
         })
         
+        handlerNotificationLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginFaile, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            self.shack()
+        })
+        
         handlerNotificationLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
@@ -120,7 +128,9 @@ class ViewController: NSViewController {
             self.crmCallSocket?.disConnect()
             self.crmCallSocket?.deInit()
             self.crmCallSocket = nil
-            self.statusLogin.hidden = true
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.statusLogin.hidden = true
+            })
         })
         
         handlerNotificationRevicedServerInfor = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, queue: nil, usingBlock: { notification in
@@ -148,6 +158,10 @@ class ViewController: NSViewController {
         }
         
         if let notification = handlerNotificationLoginSuccess {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        
+        if let notification = handlerNotificationLoginFaile {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
         

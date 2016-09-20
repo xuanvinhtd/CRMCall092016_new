@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
         // Config Realm
-        RealmManager.setupConfig()
+        Cache.shareInstaince
         // Insert code here to initialize your application
     }
 

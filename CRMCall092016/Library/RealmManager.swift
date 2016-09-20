@@ -14,7 +14,7 @@ final class RealmManager {
     // MARK: Initialzation
     
 //    private let realmQueue = dispatch_queue_create("CRMCall092016.realmQueue", DISPATCH_QUEUE_SERIAL)
-//    
+    
    // private static let realm = try! Realm()
     
     static func setupConfig() {

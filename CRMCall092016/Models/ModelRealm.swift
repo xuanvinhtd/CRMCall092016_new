@@ -21,9 +21,9 @@ class Customer: Object {
     dynamic var cacheProduct = "0"
     dynamic var cachePurpose = "0"
     
-//    override static func primaryKey() -> String? {
-//        return "idx"
-//    }
+    override static func primaryKey() -> String? {
+        return "idx"
+    }
     // Specify properties to ignore (Realm won't persist these)
     
     //  override static func ignoredProperties() -> [String] {
