@@ -27,6 +27,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var passTextField: NSSecureTextField!
     @IBOutlet weak var statusLogin: NSTextField!
     
+    @IBOutlet weak var phoneTextField: NSTextField!
+    
     // MARK: - View life cycle
     
     override func viewDidLoad() {
@@ -56,7 +58,7 @@ class ViewController: NSViewController {
             
             if crmCallSocket.isConnectedToHost == true {
                 
-                crmCallSocket.requestLogin(withUserID: userTextField.stringValue, passwold: passTextField.stringValue, domain: domanTextField.stringValue)
+                crmCallSocket.requestLogin(withUserID: userTextField.stringValue, passwold: passTextField.stringValue, phone: phoneTextField.stringValue, domain: domanTextField.stringValue)
                 
             } else {
                 println("Please connect to server .....")
@@ -104,7 +106,7 @@ class ViewController: NSViewController {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if self.isAutoLogin {
-                self.crmCallSocket!.requestLogin(withUserID: self.userTextField.stringValue, passwold: self.passTextField.stringValue, domain: self.domanTextField.stringValue)
+                self.crmCallSocket!.requestLogin(withUserID: self.userTextField.stringValue, passwold: self.passTextField.stringValue, phone: self.phoneTextField.stringValue, domain: self.domanTextField.stringValue)
             }
         })
         
@@ -117,7 +119,9 @@ class ViewController: NSViewController {
         handlerNotificationLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginFaile, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            self.shack()
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.shack()
+            })
         })
         
         handlerNotificationLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in

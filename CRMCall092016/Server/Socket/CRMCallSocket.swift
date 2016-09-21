@@ -53,16 +53,9 @@ final class CRMCallSocket: BaseSocket {
     
     // MARK: - COMUNICATION API
     
-    func requestLogin(withUserID userID: String, passwold: String, domain: String) {
+    func requestLogin(withUserID userID: String, passwold: String, phone: String, domain: String) {
         
-        let xmlLogin = XMLRequestBuilder.loginRequest(with: userID, pass: passwold, domain: domain)
-        
-        configAndSendData(withData: xmlLogin)
-    }
-    
-    func requestReLogin(withUserID userID: String, passwold: String, domain: String) {
-        
-        let xmlLogin = XMLRequestBuilder.loginRequest(with: userID, pass: passwold, domain: domain)
+        let xmlLogin = XMLRequestBuilder.loginRequest(with: userID, pass: passwold, phone: phone, domain: domain)
         
         configAndSendData(withData: xmlLogin)
     }

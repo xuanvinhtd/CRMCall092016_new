@@ -12,6 +12,7 @@ final class CRMCallConfig {
     
     static let Version = "20150202"
     static let DeviceID = "MAC"
+    static let IsPType = "4"
     
     static let AppGroupID = "com.xuanvintd.CRMCall092016"
     

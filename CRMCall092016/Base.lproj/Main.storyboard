@@ -698,7 +698,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nGf-xq-RQu">
-                                <rect key="frame" x="194" y="40" width="92" height="17"/>
+                                <rect key="frame" x="194" y="20" width="92" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="login Success!" id="h53-kc-rEE">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -715,7 +715,23 @@
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KtV-vx-4vz">
                                 <rect key="frame" x="117" y="166" width="263" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="hcsong" drawsBackground="YES" id="l0S-uL-xDB">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="vinh" drawsBackground="YES" id="l0S-uL-xDB">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0HA-BD-YUU">
+                                <rect key="frame" x="49" y="93" width="43" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Phone" id="7hZ-QC-GHw">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fwA-SL-Bbt">
+                                <rect key="frame" x="117" y="88" width="263" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="0873002402" drawsBackground="YES" id="NZl-kY-xEi">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -723,7 +739,7 @@
                             </textField>
                             <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p4h-qf-Wor">
                                 <rect key="frame" x="117" y="127" width="263" height="22"/>
-                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="gksqlfhWkd1!" drawsBackground="YES" usesSingleLineMode="YES" id="esa-sk-9hO">
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="vinh123!" drawsBackground="YES" usesSingleLineMode="YES" id="esa-sk-9hO">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -733,7 +749,7 @@
                                 </secureTextFieldCell>
                             </secureTextField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U6H-wJ-C1H">
-                                <rect key="frame" x="135" y="81" width="74" height="32"/>
+                                <rect key="frame" x="135" y="38" width="74" height="32"/>
                                 <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="het-M0-VTE">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -743,7 +759,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7TL-H2-Tmu">
-                                <rect key="frame" x="276" y="81" width="83" height="32"/>
+                                <rect key="frame" x="276" y="38" width="83" height="32"/>
                                 <buttonCell key="cell" type="push" title="Logout" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="huG-hN-Hf8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -762,16 +778,21 @@
                             <constraint firstItem="ohl-5L-mtw" firstAttribute="top" secondItem="YWn-PH-WzV" secondAttribute="top" id="FGv-8D-zBy"/>
                             <constraint firstItem="JS7-Io-Koi" firstAttribute="top" secondItem="SDN-0s-DTb" secondAttribute="bottom" constant="22" id="MdJ-Rh-cUc"/>
                             <constraint firstItem="YWn-PH-WzV" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="43" id="Nwz-DJ-TYu"/>
-                            <constraint firstItem="U6H-wJ-C1H" firstAttribute="top" secondItem="p4h-qf-Wor" secondAttribute="bottom" constant="18" id="SoE-dx-UYh"/>
+                            <constraint firstItem="U6H-wJ-C1H" firstAttribute="baseline" secondItem="7TL-H2-Tmu" secondAttribute="baseline" id="OQH-wb-feq"/>
                             <constraint firstItem="U6H-wJ-C1H" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="141" id="TBJ-Nv-2wi"/>
-                            <constraint firstItem="7TL-H2-Tmu" firstAttribute="top" secondItem="p4h-qf-Wor" secondAttribute="bottom" constant="18" id="Tpd-KH-xFG"/>
                             <constraint firstItem="p4h-qf-Wor" firstAttribute="leading" secondItem="KtV-vx-4vz" secondAttribute="leading" id="VP5-RK-Zmd"/>
+                            <constraint firstAttribute="trailing" secondItem="fwA-SL-Bbt" secondAttribute="trailing" constant="100" id="W1q-qt-Q81"/>
+                            <constraint firstItem="0HA-BD-YUU" firstAttribute="leading" secondItem="JS7-Io-Koi" secondAttribute="leading" id="W7g-Fk-phH"/>
+                            <constraint firstItem="nGf-xq-RQu" firstAttribute="top" secondItem="U6H-wJ-C1H" secondAttribute="bottom" constant="8" symbolic="YES" id="ZIB-aQ-tF4"/>
                             <constraint firstItem="SDN-0s-DTb" firstAttribute="top" secondItem="YWn-PH-WzV" secondAttribute="bottom" constant="22" id="g5B-y9-RWb"/>
+                            <constraint firstItem="0HA-BD-YUU" firstAttribute="top" secondItem="JS7-Io-Koi" secondAttribute="bottom" constant="22" id="g9f-Mc-lKI"/>
                             <constraint firstItem="YWn-PH-WzV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="51" id="h6A-wr-R66"/>
-                            <constraint firstAttribute="bottom" secondItem="nGf-xq-RQu" secondAttribute="bottom" constant="40" id="iG9-Fb-lxv"/>
+                            <constraint firstAttribute="bottom" secondItem="nGf-xq-RQu" secondAttribute="bottom" constant="20" id="iG9-Fb-lxv"/>
                             <constraint firstItem="KtV-vx-4vz" firstAttribute="leading" secondItem="ohl-5L-mtw" secondAttribute="leading" id="oWd-Ad-Omk"/>
                             <constraint firstItem="ohl-5L-mtw" firstAttribute="leading" secondItem="YWn-PH-WzV" secondAttribute="trailing" constant="20" id="pGC-hm-gqw"/>
                             <constraint firstItem="JS7-Io-Koi" firstAttribute="leading" secondItem="YWn-PH-WzV" secondAttribute="leading" id="pZC-ai-PHd"/>
+                            <constraint firstItem="fwA-SL-Bbt" firstAttribute="leading" secondItem="p4h-qf-Wor" secondAttribute="leading" id="quA-on-FLa"/>
+                            <constraint firstItem="fwA-SL-Bbt" firstAttribute="top" secondItem="0HA-BD-YUU" secondAttribute="top" id="rjx-p0-2fx"/>
                             <constraint firstItem="KtV-vx-4vz" firstAttribute="top" secondItem="SDN-0s-DTb" secondAttribute="top" id="rpH-EV-ily"/>
                             <constraint firstAttribute="trailing" secondItem="p4h-qf-Wor" secondAttribute="trailing" constant="100" id="sDU-vI-rBb"/>
                             <constraint firstItem="7TL-H2-Tmu" firstAttribute="leading" secondItem="U6H-wJ-C1H" secondAttribute="trailing" constant="79" id="uL1-yw-ven"/>
@@ -780,6 +801,7 @@
                     <connections>
                         <outlet property="domanTextField" destination="ohl-5L-mtw" id="9cW-Cd-wuR"/>
                         <outlet property="passTextField" destination="p4h-qf-Wor" id="dE8-Dr-Kou"/>
+                        <outlet property="phoneTextField" destination="fwA-SL-Bbt" id="a4k-ax-R9m"/>
                         <outlet property="statusLogin" destination="nGf-xq-RQu" id="CiT-Yx-cBU"/>
                         <outlet property="userTextField" destination="KtV-vx-4vz" id="0lv-YN-WQw"/>
                     </connections>

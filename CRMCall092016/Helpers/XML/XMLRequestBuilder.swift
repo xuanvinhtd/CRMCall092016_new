@@ -11,9 +11,9 @@ import Foundation
 final class XMLRequestBuilder {
     
     // MARK: - LOGIN/LOGOUT
-    static func loginRequest(with userID: String, pass: String, domain: String) -> String {
+    static func loginRequest(with userID: String, pass: String, phone: String,domain: String) -> String {
         
-        return "<XML> <VER>\(CRMCallConfig.Version)</VER> <USER> <LOGIN ID=\"\(userID)\" PASSWORD=\"\(pass)\" DOMAIN=\"\(domain)\" VER=\"1.0\" ISPTYPE=\"\" PHONE=\"\" DEVICE=\"\(CRMCallConfig.DeviceID)\"></LOGIN> </USER> </XML>"
+        return "<XML> <VER>\(CRMCallConfig.Version)</VER> <USER> <LOGIN ID=\"\(userID)\" PASSWORD=\"\(pass)\" DOMAIN=\"\(domain)\" VER=\"1.0\" ISPTYPE=\"\(CRMCallConfig.IsPType)\" PHONE=\"\(phone)\" DEVICE=\"\(CRMCallConfig.DeviceID)\"></LOGIN> </USER> </XML>"
         
     }
     

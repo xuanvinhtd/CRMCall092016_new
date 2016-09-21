@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228402F1D865A720059A0D7 /* CRMCallSocket.swift */; };
+		9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245B9871D90ECF00017D8EB /* CRMCallAlert.swift */; };
 		92793B411D8F7FD000586A5F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92793B401D8F7FD000586A5F /* Cache.swift */; };
 		92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */; };
 		92C261A21D8B85DF00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
@@ -52,6 +53,7 @@
 		638056E88800D61CD44C46F6 /* Pods-CRMCall092016.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMCall092016.release.xcconfig"; path = "Pods/Target Support Files/Pods-CRMCall092016/Pods-CRMCall092016.release.xcconfig"; sourceTree = "<group>"; };
 		867B73DF25B4547C396A7607 /* Pods-CRMCall092016.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CRMCall092016.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CRMCall092016/Pods-CRMCall092016.debug.xcconfig"; sourceTree = "<group>"; };
 		9228402F1D865A720059A0D7 /* CRMCallSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallSocket.swift; sourceTree = "<group>"; };
+		9245B9871D90ECF00017D8EB /* CRMCallAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CRMCallAlert.swift; path = XML/CRMCallAlert.swift; sourceTree = "<group>"; };
 		92793B401D8F7FD000586A5F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallHelpers.swift; sourceTree = "<group>"; };
 		92C261A01D8B85DF00413F54 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		92E3E3111D8004C3008033ED /* CRMCall092016 */ = {
 			isa = PBXGroup;
 			children = (
+				92E3E31B1D8004C3008033ED /* Info.plist */,
 				92B0F0491D88F05800C70BC3 /* Caches */,
 				92E234181D81281D006C988E /* Models */,
 				92E3E3211D8004F4008033ED /* Helpers */,
@@ -146,7 +149,6 @@
 				92E3E3141D8004C3008033ED /* ViewController.swift */,
 				92E3E3161D8004C3008033ED /* Assets.xcassets */,
 				92E3E3181D8004C3008033ED /* Main.storyboard */,
-				92E3E31B1D8004C3008033ED /* Info.plist */,
 			);
 			path = CRMCall092016;
 			sourceTree = "<group>";
@@ -160,6 +162,7 @@
 				92E3E3301D800947008033ED /* CRMCallConfig.swift */,
 				92E3E3341D8011FC008033ED /* CRMCallLog.swift */,
 				92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */,
+				9245B9871D90ECF00017D8EB /* CRMCallAlert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -263,6 +266,11 @@
 					92E3E30E1D8004C3008033ED = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 9689HPSFXL;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -359,6 +367,7 @@
 				92E3E3131D8004C3008033ED /* AppDelegate.swift in Sources */,
 				92E3E3291D8005E2008033ED /* AESExtension.m in Sources */,
 				92E2341A1D812899006C988E /* ModelRealm.swift in Sources */,
+				9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */,
 				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
 				92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */,
@@ -468,6 +477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -477,7 +487,7 @@
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvinhtd.CRMCall;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanbiro.CRMCall2016;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CRMCall092016/Helpers/CRMCall092016-Bridging-Header.h";
@@ -491,6 +501,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -500,7 +511,7 @@
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xuanvinhtd.CRMCall;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanbiro.CRMCall2016;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CRMCall092016/Helpers/CRMCall092016-Bridging-Header.h";
