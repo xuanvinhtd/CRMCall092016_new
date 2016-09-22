@@ -12,7 +12,7 @@ import RealmSwift
 class Cache {
     
     // MARK: - Initialzetion
-    static let shareInstaince = Cache()
+    static let shareInstance = Cache()
     
     private var realm: Realm?
     

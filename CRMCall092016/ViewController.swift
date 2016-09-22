@@ -11,8 +11,6 @@ import Cocoa
 class ViewController: NSViewController {
 
     // MARK: - Properties
-    private var crmCallSocket: CRMCallSocket? = nil
-    
     private var isAutoLogin = false
     
     private var handlerNotificationSocketDisConnected: AnyObject?
@@ -34,13 +32,11 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        registerNotification()
-        
-        crmCallSocket = CRMCallSocket()
+        //registerNotification()
     }
 
     deinit {
-        deRegisterNotification()
+        //deRegisterNotification()
     }
     
     override var representedObject: AnyObject? {
@@ -54,7 +50,7 @@ class ViewController: NSViewController {
     
     @IBAction func actionLogin(sender: AnyObject) {
         
-        if let crmCallSocket = crmCallSocket {
+        if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
             
             if crmCallSocket.isConnectedToHost == true {
                 
@@ -64,14 +60,14 @@ class ViewController: NSViewController {
                 println("Please connect to server .....")
             }
         } else {
-            self.crmCallSocket = CRMCallSocket()
+            CRMCallManager.shareInstance.initSocket()
             self.isAutoLogin = true
         }
     }
     
     @IBAction func actionLogout(sender: AnyObject) {
         
-        if let crmCallSocket = self.crmCallSocket {
+        if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
             
             if crmCallSocket.isConnectedToHost == true {
                 crmCallSocket.requestLogout()
@@ -98,7 +94,11 @@ class ViewController: NSViewController {
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            self.crmCallSocket?.requestLogout()
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                crmCallSocket.requestLogout()
+            } else {
+                println("CRMCallManager.shareInstance.crmCallSocket = nil")
+            }
         })
 
         handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil, usingBlock: { notification in
@@ -106,7 +106,11 @@ class ViewController: NSViewController {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if self.isAutoLogin {
-                self.crmCallSocket!.requestLogin(withUserID: self.userTextField.stringValue, passwold: self.passTextField.stringValue, phone: self.phoneTextField.stringValue, domain: self.domanTextField.stringValue)
+                if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                    crmCallSocket.requestLogin(withUserID: self.userTextField.stringValue, passwold: self.passTextField.stringValue, phone: self.phoneTextField.stringValue, domain: self.domanTextField.stringValue)
+                } else {
+                    println("CRMCallManager.shareInstance.crmCallSocket = nil")
+                }
             }
         })
         
@@ -128,11 +132,8 @@ class ViewController: NSViewController {
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            self.crmCallSocket?.stopLiveTimer()
-            self.crmCallSocket?.disConnect()
-            self.crmCallSocket?.deInit()
-            self.crmCallSocket = nil
-            dispatch_async(dispatch_get_main_queue(), { 
+            CRMCallManager.shareInstance.deinitSocket()
+            dispatch_async(dispatch_get_main_queue(), {
                 self.statusLogin.hidden = true
             })
         })
@@ -141,12 +142,11 @@ class ViewController: NSViewController {
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            guard let crmCallSocket = self.crmCallSocket else {
-                println("CRMCallSocket not init")
-                return
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                crmCallSocket.connect()
+            } else {
+                println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
-            
-            crmCallSocket.connect()
         })
     }
     

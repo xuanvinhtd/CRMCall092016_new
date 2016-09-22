@@ -11,6 +11,7 @@
 		9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245B9871D90ECF00017D8EB /* CRMCallAlert.swift */; };
 		92793B411D8F7FD000586A5F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92793B401D8F7FD000586A5F /* Cache.swift */; };
 		92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */; };
+		92B2EC961D926F1800E487C9 /* CRMCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2EC951D926F1800E487C9 /* CRMCallManager.swift */; };
 		92C261A21D8B85DF00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
 		92C261A31D8B85DF00413F54 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; };
 		92C261A71D8BA54800413F54 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C261A61D8BA54800413F54 /* RealmManager.swift */; };
@@ -30,6 +31,7 @@
 		92E3E3311D800947008033ED /* CRMCallConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3301D800947008033ED /* CRMCallConfig.swift */; };
 		92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3321D800C8B008033ED /* BaseSocket.swift */; };
 		92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3341D8011FC008033ED /* CRMCallLog.swift */; };
+		92F3C8171D9236CE00FBCD9A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3C8161D9236CE00FBCD9A /* SettingViewController.swift */; };
 		A786E68B3F379810ED36B746 /* Pods_CRMCall092016.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2F9C69A515659B29DDA8FF /* Pods_CRMCall092016.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,7 @@
 		9245B9871D90ECF00017D8EB /* CRMCallAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CRMCallAlert.swift; path = XML/CRMCallAlert.swift; sourceTree = "<group>"; };
 		92793B401D8F7FD000586A5F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallHelpers.swift; sourceTree = "<group>"; };
+		92B2EC951D926F1800E487C9 /* CRMCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallManager.swift; sourceTree = "<group>"; };
 		92C261A01D8B85DF00413F54 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		92C261A11D8B85DF00413F54 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		92C261A61D8BA54800413F54 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -75,6 +78,7 @@
 		92E3E3301D800947008033ED /* CRMCallConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallConfig.swift; sourceTree = "<group>"; };
 		92E3E3321D800C8B008033ED /* BaseSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSocket.swift; sourceTree = "<group>"; };
 		92E3E3341D8011FC008033ED /* CRMCallLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallLog.swift; sourceTree = "<group>"; };
+		92F3C8161D9236CE00FBCD9A /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 				92E3E3141D8004C3008033ED /* ViewController.swift */,
 				92E3E3161D8004C3008033ED /* Assets.xcassets */,
 				92E3E3181D8004C3008033ED /* Main.storyboard */,
+				92B2EC951D926F1800E487C9 /* CRMCallManager.swift */,
 			);
 			path = CRMCall092016;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 		92E3E32A1D80060F008033ED /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				92F3C8161D9236CE00FBCD9A /* SettingViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -360,11 +366,13 @@
 				92793B411D8F7FD000586A5F /* Cache.swift in Sources */,
 				92E2341F1D81447D006C988E /* SWXMLHashManager.swift in Sources */,
 				922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */,
+				92F3C8171D9236CE00FBCD9A /* SettingViewController.swift in Sources */,
 				92E234241D814647006C988E /* XMLRequestBuilder.swift in Sources */,
 				92E3E3151D8004C3008033ED /* ViewController.swift in Sources */,
 				92C261A71D8BA54800413F54 /* RealmManager.swift in Sources */,
 				92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */,
 				92E3E3131D8004C3008033ED /* AppDelegate.swift in Sources */,
+				92B2EC961D926F1800E487C9 /* CRMCallManager.swift in Sources */,
 				92E3E3291D8005E2008033ED /* AESExtension.m in Sources */,
 				92E2341A1D812899006C988E /* ModelRealm.swift in Sources */,
 				9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */,

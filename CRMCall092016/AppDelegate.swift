@@ -14,11 +14,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
         // Config Realm
-        Cache.shareInstaince
+        Cache.shareInstance
+        // Init Sigleton App
+        CRMCallManager.shareInstance
         
+        // Register push notification
         let type: NSRemoteNotificationType = [NSRemoteNotificationType.Alert,NSRemoteNotificationType.Badge, NSRemoteNotificationType.Sound]
         NSApp.registerForRemoteNotificationTypes(type)
-        
         // Insert code here to initialize your application
     }
     
@@ -39,6 +41,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    @IBAction func preferenceTouches(sender: AnyObject) {
+        
+    }
 
 }
 

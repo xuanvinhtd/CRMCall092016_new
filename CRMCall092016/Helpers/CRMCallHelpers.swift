@@ -15,6 +15,7 @@ final class CRMCallHelpers {
         case UserLogout
         case ServerInfo
         case UserLive
+        case SIP
         case None
     }
 }

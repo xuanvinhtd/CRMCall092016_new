@@ -178,7 +178,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                         
                         //DEMO SHOW CACHE
                         dispatch_async(dispatch_get_main_queue(), {
-                            if let info = Cache.shareInstaince.getUserInfo() {
+                            if let info = Cache.shareInstance.getUserInfo() {
                                 println("======> Caches:\n \(info.first)")
                             } else {
                                 println("======> Caches: NULL")
@@ -192,21 +192,35 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                         println("---------> Data login user : \n\(result)")
                         
                         if result["RESULT"] == "2" {
-                            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginFaile, object: nil, userInfo: nil)
+                            NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
                         } else {
-                            NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
                             // CACHES USER DATA
                             dispatch_async(dispatch_get_main_queue(), {
-                                Cache.shareInstaince.userInfo(with: result)
+                                Cache.shareInstance.userInfo(with: result)
                             })
                         }
                     }
                     
                     if typeData == CRMCallHelpers.TypeData.UserLive {
                         
-                        println("---------> Data live : \n\(result)")
+                        if result["RESULT"] == "1" {
+                            println("PING SUCCESS")
+                        } else {
+                            println("PING FAIL")
+                        }
                     }
+                    
+                    if typeData == CRMCallHelpers.TypeData.SIP {
+                        
+                        if result["RESULT"] == "1" {
+                            println("SIPLOGIN SUCCESS")
+                            NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginSuccess, object: nil, userInfo: nil)
+                        } else {
+                            NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
+                            println("SIPLOGIN FAIL")
+                        }
 
+                    }
                 })
             }
     }
