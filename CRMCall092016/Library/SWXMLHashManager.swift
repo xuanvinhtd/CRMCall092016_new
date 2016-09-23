@@ -59,6 +59,18 @@ final class SWXMLHashManager {
             return
         }
         
+        if let dataDic = xmlDocument["XML"]["SIP"]["CALLSTATUS"].element {
+            
+            completion(dataDic.attributes, CRMCallHelpers.TypeData.RingIng)
+            return
+        }
+
+        if let dataDic = xmlDocument["XML"]["USER"]["USERINFO"].element {
+            
+            completion(dataDic.attributes, CRMCallHelpers.TypeData.UserInfo)
+            return
+        }
+        
         completion([:], CRMCallHelpers.TypeData.None)
     }
 }

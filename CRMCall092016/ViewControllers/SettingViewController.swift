@@ -21,6 +21,7 @@ class SettingViewController: NSViewController {
     private var handlerNotificationSocketDidConnected: AnyObject?
     private var handlerNotificationSIPLoginSuccess: AnyObject?
     private var handlerNotificationSIPLoginFaile: AnyObject?
+    private var handlerNotificationSIPHostFaile: AnyObject?
     private var handlerNotificationRevicedServerInfor: AnyObject?
     
     @IBOutlet weak var progressTestting: NSProgressIndicator!
@@ -56,6 +57,7 @@ class SettingViewController: NSViewController {
     struct Notification {
         static let SIPLoginSuccess = "SIPLoginSuccessNotification"
         static let SIPLoginFaile = "SIPLoginFaileNotification"
+        static let SIPHostFaile = "SIPHostFaileNotification"
     }
 
     private func registerNotification() {
@@ -75,6 +77,11 @@ class SettingViewController: NSViewController {
                 self.progressTestting.hidden = true
                 self.progressTestting.stopAnimation(self)
             })
+            
+            if NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.SIPLoginResultKey) != "1" {
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test fail, please review phone number!!", dismissText: "Cancel", completion: { result in })
+                self.isTestAgian = true
+            }
         })
         
         handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil, usingBlock: { notification in
@@ -91,17 +98,20 @@ class SettingViewController: NSViewController {
         handlerNotificationSIPLoginSuccess = NSNotificationCenter.defaultCenter().addObserverForName(SettingViewController.Notification.SIPLoginSuccess, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Test success", messageText: "Test sucess......", dismissText: "Cancel", completion: nil)
+            
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test success, can receive and call.", dismissText: "Cancel", completion: { result in })
+            
             println("// SHOW MESSAGE TEST ---------------------------------->")
             
             CRMCallManager.shareInstance.deinitSocket()
         })
         
-        handlerNotificationSIPLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginFaile, object: nil, queue: nil, usingBlock: { notification in
+        handlerNotificationSIPLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(SettingViewController.Notification.SIPLoginFaile, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            CRMCallAlert.showNSAlert(with: NSAlertStyle.WarningAlertStyle, title: "Test fail", messageText: "Test fail......", dismissText: "Cancel", completion: nil)
             
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test fail, please review id and password!!", dismissText: "Cancel", completion: { result in })
+
             println("// SHOW MESSGAE ERROR TESST ---------------------------->")
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -109,6 +119,23 @@ class SettingViewController: NSViewController {
                 self.progressTestting.hidden = true
                 self.progressTestting.stopAnimation(self)
             })
+            self.isTestAgian = true
+        })
+        
+        handlerNotificationSIPHostFaile = NSNotificationCenter.defaultCenter().addObserverForName(SettingViewController.Notification.SIPHostFaile, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test fail, please review host name!!", dismissText: "Cancel", completion: { result in })
+            
+            println("// SHOW MESSGAE ERROR HOST ---------------------------->")
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.testButton.enabled = true
+                self.progressTestting.hidden = true
+                self.progressTestting.stopAnimation(self)
+            })
+            self.isTestAgian = true
         })
         
         handlerNotificationRevicedServerInfor = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, queue: nil, usingBlock: { notification in
@@ -129,7 +156,6 @@ class SettingViewController: NSViewController {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
         
-        
         if let notification = handlerNotificationSocketDidConnected {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
@@ -145,6 +171,11 @@ class SettingViewController: NSViewController {
         if let notification = handlerNotificationRevicedServerInfor {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
+        
+        if let notification = handlerNotificationSIPHostFaile {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+
     }
 
     
@@ -152,7 +183,7 @@ class SettingViewController: NSViewController {
     @IBAction func testConnectServer(sender: AnyObject) {
         
         if !isTestAgian {
-            CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please wating over a minute..test agian!", dismissText: "Cancel", completion: nil)
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please wait a minute then check agian!", dismissText: "Cancel", completion: { result in })
             return
         }
         
@@ -173,5 +204,8 @@ class SettingViewController: NSViewController {
         self.progressTestting.startAnimation(self)
         
         self.isTestAgian = false
+        
+        let defualts = NSUserDefaults.standardUserDefaults()
+        defualts.setObject("0", forKey: CRMCallConfig.SIPLoginResultKey)
     }
 }

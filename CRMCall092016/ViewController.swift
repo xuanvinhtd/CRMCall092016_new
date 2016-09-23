@@ -32,11 +32,11 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //registerNotification()
+        registerNotification()
     }
 
     deinit {
-        //deRegisterNotification()
+        deRegisterNotification()
     }
     
     override var representedObject: AnyObject? {
@@ -96,6 +96,7 @@ class ViewController: NSViewController {
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
                 crmCallSocket.requestLogout()
+                crmCallSocket.stopLiveTimer()
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }

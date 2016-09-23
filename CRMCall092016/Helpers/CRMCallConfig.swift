@@ -22,6 +22,9 @@ final class CRMCallConfig {
     
     static let HeaderLength:UInt = 6
     
+    // MARK: - UserDefault key
+    static let SIPLoginResultKey = "SIPLoginResult"
+    
     // MARK: Tab
     struct Tab {
         static let Default = 0

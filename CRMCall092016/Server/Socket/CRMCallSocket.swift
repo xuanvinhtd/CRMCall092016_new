@@ -74,7 +74,6 @@ final class CRMCallSocket: BaseSocket {
             
             if self.liveTimer == nil {
                 self.liveTimer = NSTimer.scheduledTimerWithTimeInterval(CRMCallConfig.TimerInterval, target: self, selector: #selector(CRMCallSocket.requestLive), userInfo: nil, repeats: true)
-                
                 self.liveTimer?.fire()
             }
         }

@@ -15,8 +15,8 @@ final class CRMCallAlert {
         dispatch_async(dispatch_get_main_queue()) {
             
             let myAlert = NSAlert()
-            myAlert.messageText = messageText
-            myAlert.informativeText = title
+            myAlert.messageText = title
+            myAlert.informativeText = messageText
             myAlert.alertStyle = alertStyle
             myAlert.addButtonWithTitle(dismissText)
             let res = myAlert.runModal()
@@ -39,11 +39,10 @@ final class CRMCallAlert {
         dispatch_async(dispatch_get_main_queue()) {
             
             let myAlertSheet = NSAlert()
-            myAlertSheet.messageText = messageText
-            myAlertSheet.informativeText = title
+            myAlertSheet.messageText = title
+            myAlertSheet.informativeText = messageText
             myAlertSheet.alertStyle = alertStyle
             myAlertSheet.addButtonWithTitle(dismissText)
-            let res = myAlertSheet.runModal()
             
             guard let completion = completion else {
                 println("Not found clouse completion")

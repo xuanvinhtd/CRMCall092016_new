@@ -131,6 +131,9 @@ extension BaseSocket: GCDAsyncSocketDelegate {
     
     func socket(sock: GCDAsyncSocket, didReadData data: NSData, withTag tag: Int) {
         
+        dispatch_async(self.socketQueue) {
+            
+        
             if tag == CRMCallConfig.Tab.Header {
                 
                 guard let headerData = NSString(data: data, encoding: NSUTF8StringEncoding) else {
@@ -143,7 +146,6 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 self.flagEncrypt = headerData.substringFromIndex(5)
                 
                 self.asynSocket.readDataToLength(lenghtHeader, withTimeout: self.readTimeOut , tag: CRMCallConfig.Tab.BodyData)
-                
                 
             } else if (tag == CRMCallConfig.Tab.BodyData) {
                 
@@ -168,61 +170,9 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 
                 self.asynSocket.readDataToLength(CRMCallConfig.HeaderLength, withTimeout: self.readTimeOut, tag: CRMCallConfig.Tab.Header)
                 
-                SWXMLHashManager.parseXMLToDictionary(withXML: decryptBodyData, Completion: { result, typeData in
-                    
-                    if typeData == CRMCallHelpers.TypeData.UserLogout {
-                        
-                        println("---------> Data logout user : \n\(result)")
-                        
-                        NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
-                        
-                        //DEMO SHOW CACHE
-                        dispatch_async(dispatch_get_main_queue(), {
-                            if let info = Cache.shareInstance.getUserInfo() {
-                                println("======> Caches:\n \(info.first)")
-                            } else {
-                                println("======> Caches: NULL")
-                            }
-                        })
-                    
-                    }
-                    
-                    if typeData == CRMCallHelpers.TypeData.UserLogin {
-                        
-                        println("---------> Data login user : \n\(result)")
-                        
-                        if result["RESULT"] == "2" {
-                            NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
-                        } else {
-                            // CACHES USER DATA
-                            dispatch_async(dispatch_get_main_queue(), {
-                                Cache.shareInstance.userInfo(with: result)
-                            })
-                        }
-                    }
-                    
-                    if typeData == CRMCallHelpers.TypeData.UserLive {
-                        
-                        if result["RESULT"] == "1" {
-                            println("PING SUCCESS")
-                        } else {
-                            println("PING FAIL")
-                        }
-                    }
-                    
-                    if typeData == CRMCallHelpers.TypeData.SIP {
-                        
-                        if result["RESULT"] == "1" {
-                            println("SIPLOGIN SUCCESS")
-                            NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginSuccess, object: nil, userInfo: nil)
-                        } else {
-                            NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
-                            println("SIPLOGIN FAIL")
-                        }
-
-                    }
-                })
+                self.cacheData(with: decryptBodyData)
             }
+        }
     }
     
     func socket(sock: GCDAsyncSocket, didConnectToHost host: String, port: UInt16) {
@@ -244,4 +194,79 @@ extension BaseSocket: GCDAsyncSocketDelegate {
         
         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDisConnected, object: nil, userInfo: nil)
     }
+    
+    // MARK: - Cache data get from server
+    private func cacheData(with xmlData: String) {
+        SWXMLHashManager.parseXMLToDictionary(withXML: xmlData, Completion: { result, typeData in
+            
+            if typeData == CRMCallHelpers.TypeData.UserLogout {
+                
+                println("---------> Data logout user : \n\(result)")
+                NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil) //DEMO VINH
+
+                //DEMO VINH SHOW CACHE
+                dispatch_async(dispatch_get_main_queue(), {
+                    if let info = Cache.shareInstance.getUserInfo() {
+                        println("======> Caches:\n \(info.first)")
+                    } else {
+                        println("======> Caches: NULL")
+                    }
+                })
+                
+            }
+            
+            if typeData == CRMCallHelpers.TypeData.UserLogin {
+                
+               // println("---------> Data login user : \n\(result)")
+                
+                if result["RESULT"] == "2" {
+                    NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginFaile, object: nil, userInfo: nil) //DEMO VINH
+                } else if result["RESULT"] == "3" {
+                    NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPHostFaile, object: nil, userInfo: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginFaile, object: nil, userInfo: nil) //DEMO VINH
+                } else {
+                    // CACHES USER DATA
+                    //NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil) //DEMO VINH
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        Cache.shareInstance.userInfo(with: result)
+//                    })
+                }
+            }
+            
+            if typeData == CRMCallHelpers.TypeData.UserLive {
+                
+                if result["RESULT"] == "1" {
+                    println("PING SUCCESS")
+                } else {
+                    println("PING FAIL")
+                }
+            }
+            
+            if typeData == CRMCallHelpers.TypeData.SIP {
+                
+                if result["RESULT"] == "1" {
+                    println("SIPLOGIN SUCCESS")
+                   // NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
+                    
+//                    let strRequest = XMLRequestBuilder.liveRequest()
+//                    
+//                    self.configAndSendData(withData: strRequest)
+
+                   // NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginSuccess, object: nil, userInfo: nil)
+                    // Cache result SIPLogin
+                    let defualts = NSUserDefaults.standardUserDefaults()
+                    defualts.setObject(result["RESULT"], forKey: CRMCallConfig.SIPLoginResultKey)
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
+                    println("SIPLOGIN FAIL")
+                }
+            }
+            
+            if typeData == CRMCallHelpers.TypeData.RingIng {
+                println("DATA RingIng:-------------> \n \(result)")
+            }
+        })
+    }
+    
 }

@@ -494,6 +494,7 @@
 				);
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				New_Setting = "";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanbiro.CRMCall2016;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -518,6 +519,7 @@
 				);
 				INFOPLIST_FILE = CRMCall092016/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				New_Setting = "";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hanbiro.CRMCall2016;
 				PRODUCT_NAME = "$(TARGET_NAME)";

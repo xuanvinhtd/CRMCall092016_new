@@ -24,11 +24,12 @@ final class XMLRequestBuilder {
     
     static func liveRequest() -> String {
         return "<XML><VER>\(CRMCallConfig.Version)</VER><ALARM><LIVE/></ALARM></XML>"
+        //return "<XML><VER>\(CRMCallConfig.Version)</VER><ALARM><LIVE/></ALARM></XML>"
     }
     
     // MARK: - USERINFO
-    static func userInfoRequest(with userID: String, phoneNumber: String, status: String) -> String {
-        return "<XML><VER>\(CRMCallConfig.Version)</VER><USER><USERINFO ID=\"\(phoneNumber)\" PHONE=\"\(phoneNumber)\" STATUS=\"\(status)\"/></USER></XML>"
+    static func getUserInfoRequest(with callID: String, phoneNumber: String, status: String) -> String {
+        return "<XML><VER>\(CRMCallConfig.Version)</VER><USER><USERINFO ID=\"\(callID)\" PHONE=\"\(phoneNumber)\" STATUS=\"\(status)\"/></USER></XML>"
     }
     
     // MARK: - CALLERINFOR
