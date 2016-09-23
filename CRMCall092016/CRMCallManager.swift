@@ -13,6 +13,8 @@ final class CRMCallManager {
     static let shareInstance = CRMCallManager()
     var crmCallSocket: CRMCallSocket?
     
+    var myCurrentStatus: CRMCallHelpers.UserStatus = CRMCallHelpers.UserStatus.None
+    
     // MARK: Initialzation
     
     init () {

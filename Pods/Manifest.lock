@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (3.4.1)
+  - Chronos-Swift (0.2.2)
   - CocoaAsyncSocket (7.5.0):
     - CocoaAsyncSocket/GCD (= 7.5.0)
   - CocoaAsyncSocket/GCD (7.5.0)
@@ -7,14 +8,16 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Chronos-Swift
   - CocoaAsyncSocket
   - SWXMLHash
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  Chronos-Swift: 68a4fff66a41a1b698b30353d66bea412c5bba73
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
   SWXMLHash: 507397103325f140863d09040c04ae14a49a16cb
 
-PODFILE CHECKSUM: 3d088204bac8fcec64bd2420b15ef2f3c7764d77
+PODFILE CHECKSUM: d4c56cb6b2a3d12b74bbd115d810a1970d3676f9
 
 COCOAPODS: 1.0.0

@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import Cocoa
 
 final class CRMCallHelpers {
+    
+    static let storyBoard = NSStoryboard.init(name: "Main", bundle: nil)
     
     enum TypeData {
         case UserLogin
@@ -25,5 +28,19 @@ final class CRMCallHelpers {
         case None = "0"
         case Ringing = "1"
         case Busy = "2"
+    }
+    
+    enum Direction: String {
+        case None = "NONE"
+        case InBound = "INBOUND"
+        case OutBound = "OUTBOUND"
+    }
+    
+    enum Event: String {
+        case Invite = "INVITE"
+        case Cancel = "CANCEL"
+        case Busy = "BUSY"
+        case InviteResult = "INVITE_RESULT"
+        case Bye = "BYE"
     }
 }

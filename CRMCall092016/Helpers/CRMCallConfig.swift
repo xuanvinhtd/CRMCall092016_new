@@ -37,6 +37,8 @@ final class CRMCallConfig {
         static let SocketDidConnected = "CRMCallConfig.Notification.SocketDidConnected"
         static let SocketDisConnected = "CRMCallConfig.Notification.SocketDisConnected"
         static let RecivedServerInfor = "CRMCallConfig.Notification.RecivedServerInfor"
+        
+        static let RingIng = "CRMCallConfig.Notification.RingIng"
     }
     
     // MARK: API

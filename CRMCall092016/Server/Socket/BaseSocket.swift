@@ -147,6 +147,10 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 
                 self.asynSocket.readDataToLength(lenghtHeader, withTimeout: self.readTimeOut , tag: CRMCallConfig.Tab.BodyData)
                 
+                if lenghtHeader == 0 {
+                    self.asynSocket.readDataToLength(CRMCallConfig.HeaderLength, withTimeout: self.readTimeOut, tag: CRMCallConfig.Tab.Header)
+                }
+                
             } else if (tag == CRMCallConfig.Tab.BodyData) {
                 
                 guard let bodyData = NSString(data: data, encoding: NSUTF8StringEncoding) as? String else {
@@ -206,10 +210,10 @@ extension BaseSocket: GCDAsyncSocketDelegate {
 
                 //DEMO VINH SHOW CACHE
                 dispatch_async(dispatch_get_main_queue(), {
-                    if let info = Cache.shareInstance.getUserInfo() {
-                        println("======> Caches:\n \(info.first)")
+                    if let info = Cache.shareInstance.getCustomerInfo() {
+                        println("======> CustomerInfo:\n \(info.first)")
                     } else {
-                        println("======> Caches: NULL")
+                        println("======> CustomerInfo: NULL")
                     }
                 })
                 
@@ -227,10 +231,11 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                     NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginFaile, object: nil, userInfo: nil) //DEMO VINH
                 } else {
                     // CACHES USER DATA
-                    //NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil) //DEMO VINH
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        Cache.shareInstance.userInfo(with: result)
-//                    })
+                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil) //DEMO VINH
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        Cache.shareInstance.userInfo(with: result)
+                    })
                 }
             }
             
@@ -243,16 +248,29 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 }
             }
             
+            if typeData == CRMCallHelpers.TypeData.UserInfo {
+                
+                println("---------> Customer Data: \n\(result)")
+                //CACHE
+                if result["RESULT"] == "0" {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        Cache.shareInstance.customerInfo(with: result, staffList: nil, productList: nil)
+                    })
+                    
+                } else {
+                    
+                }
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.Show, object: nil, userInfo: nil)
+            }
+            
             if typeData == CRMCallHelpers.TypeData.SIP {
                 
                 if result["RESULT"] == "1" {
                     println("SIPLOGIN SUCCESS")
-                   // NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
                     
-//                    let strRequest = XMLRequestBuilder.liveRequest()
-//                    
-//                    self.configAndSendData(withData: strRequest)
-
+                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
+                    
                    // NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginSuccess, object: nil, userInfo: nil)
                     // Cache result SIPLogin
                     let defualts = NSUserDefaults.standardUserDefaults()
@@ -265,7 +283,17 @@ extension BaseSocket: GCDAsyncSocketDelegate {
             
             if typeData == CRMCallHelpers.TypeData.RingIng {
                 println("DATA RingIng:-------------> \n \(result)")
+                
+                CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.Ringing
+                
+                //CACHE
+                dispatch_async(dispatch_get_main_queue(), {
+                    Cache.shareInstance.ringInfo(with: result)
+                })
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.RingIng, object: nil, userInfo: result)
             }
+            
         })
     }
     

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SettingViewController: NSViewController {
+class SettingViewController: NSViewController, ViewControllerProtocol {
 
     // MARK: - Properties
     
@@ -17,23 +17,31 @@ class SettingViewController: NSViewController {
     @IBOutlet weak var passworldTextField: NSSecureTextFieldCell!
     @IBOutlet weak var phoneNumberTextField: NSTextFieldCell!
     
-    private var handlerNotificationSocketDisConnected: AnyObject?
-    private var handlerNotificationSocketDidConnected: AnyObject?
-    private var handlerNotificationSIPLoginSuccess: AnyObject?
-    private var handlerNotificationSIPLoginFaile: AnyObject?
-    private var handlerNotificationSIPHostFaile: AnyObject?
-    private var handlerNotificationRevicedServerInfor: AnyObject?
+    private var handlerNotificationSocketDisConnected: AnyObject!
+    private var handlerNotificationSocketDidConnected: AnyObject!
+    private var handlerNotificationSIPLoginSuccess: AnyObject!
+    private var handlerNotificationSIPLoginFaile: AnyObject!
+    private var handlerNotificationSIPHostFaile: AnyObject!
+    private var handlerNotificationRevicedServerInfor: AnyObject!
     
     @IBOutlet weak var progressTestting: NSProgressIndicator!
     
     @IBOutlet weak var testButton: NSButton!
     
-    var isTestAgian = true
-    var liveTimer: NSTimer?
+    private var isTestAgian = true
+    private var liveTimer: NSTimer?
     
     // MARK: - Initialzation
+    static func createInstance() -> NSViewController {
+        return  CRMCallHelpers.storyBoard.instantiateControllerWithIdentifier("SettingViewControllerID") as! SettingViewController
+    }
+    
+    // MARK: - View Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        println("Init Screen SettingViewController")
         
         registerNotification()
         
@@ -45,7 +53,7 @@ class SettingViewController: NSViewController {
     }
     
     deinit {
-        deRegisterNotification()
+        deregisterNotification()
     }
     
     func countdown() {
@@ -55,12 +63,12 @@ class SettingViewController: NSViewController {
     // MARK: - Notification
 
     struct Notification {
-        static let SIPLoginSuccess = "SIPLoginSuccessNotification"
-        static let SIPLoginFaile = "SIPLoginFaileNotification"
-        static let SIPHostFaile = "SIPHostFaileNotification"
+        static let SIPLoginSuccess = "SIPLoginSuccess"
+        static let SIPLoginFaile = "SIPLoginFaile"
+        static let SIPHostFaile = "SIPHostFaile"
     }
 
-    private func registerNotification() {
+    func registerNotification() {
         
         handlerNotificationSocketDisConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDisConnected, object: nil, queue: nil, usingBlock: { notification in
             
@@ -150,32 +158,14 @@ class SettingViewController: NSViewController {
         })
     }
     
-    private func deRegisterNotification() {
+    func deregisterNotification() {
         
-        if let notification = handlerNotificationSocketDisConnected {
-            NSNotificationCenter.defaultCenter().removeObserver(notification)
-        }
-        
-        if let notification = handlerNotificationSocketDidConnected {
-            NSNotificationCenter.defaultCenter().removeObserver(notification)
-        }
-        
-        if let notification = handlerNotificationSIPLoginSuccess {
-            NSNotificationCenter.defaultCenter().removeObserver(notification)
-        }
-        
-        if let notification = handlerNotificationSIPLoginFaile {
-            NSNotificationCenter.defaultCenter().removeObserver(notification)
-        }
-        
-        if let notification = handlerNotificationRevicedServerInfor {
-            NSNotificationCenter.defaultCenter().removeObserver(notification)
-        }
-        
-        if let notification = handlerNotificationSIPHostFaile {
-            NSNotificationCenter.defaultCenter().removeObserver(notification)
-        }
-
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDisConnected)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDidConnected)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPLoginSuccess)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPLoginFaile)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPHostFaile)
     }
 
     

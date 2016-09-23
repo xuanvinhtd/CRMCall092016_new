@@ -38,13 +38,13 @@ class Cache {
         Realm.Configuration.defaultConfiguration = config
     }
     
-    // MARK: Conmon cache
+    // MARK: - COMMON
     
     func cleanAll() {
         
     }
     
-    // MARK: Caches UserInfo
+    // MARK: - USERINFO
 
     func userInfo(with info: [String: String]) {
         
@@ -145,9 +145,9 @@ class Cache {
         }
     }
     
-    // MARK: Caches Customer info
+    // MARK: - CUSTOMER
     
-    func customerInfo(with info: [String: String], staffList: List<Staff>, productList: List<Product>) {
+    func customerInfo(with info: [String: String], staffList: List<Staff>?, productList: List<Product>?) {
         
         guard let realm = self.realm else {
             println("Cannot init Realm")
@@ -183,7 +183,7 @@ class Cache {
         if let name = info["NAME"] as String? {
             customerInfo.name = name
         } else {
-            customerInfo.name = "None"
+            customerInfo.name = "None name"
         }
         
         if let parentCN = info["PARENT_CN"] as String? {
@@ -228,12 +228,16 @@ class Cache {
             customerInfo.rating = "none type"
         }
         
-        for customer in productList {
-            customerInfo.products.append(customer)
+        if let productList = productList {
+            for customer in productList {
+                customerInfo.products.append(customer)
+            }
         }
         
-        for staff in staffList {
-            customerInfo.staffs.append(staff)
+        if let staffList = staffList {
+            for staff in staffList {
+                customerInfo.staffs.append(staff)
+            }
         }
 
         if !realm.refresh() {
@@ -257,6 +261,16 @@ class Cache {
         return realm.objects(UserInfo.self)
     }
     
+    func getCustomerInfo(with predicate: NSPredicate) -> Results<UserInfo>? {
+        
+        guard let realm = self.realm else {
+            println("Cannot init Realm")
+            return nil
+        }
+        
+        return realm.objects(UserInfo.self).filter(predicate)
+    }
+    
     func cleanCustomerInfo() {
         
         guard let realm = self.realm else {
@@ -278,10 +292,77 @@ class Cache {
         }
     }
     
-    // MARK: Caches Staff
+    // MARK: - STAFF
     
     
     
-    // MARK: Caches Product
+    // MARK: - PRODUCT
+
+    // MARK: - RINGING
+    func ringInfo(with info: [String: String]) {
+        
+        guard let realm = self.realm else {
+            println("Cannot init Realm")
+            return
+        }
+        
+        let ringInfo = RingIng()
+        
+        if let idx = info["CALLID"] as String? {
+            ringInfo.callID = idx
+        } else {
+            ringInfo.callID = "0"
+        }
+        
+        if let from = info["FROM"] as String? {
+            ringInfo.from = from
+        } else {
+            ringInfo.from = "000000"
+        }
+        
+        if let to = info["TO"] as String? {
+            ringInfo.to = to
+        } else {
+            ringInfo.to = "000000"
+        }
+        
+        if let event = info["EVENT"] as String? {
+            ringInfo.event = event
+        } else {
+            ringInfo.event = "None event"
+        }
+        
+        if let time = info["TIME"] as String? {
+            ringInfo.time = time
+        } else {
+            ringInfo.time = "None time"
+        }
+        
+        if let direction = info["DIRECTION"] as String? {
+            ringInfo.direction = direction
+        } else {
+            ringInfo.direction = "INBOUND"
+        }
+        
+        if !realm.refresh() {
+            do {
+                let _ = try realm.write {
+                    realm.add(ringInfo, update: true)
+                }
+            } catch let e {
+                println("Insert ringInfo with Error: \(e)")
+            }
+        }
+    }
+    
+    func getRingInfo() -> Results<RingIng>? {
+        
+        guard let realm = self.realm else {
+            println("Cannot init Realm")
+            return nil
+        }
+        
+        return realm.objects(RingIng.self)
+    }
 
 }

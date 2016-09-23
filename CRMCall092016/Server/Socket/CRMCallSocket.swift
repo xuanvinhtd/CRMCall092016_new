@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import Chronos
 
 final class CRMCallSocket: BaseSocket {
     
     // MARK: - Properties
-    var liveTimer: NSTimer?
+    var timer: DispatchTimer?
     
     var handerNotificationLoginSuccess: AnyObject?
     
@@ -20,6 +21,11 @@ final class CRMCallSocket: BaseSocket {
         
         super.init()
         
+        self.timer = DispatchTimer(interval: 10.0, closure: {
+            (timer: RepeatingTimer, count: Int) in
+            self.requestLive()
+        })
+
         registerNotification()
     }
     
@@ -39,7 +45,7 @@ final class CRMCallSocket: BaseSocket {
                 
                 println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
                 
-                self.startLiveTimer()
+                self.startLiveTimer(true)
             })
         }
     }
@@ -67,28 +73,21 @@ final class CRMCallSocket: BaseSocket {
         configAndSendData(withData: xmlLogOut)
     }
     
-    // MARK: LIVE API
-    func startLiveTimer() {
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            
-            if self.liveTimer == nil {
-                self.liveTimer = NSTimer.scheduledTimerWithTimeInterval(CRMCallConfig.TimerInterval, target: self, selector: #selector(CRMCallSocket.requestLive), userInfo: nil, repeats: true)
-                self.liveTimer?.fire()
-            }
+    // MARK: - LIVE API
+    func startLiveTimer(now : Bool) {
+        guard let timer = self.timer else {
+            println("timer not init")
+            return
         }
+        timer.start(now)
     }
     
     func stopLiveTimer() {
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            guard let _liveTimer = self.liveTimer else {
-                println("liveTimer not init")
-                return
-            }
-            
-            _liveTimer.invalidate()
+        guard let timer = self.timer else {
+            println("timer not init")
+            return
         }
+        timer.cancel()
     }
     
     func requestLive() {
@@ -96,6 +95,17 @@ final class CRMCallSocket: BaseSocket {
         println("PING TO SERVER WITH SCHEDULE \(CRMCallConfig.TimerInterval)s")
         
         let strRequest = XMLRequestBuilder.liveRequest()
+        
+        configAndSendData(withData: strRequest)
+    }
+    
+    // MARK: - USERINFO
+    func requestGetUserInfo(with callID: String, phonenumber: String) {
+        
+        println("SEND REQUEST GET USER INFO ")
+        
+        let currentStatus = CRMCallManager.shareInstance.myCurrentStatus.rawValue
+        let strRequest = XMLRequestBuilder.getUserInfoRequest(with: callID, phoneNumber: phonenumber, status: currentStatus)
         
         configAndSendData(withData: strRequest)
     }

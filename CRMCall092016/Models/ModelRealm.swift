@@ -121,7 +121,7 @@ class UserInfo: Object {
     dynamic var category = ""
     dynamic var cn = ""
     dynamic var code = ""
-    dynamic var name = ""
+    dynamic var name = "None name"
     dynamic var parentCN = ""
     dynamic var parentCode = ""
     dynamic var parentName = ""
@@ -135,6 +135,19 @@ class UserInfo: Object {
     
     override static func primaryKey() -> String? {
         return "idx"
+    }
+}
+
+class RingIng: Object {
+    dynamic var callID = "0"
+    dynamic var from = ""
+    dynamic var to = ""
+    dynamic var event = ""
+    dynamic var time = ""
+    dynamic var direction = ""
+    
+    override static func primaryKey() -> String? {
+        return "callID"
     }
 }
 

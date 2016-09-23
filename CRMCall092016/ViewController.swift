@@ -9,7 +9,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    
     // MARK: - Properties
     private var isAutoLogin = false
     
@@ -19,6 +19,8 @@ class ViewController: NSViewController {
     private var handlerNotificationLoginFaile: AnyObject?
     private var handlerNotificationLogoutSuccess: AnyObject?
     private var handlerNotificationRevicedServerInfor: AnyObject?
+    private var handlerNotificationRingIng: AnyObject?
+    private var handlerNotificationShowPageRingIng: AnyObject?
     
     @IBOutlet weak var domanTextField: NSTextField!
     @IBOutlet weak var userTextField: NSTextField!
@@ -34,14 +36,14 @@ class ViewController: NSViewController {
         
         registerNotification()
     }
-
+    
     deinit {
         deRegisterNotification()
     }
     
     override var representedObject: AnyObject? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
     
@@ -77,7 +79,7 @@ class ViewController: NSViewController {
         } else {
             println("CRMCallSocket not init")
         }
-        
+        storyboard
         self.isAutoLogin = false
     }
     
@@ -101,7 +103,7 @@ class ViewController: NSViewController {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
         })
-
+        
         handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
@@ -124,7 +126,7 @@ class ViewController: NSViewController {
         handlerNotificationLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginFaile, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            dispatch_async(dispatch_get_main_queue(), { 
+            dispatch_async(dispatch_get_main_queue(), {
                 self.shack()
             })
         })
@@ -149,6 +151,38 @@ class ViewController: NSViewController {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
         })
+        
+        handlerNotificationRingIng = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RingIng, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            guard let userInfo = notification.userInfo else {
+                println("Not found the userInfo to get info of user")
+                return
+            }
+            
+            let callID =  userInfo["CALLID"] as! String
+            let phoneNumber =  userInfo["FROM"] as! String
+            let event = userInfo["EVENT"] as! String
+            
+            if event == CRMCallHelpers.Event.Invite.rawValue {
+                CRMCallManager.shareInstance.crmCallSocket?.requestGetUserInfo(with: callID, phonenumber: phoneNumber)
+            }
+            
+            if event == CRMCallHelpers.Event.Cancel.rawValue {
+                NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.RingCancel, object: nil, userInfo: ["STATUS":"Cancel call."])
+            }
+        })
+        
+        handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                let ringViewController = RingIngViewController.createInstance()
+                self.presentViewControllerAsModalWindow(ringViewController)
+            })
+        })
     }
     
     private func deRegisterNotification() {
@@ -156,7 +190,7 @@ class ViewController: NSViewController {
         if let notification = handlerNotificationSocketDisConnected {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
-
+        
         
         if let notification = handlerNotificationSocketDidConnected {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
@@ -177,6 +211,15 @@ class ViewController: NSViewController {
         if let notification = handlerNotificationRevicedServerInfor {
             NSNotificationCenter.defaultCenter().removeObserver(notification)
         }
+        
+        if let notification = handlerNotificationRingIng {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        
+        if let notification = handlerNotificationShowPageRingIng {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+
     }
     
     func shack() {

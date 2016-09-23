@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>Chronos-Swift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>CocoaAsyncSocket.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -42,7 +47,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1C0FE9379B020B903FC11DF32C3A330B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4269EA6DE49C90DEABF2DFAEBF5F6BCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>46A46B04F83E22CB6C968810F139DB2B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5EECCD049B5A1BBC2B4117857B86C637</key>
 		<dict>
 			<key>primary</key>
 			<true/>
