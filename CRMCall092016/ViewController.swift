@@ -121,6 +121,9 @@ class ViewController: NSViewController {
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             self.statusLogin.hidden = false
+            
+            //DEMO VINH
+            
         })
         
         handlerNotificationLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginFaile, object: nil, queue: nil, usingBlock: { notification in

@@ -109,4 +109,17 @@ final class CRMCallSocket: BaseSocket {
         
         configAndSendData(withData: strRequest)
     }
+    
+    // MARK: - STATUS LIST
+    
+    func requestStatusList() {
+        
+        println("SEND REQUEST GET STATUS LIST ")
+        
+        let currentStatus = CRMCallManager.shareInstance.myCurrentStatus.rawValue
+        let strRequest = XMLRequestBuilder.statusListRequest(with: currentStatus)
+        
+        configAndSendData(withData: strRequest)
+    }
+
 }

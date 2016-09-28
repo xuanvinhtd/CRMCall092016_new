@@ -803,7 +803,85 @@
                     <view key="view" id="Db9-8L-EMV">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fd1-6n-0Nu">
+                                <rect key="frame" x="20" y="185" width="440" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="global3.hanbiro.com" placeholderString="Domain" drawsBackground="YES" id="WOC-Cr-5l4">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CUa-ig-mb3">
+                                <rect key="frame" x="20" y="147" width="440" height="22"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="vinh" placeholderString="ID" drawsBackground="YES" id="jDx-zv-NVM">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xnS-Y4-FV8">
+                                <rect key="frame" x="392" y="66" width="74" height="32"/>
+                                <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ann-NJ-9XW">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="actionLogin:" target="h5H-Ex-vAe" id="nU7-lK-XMr"/>
+                                </connections>
+                            </button>
+                            <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-Ar-xgj">
+                                <rect key="frame" x="20" y="109" width="440" height="22"/>
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="vinh123!" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="p68-WT-cwT">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <allowedInputSourceLocales>
+                                        <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                    </allowedInputSourceLocales>
+                                </secureTextFieldCell>
+                            </secureTextField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="GaC-Q3-mwx">
+                                <rect key="frame" x="18" y="78" width="64" height="18"/>
+                                <buttonCell key="cell" type="check" title="SaveID" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="siM-vY-KRM">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="SBo-2J-erN">
+                                <rect key="frame" x="148" y="78" width="83" height="18"/>
+                                <buttonCell key="cell" type="check" title="Auto login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="G1V-hk-aZH">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fd1-6n-0Nu" secondAttribute="trailing" constant="20" id="0Oo-7M-zjm"/>
+                            <constraint firstItem="7VN-Ar-xgj" firstAttribute="leading" secondItem="CUa-ig-mb3" secondAttribute="leading" id="1UO-Yi-ze5"/>
+                            <constraint firstItem="SBo-2J-erN" firstAttribute="leading" secondItem="GaC-Q3-mwx" secondAttribute="trailing" constant="70" id="1uw-oN-cZw"/>
+                            <constraint firstItem="xnS-Y4-FV8" firstAttribute="top" secondItem="7VN-Ar-xgj" secondAttribute="bottom" constant="15" id="9Ob-Bn-rPA"/>
+                            <constraint firstItem="fd1-6n-0Nu" firstAttribute="leading" secondItem="Db9-8L-EMV" secondAttribute="leading" constant="20" id="Ipq-MP-ILd"/>
+                            <constraint firstItem="CUa-ig-mb3" firstAttribute="top" secondItem="fd1-6n-0Nu" secondAttribute="bottom" constant="16" id="Vgr-tg-k36"/>
+                            <constraint firstItem="SBo-2J-erN" firstAttribute="top" secondItem="7VN-Ar-xgj" secondAttribute="bottom" constant="15" id="cBy-fn-lzW"/>
+                            <constraint firstItem="7VN-Ar-xgj" firstAttribute="top" secondItem="CUa-ig-mb3" secondAttribute="bottom" constant="16" id="cbw-z2-0KG"/>
+                            <constraint firstAttribute="trailing" secondItem="CUa-ig-mb3" secondAttribute="trailing" constant="20" id="eLG-QL-dJ9"/>
+                            <constraint firstAttribute="trailing" secondItem="7VN-Ar-xgj" secondAttribute="trailing" constant="20" id="lo4-d8-5AJ"/>
+                            <constraint firstItem="fd1-6n-0Nu" firstAttribute="top" secondItem="Db9-8L-EMV" secondAttribute="top" constant="63" id="n5o-xK-984"/>
+                            <constraint firstAttribute="trailing" secondItem="xnS-Y4-FV8" secondAttribute="trailing" constant="20" id="oPU-Md-1hc"/>
+                            <constraint firstItem="GaC-Q3-mwx" firstAttribute="top" secondItem="7VN-Ar-xgj" secondAttribute="bottom" constant="15" id="ruc-R3-u3Y"/>
+                            <constraint firstItem="CUa-ig-mb3" firstAttribute="leading" secondItem="fd1-6n-0Nu" secondAttribute="leading" id="ryH-fg-kz9"/>
+                            <constraint firstItem="GaC-Q3-mwx" firstAttribute="leading" secondItem="Db9-8L-EMV" secondAttribute="leading" constant="20" id="yTF-pt-Q0H"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="btnLogin" destination="xnS-Y4-FV8" id="ETd-t8-G0h"/>
+                        <outlet property="domainTextField" destination="fd1-6n-0Nu" id="xqe-OE-nxY"/>
+                        <outlet property="isAutoLoginCheckBox" destination="SBo-2J-erN" id="e3A-wO-2Bw"/>
+                        <outlet property="isSaveIDCheckBox" destination="GaC-Q3-mwx" id="PsX-9m-oyC"/>
+                        <outlet property="passwordTextField" destination="7VN-Ar-xgj" id="Yr6-o6-TYR"/>
+                        <outlet property="userIDTextField" destination="CUa-ig-mb3" id="CGK-hn-o1o"/>
+                    </connections>
                 </viewController>
                 <customObject id="sBY-lF-nIr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

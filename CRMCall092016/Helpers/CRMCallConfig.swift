@@ -22,6 +22,8 @@ final class CRMCallConfig {
     
     static let HeaderLength:UInt = 6
     
+    static let UUIDKey = "UUID"
+    
     // MARK: - UserDefault key
     static let SIPLoginResultKey = "SIPLoginResult"
     
@@ -43,6 +45,11 @@ final class CRMCallConfig {
     
     // MARK: API
     struct API {
+        
+        static func login(with domain: String) -> String {
+            return "https://\(domain)/ngw/sign/sso"
+        }
+        
         static let GetPortAndHostURL = "http://\(CRMCallConfig.HostName)/winapp/hcsong/crmcall/\(CRMCallConfig.HostName)/server.xml"
     }
     

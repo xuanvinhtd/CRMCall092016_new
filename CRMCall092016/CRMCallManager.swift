@@ -13,6 +13,8 @@ final class CRMCallManager {
     static let shareInstance = CRMCallManager()
     var crmCallSocket: CRMCallSocket?
     
+    var domain = "global3.hanbiro.com"
+    
     var myCurrentStatus: CRMCallHelpers.UserStatus = CRMCallHelpers.UserStatus.None
     
     // MARK: Initialzation

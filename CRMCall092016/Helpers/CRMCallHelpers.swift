@@ -43,4 +43,16 @@ final class CRMCallHelpers {
         case InviteResult = "INVITE_RESULT"
         case Bye = "BYE"
     }
+    
+    static func getUUID() -> String {
+        if let uuid = NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.UUIDKey) {
+            return uuid
+        } else {
+            let uuidObject = CFUUIDCreate(kCFAllocatorDefault)
+            let uuid = CFUUIDCreateString(kCFAllocatorDefault, uuidObject)
+            NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: CRMCallConfig.UUIDKey)
+            NSUserDefaults.standardUserDefaults().synchronize()
+            return uuid as String
+        }
+    }
 }
