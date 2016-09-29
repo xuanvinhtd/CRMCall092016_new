@@ -11,11 +11,14 @@ import Foundation
 final class CRMCallManager {
     // MARK: Properties
     static let shareInstance = CRMCallManager()
+    
     var crmCallSocket: CRMCallSocket?
     
-    var domain = "global3.hanbiro.com"
-    
     var myCurrentStatus: CRMCallHelpers.UserStatus = CRMCallHelpers.UserStatus.None
+    
+    var session_gw = ""
+    var session_key = ""
+    var isLoginSuccess = false
     
     // MARK: Initialzation
     

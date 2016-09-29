@@ -89,7 +89,7 @@ final class AlamofireManager {
                 
                 guard let rs = result else {
                     println("Data from Server = nil")
-                    completion(data: ["message":"Data get from server nil"],success: false)
+                    completion(data: ["msg":"Data get from server nil"],success: false)
                     return
                 }
                 

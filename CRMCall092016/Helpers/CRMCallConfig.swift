@@ -25,7 +25,17 @@ final class CRMCallConfig {
     static let UUIDKey = "UUID"
     
     // MARK: - UserDefault key
-    static let SIPLoginResultKey = "SIPLoginResult"
+    struct UserDefaultKey {
+        static let SIPLoginResult = "SIPLoginResult"
+        
+        static let AutoLogin = "CRMCallAutoLogin"
+        static let SaveID = "CRMCallSaveID"
+        
+        static let HostSetting = "HostSetting"
+        static let IDSetting = "IDSetting"
+        static let PasswordSetting = "PasswordSetting"
+        static let PhoneNumberSetting = "PhoneNumberSetting"
+    }
     
     // MARK: Tab
     struct Tab {
@@ -39,6 +49,8 @@ final class CRMCallConfig {
         static let SocketDidConnected = "CRMCallConfig.Notification.SocketDidConnected"
         static let SocketDisConnected = "CRMCallConfig.Notification.SocketDisConnected"
         static let RecivedServerInfor = "CRMCallConfig.Notification.RecivedServerInfor"
+        
+        static let LiveServer = "CRMCallConfig.Notification.LiveServer"
         
         static let RingIng = "CRMCallConfig.Notification.RingIng"
     }

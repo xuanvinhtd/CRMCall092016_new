@@ -37,7 +37,7 @@ class ViewController: NSViewController {
         registerNotification()
     }
     
-    deinit {
+    override func viewDidDisappear() {
         deRegisterNotification()
     }
     
@@ -56,7 +56,7 @@ class ViewController: NSViewController {
             
             if crmCallSocket.isConnectedToHost == true {
                 
-                crmCallSocket.requestLogin(withUserID: userTextField.stringValue, passwold: passTextField.stringValue, phone: phoneTextField.stringValue, domain: domanTextField.stringValue)
+                crmCallSocket.loginRequest(withUserID: userTextField.stringValue, passwold: passTextField.stringValue, phone: phoneTextField.stringValue, domain: domanTextField.stringValue)
                 
             } else {
                 println("Please connect to server .....")
@@ -72,7 +72,7 @@ class ViewController: NSViewController {
         if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
             
             if crmCallSocket.isConnectedToHost == true {
-                crmCallSocket.requestLogout()
+                crmCallSocket.logoutRequest()
             } else {
                 println("Disconnect to server")
             }
@@ -97,7 +97,7 @@ class ViewController: NSViewController {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-                crmCallSocket.requestLogout()
+                crmCallSocket.logoutRequest()
                 crmCallSocket.stopLiveTimer()
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
@@ -110,7 +110,7 @@ class ViewController: NSViewController {
             
             if self.isAutoLogin {
                 if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-                    crmCallSocket.requestLogin(withUserID: self.userTextField.stringValue, passwold: self.passTextField.stringValue, phone: self.phoneTextField.stringValue, domain: self.domanTextField.stringValue)
+                    crmCallSocket.loginRequest(withUserID: self.userTextField.stringValue, passwold: self.passTextField.stringValue, phone: self.phoneTextField.stringValue, domain: self.domanTextField.stringValue)
                 } else {
                     println("CRMCallManager.shareInstance.crmCallSocket = nil")
                 }
@@ -122,8 +122,12 @@ class ViewController: NSViewController {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             self.statusLogin.hidden = false
             
-            //DEMO VINH
-            
+            //DEMO VINH GET LIST STATUSES
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                crmCallSocket.statusesRequest()
+            } else {
+                println("CRMCallManager.shareInstance.crmCallSocket = nil")
+            }
         })
         
         handlerNotificationLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginFaile, object: nil, queue: nil, usingBlock: { notification in
@@ -169,7 +173,7 @@ class ViewController: NSViewController {
             let event = userInfo["EVENT"] as! String
             
             if event == CRMCallHelpers.Event.Invite.rawValue {
-                CRMCallManager.shareInstance.crmCallSocket?.requestGetUserInfo(with: callID, phonenumber: phoneNumber)
+                CRMCallManager.shareInstance.crmCallSocket?.getUserInfoRequest(with: callID, phonenumber: phoneNumber)
             }
             
             if event == CRMCallHelpers.Event.Cancel.rawValue {

@@ -23,12 +23,12 @@ final class CRMCallSocket: BaseSocket {
         
         self.timer = DispatchTimer(interval: 10.0, closure: {
             (timer: RepeatingTimer, count: Int) in
-            self.requestLive()
+            self.liveRequest()
         })
 
         registerNotification()
     }
-    
+     
     deinit {
         deregisterNotification()
     }
@@ -41,7 +41,7 @@ final class CRMCallSocket: BaseSocket {
     private func registerNotification() {
         
         if handerNotificationLoginSuccess == nil {
-            handerNotificationLoginSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LoginSuccess, object: nil, queue: nil, usingBlock: { notification in
+            handerNotificationLoginSuccess = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.LiveServer, object: nil, queue: nil, usingBlock: { notification in
                 
                 println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
                 
@@ -59,15 +59,15 @@ final class CRMCallSocket: BaseSocket {
     
     // MARK: - COMUNICATION API
     
-    func requestLogin(withUserID userID: String, passwold: String, phone: String, domain: String) {
-        
+    func loginRequest(withUserID userID: String, passwold: String, phone: String, domain: String) {
+        println("SEND REQUEST LOGIN")
         let xmlLogin = XMLRequestBuilder.loginRequest(with: userID, pass: passwold, phone: phone, domain: domain)
         
         configAndSendData(withData: xmlLogin)
     }
     
-    func requestLogout() {
-        
+    func logoutRequest() {
+        println("SEND REQUEST LOGOUT")
         let xmlLogOut = XMLRequestBuilder.logOutRequest()
         
         configAndSendData(withData: xmlLogOut)
@@ -88,9 +88,10 @@ final class CRMCallSocket: BaseSocket {
             return
         }
         timer.cancel()
+        self.timer = nil
     }
     
-    func requestLive() {
+    func liveRequest() {
         
         println("PING TO SERVER WITH SCHEDULE \(CRMCallConfig.TimerInterval)s")
         
@@ -100,7 +101,7 @@ final class CRMCallSocket: BaseSocket {
     }
     
     // MARK: - USERINFO
-    func requestGetUserInfo(with callID: String, phonenumber: String) {
+    func getUserInfoRequest(with callID: String, phonenumber: String) {
         
         println("SEND REQUEST GET USER INFO ")
         
@@ -110,16 +111,28 @@ final class CRMCallSocket: BaseSocket {
         configAndSendData(withData: strRequest)
     }
     
-    // MARK: - STATUS LIST
+    // MARK: - STATUS
     
-    func requestStatusList() {
+    func statusRequest() {
         
-        println("SEND REQUEST GET STATUS LIST ")
+        println("SEND REQUEST GET STATUS ")
         
         let currentStatus = CRMCallManager.shareInstance.myCurrentStatus.rawValue
-        let strRequest = XMLRequestBuilder.statusListRequest(with: currentStatus)
+        let strRequest = XMLRequestBuilder.statusRequest(with: currentStatus)
         
         configAndSendData(withData: strRequest)
     }
+    
+    // MARK: - STATUSES
+    
+    func statusesRequest() {
+        
+        println("SEND REQUEST GET STATUSES ")
+        
+        let strRequest = XMLRequestBuilder.statusesRequest()
+        
+        configAndSendData(withData: strRequest)
+    }
+
 
 }

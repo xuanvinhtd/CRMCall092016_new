@@ -56,7 +56,7 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
         registerNotification()
     }
     
-    deinit {
+    override func viewDidDisappear() {
         deregisterNotification()
     }
     

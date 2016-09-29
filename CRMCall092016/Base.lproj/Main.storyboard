@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="h5H-Ex-vAe">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="Kc0-sG-2So">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -650,7 +650,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CRMCall092016" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="646.5" y="-120"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -675,7 +675,7 @@
             <objects>
                 <windowController showSeguePresentationStyle="single" id="Vsp-GR-UGn" sceneMemberID="viewController">
                     <window key="window" identifier="SettingViewControllerID" title="References" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="scB-hy-1XS">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="163" y="199" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
@@ -687,24 +687,6 @@
                 <customObject id="MoE-qL-7ae" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="647" y="250"/>
-        </scene>
-        <!--Window Controller-->
-        <scene sceneID="xtQ-b1-abu">
-            <objects>
-                <windowController showSeguePresentationStyle="single" id="uWv-7L-3cM" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Zu3-lb-UrK">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="163" y="199" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
-                    </window>
-                    <connections>
-                        <segue destination="bgs-b6-mMF" kind="relationship" relationship="window.shadowedContentViewController" id="A7T-CT-66m"/>
-                    </connections>
-                </windowController>
-                <customObject id="JD3-I4-oPz" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1250" y="-484"/>
         </scene>
         <!--Ring Ing View Controller-->
         <scene sceneID="nAx-cT-EMB">
@@ -776,7 +758,7 @@
                 </viewController>
                 <customObject id="jDZ-IB-7bA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1250" y="-85"/>
+            <point key="canvasLocation" x="1191" y="-351"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="gWG-NH-2Gn">
@@ -789,24 +771,24 @@
                         <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
                     </window>
                     <connections>
-                        <segue destination="h5H-Ex-vAe" kind="relationship" relationship="window.shadowedContentViewController" id="GzT-ZG-irl"/>
+                        <segue destination="h5H-Ex-vAe" kind="relationship" relationship="window.shadowedContentViewController" id="dxa-lU-nYC"/>
                     </connections>
                 </windowController>
                 <customObject id="iQ3-ST-QdP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1796" y="-468"/>
+            <point key="canvasLocation" x="1912" y="-484"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tai-gM-Itg">
             <objects>
-                <viewController showSeguePresentationStyle="single" id="h5H-Ex-vAe" customClass="LoginViewController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewControllerID" showSeguePresentationStyle="single" id="h5H-Ex-vAe" customClass="LoginViewController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Db9-8L-EMV">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fd1-6n-0Nu">
                                 <rect key="frame" x="20" y="185" width="440" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="global3.hanbiro.com" placeholderString="Domain" drawsBackground="YES" id="WOC-Cr-5l4">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Domain" drawsBackground="YES" id="WOC-Cr-5l4">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -814,7 +796,7 @@
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CUa-ig-mb3">
                                 <rect key="frame" x="20" y="147" width="440" height="22"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="vinh" placeholderString="ID" drawsBackground="YES" id="jDx-zv-NVM">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="ID" drawsBackground="YES" id="jDx-zv-NVM">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -832,7 +814,7 @@
                             </button>
                             <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-Ar-xgj">
                                 <rect key="frame" x="20" y="109" width="440" height="22"/>
-                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="vinh123!" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="p68-WT-cwT">
+                                <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="p68-WT-cwT">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -885,7 +867,41 @@
                 </viewController>
                 <customObject id="sBY-lF-nIr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1796" y="-7"/>
+            <point key="canvasLocation" x="1912" y="-9"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="mZb-dv-fqY">
+            <objects>
+                <viewController storyboardIdentifier="MainViewControllerID" id="MMf-Xu-hiO" customClass="MainViewController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="tB0-os-1gh">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oEu-I4-FUW">
+                                <rect key="frame" x="18" y="263" width="65" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Miss Call" id="ZmQ-Gc-Ao5">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WUP-cc-BfC">
+                                <rect key="frame" x="100" y="263" width="35" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0" id="jh5-15-vCC">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="missCallNumber" destination="WUP-cc-BfC" id="MY4-s1-tfC"/>
+                    </connections>
+                </viewController>
+                <customObject id="o8t-IQ-Gbf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1750" y="495"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="efE-lR-bmX">

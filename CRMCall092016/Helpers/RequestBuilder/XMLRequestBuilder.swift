@@ -10,7 +10,7 @@ import Foundation
 
 final class XMLRequestBuilder {
     
-    // MARK: - LOGIN/LOGOUT
+    // MARK: - LOGIN/LOGOUT SOCKET
     static func loginRequest(with userID: String, pass: String, phone: String,domain: String) -> String {
         
         return "<XML> <VER>\(CRMCallConfig.Version)</VER> <USER> <LOGIN ID=\"\(userID)\" PASSWORD=\"\(pass)\" DOMAIN=\"\(domain)\" VER=\"1.0\" ISPTYPE=\"\(CRMCallConfig.IsPType)\" PHONE=\"\(phone)\" DEVICE=\"\(CRMCallConfig.DeviceID)\"></LOGIN> </USER> </XML>"
@@ -42,8 +42,14 @@ final class XMLRequestBuilder {
     }
     
     // MARK: - Status
-    static func statusListRequest(with mode: String) -> String {
+    static func statusRequest(with mode: String) -> String {
         return "<XML> <VER>\(CRMCallConfig.Version)</VER> <USER> <STATUS ID=\"\" BROADCAST=\"\" CUSTOMER=\"\" MODE=\"\(mode)\"/></USER></XML>"
     }
+    
+    // MARK: - Statuses
+    static func statusesRequest() -> String {
+        return "<XML><VER>\(CRMCallConfig.Version)</VER><USER><STATUSES/></USER></XML>"
+    }
+
 
 }

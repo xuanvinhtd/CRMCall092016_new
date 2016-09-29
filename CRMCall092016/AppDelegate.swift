@@ -13,15 +13,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
-        // Config Realm
-        Cache.shareInstance
-        // Init Sigleton App
-        CRMCallManager.shareInstance
+        self.settingAppCall()
         
         // Register push notification
         let type: NSRemoteNotificationType = [NSRemoteNotificationType.Alert,NSRemoteNotificationType.Badge, NSRemoteNotificationType.Sound]
         NSApp.registerForRemoteNotificationTypes(type)
         // Insert code here to initialize your application
+    }
+    
+    func settingAppCall() {
+        // Config Realm
+        Cache.shareInstance
+        // Init Sigleton App
+        CRMCallManager.shareInstance
+        // Setting SIP
+        if let _ = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult){
+        } else {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject("0", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
+            defaults.synchronize()
+        }
     }
     
     func application(application: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {

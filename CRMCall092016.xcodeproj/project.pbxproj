@@ -14,6 +14,7 @@
 		9258611B1D94FE7C00521D7D /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258611A1D94FE7C00521D7D /* ViewControllerProtocol.swift */; };
 		9258611D1D952A3300521D7D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258611C1D952A3300521D7D /* LoginViewController.swift */; };
 		92793B411D8F7FD000586A5F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92793B401D8F7FD000586A5F /* Cache.swift */; };
+		9279E0901D9BA1B700F577A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9279E08E1D9BA1B700F577A5 /* MainViewController.swift */; };
 		92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */; };
 		92B2EC961D926F1800E487C9 /* CRMCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2EC951D926F1800E487C9 /* CRMCallManager.swift */; };
 		92C261A21D8B85DF00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
@@ -65,6 +66,7 @@
 		9258611A1D94FE7C00521D7D /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
 		9258611C1D952A3300521D7D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		92793B401D8F7FD000586A5F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		9279E08E1D9BA1B700F577A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallHelpers.swift; sourceTree = "<group>"; };
 		92B2EC951D926F1800E487C9 /* CRMCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallManager.swift; sourceTree = "<group>"; };
 		92C261A01D8B85DF00413F54 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				92F3C8161D9236CE00FBCD9A /* SettingViewController.swift */,
 				925861181D94E12900521D7D /* RingIngViewController.swift */,
 				9258611C1D952A3300521D7D /* LoginViewController.swift */,
+				9279E08E1D9BA1B700F577A5 /* MainViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				922D7CE31D98FAC7006FA43B /* RequestBuilder.swift in Sources */,
+				9279E0901D9BA1B700F577A5 /* MainViewController.swift in Sources */,
 				92793B411D8F7FD000586A5F /* Cache.swift in Sources */,
 				92E2341F1D81447D006C988E /* SWXMLHashManager.swift in Sources */,
 				922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */,

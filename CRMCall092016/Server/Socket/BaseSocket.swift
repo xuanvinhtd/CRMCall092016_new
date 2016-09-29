@@ -22,7 +22,7 @@ class BaseSocket: NSObject {
     private var asynSocket: GCDAsyncSocket!
     
     private var socketQueue: dispatch_queue_t
-
+    
     private var port: UInt16
     private var host: String
     
@@ -86,10 +86,10 @@ class BaseSocket: NSObject {
         }
     }
     
-   private func sendData(data: NSData) {
-    
-    asynSocket.writeData(data, withTimeout: writeTimeOut, tag: CRMCallConfig.Tab.Default)
-    
+    private func sendData(data: NSData) {
+        
+        asynSocket.writeData(data, withTimeout: writeTimeOut, tag: CRMCallConfig.Tab.Default)
+        
     }
     
     private func getIdAndHost() {
@@ -126,14 +126,14 @@ class BaseSocket: NSObject {
     }
 }
 
-// MARK: - Socket Delegate 
+// MARK: - Socket Delegate
 extension BaseSocket: GCDAsyncSocketDelegate {
     
     func socket(sock: GCDAsyncSocket, didReadData data: NSData, withTag tag: Int) {
         
         dispatch_async(self.socketQueue) {
             
-        
+            
             if tag == CRMCallConfig.Tab.Header {
                 
                 guard let headerData = NSString(data: data, encoding: NSUTF8StringEncoding) else {
@@ -207,7 +207,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 
                 println("---------> Data logout user : \n\(result)")
                 NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil) //DEMO VINH
-
+                
                 //DEMO VINH SHOW CACHE
                 dispatch_async(dispatch_get_main_queue(), {
                     if let info = Cache.shareInstance.getCustomerInfo() {
@@ -219,27 +219,24 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 
             }
             
-            if typeData == CRMCallHelpers.TypeData.UserLogin {
-                
-               // println("---------> Data login user : \n\(result)")
+            if typeData == .UserLogin {
                 
                 if result["RESULT"] == "2" {
                     NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
-                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginFaile, object: nil, userInfo: nil) //DEMO VINH
+                    
                 } else if result["RESULT"] == "3" {
                     NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPHostFaile, object: nil, userInfo: nil)
-                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginFaile, object: nil, userInfo: nil) //DEMO VINH
-                } else {
-                    // CACHES USER DATA
-                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil) //DEMO VINH
                     
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LiveServer, object: nil, userInfo: nil)
+                    // CACHES USER DATA
                     dispatch_async(dispatch_get_main_queue(), {
                         Cache.shareInstance.userInfo(with: result)
                     })
                 }
             }
             
-            if typeData == CRMCallHelpers.TypeData.UserLive {
+            if typeData == .UserLive {
                 
                 if result["RESULT"] == "1" {
                     println("PING SUCCESS")
@@ -248,7 +245,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 }
             }
             
-            if typeData == CRMCallHelpers.TypeData.UserInfo {
+            if typeData == .UserInfo {
                 
                 println("---------> Customer Data: \n\(result)")
                 //CACHE
@@ -264,27 +261,31 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.Show, object: nil, userInfo: nil)
             }
             
-            if typeData == CRMCallHelpers.TypeData.SIP {
+            if typeData == .SIP {
                 
                 if result["RESULT"] == "1" {
                     println("SIPLOGIN SUCCESS")
                     
-                    NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LoginSuccess, object: nil, userInfo: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginSuccess, object: nil, userInfo: nil)
                     
-                   // NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginSuccess, object: nil, userInfo: nil)
                     // Cache result SIPLogin
-                    let defualts = NSUserDefaults.standardUserDefaults()
-                    defualts.setObject(result["RESULT"], forKey: CRMCallConfig.SIPLoginResultKey)
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(result["RESULT"], forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
+                    defaults.synchronize()
                 } else {
-                    NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
                     println("SIPLOGIN FAIL")
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
+                    
+                    // Cache result SIPLogin
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject("0", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
+                    defaults.synchronize()
                 }
             }
             
-            if typeData == CRMCallHelpers.TypeData.RingIng {
+            if typeData == .RingIng {
                 println("DATA RingIng:-------------> \n \(result)")
-                
-                CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.Ringing
                 
                 //CACHE
                 dispatch_async(dispatch_get_main_queue(), {

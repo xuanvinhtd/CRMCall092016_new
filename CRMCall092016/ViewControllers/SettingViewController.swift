@@ -52,8 +52,16 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         }
     }
     
-    deinit {
+    override func viewDidDisappear() {
+        // SAVE Info Setting
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(hostTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.HostSetting)
+        defaults.setObject(idTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.IDSetting)
+        defaults.setObject(passworldTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PasswordSetting)
+        defaults.setObject(phoneNumberTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PhoneNumberSetting)
+        
         deregisterNotification()
+        self.liveTimer = nil
     }
     
     func countdown() {
@@ -75,7 +83,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-                crmCallSocket.requestLogout()
+                crmCallSocket.logoutRequest()
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
@@ -86,7 +94,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
                 self.progressTestting.stopAnimation(self)
             })
             
-            if NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.SIPLoginResultKey) != "1" {
+            if NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) != "1" {
                 CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test fail, please review phone number!!", dismissText: "Cancel", completion: { result in })
                 self.isTestAgian = true
             }
@@ -97,7 +105,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-                crmCallSocket.requestLogin(withUserID: self.idTextField.stringValue, passwold: self.passworldTextField.stringValue, phone: self.phoneNumberTextField.stringValue, domain: self.hostTextField.stringValue)
+                crmCallSocket.loginRequest(withUserID: self.idTextField.stringValue, passwold: self.passworldTextField.stringValue, phone: self.phoneNumberTextField.stringValue, domain: self.hostTextField.stringValue)
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
@@ -159,7 +167,6 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     }
     
     func deregisterNotification() {
-        
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDisConnected)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDidConnected)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPLoginSuccess)
@@ -167,7 +174,6 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPHostFaile)
     }
-
     
     // MARK: - Handling event
     @IBAction func testConnectServer(sender: AnyObject) {
@@ -180,7 +186,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
             
             if crmCallSocket.isConnectedToHost == true {
-                crmCallSocket.requestLogin(withUserID: idTextField.stringValue, passwold: passworldTextField.stringValue, phone: phoneNumberTextField.stringValue, domain: hostTextField.stringValue)
+                crmCallSocket.loginRequest(withUserID: idTextField.stringValue, passwold: passworldTextField.stringValue, phone: phoneNumberTextField.stringValue, domain: hostTextField.stringValue)
                 
             } else {
                 println("Connect to server again.....")
@@ -194,8 +200,5 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         self.progressTestting.startAnimation(self)
         
         self.isTestAgian = false
-        
-        let defualts = NSUserDefaults.standardUserDefaults()
-        defualts.setObject("0", forKey: CRMCallConfig.SIPLoginResultKey)
     }
 }
