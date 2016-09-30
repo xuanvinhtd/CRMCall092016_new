@@ -11,6 +11,10 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    // MARK: - Properties
+    @IBOutlet weak var signInMenuItem: NSMenuItem!
+    @IBOutlet weak var signOutMenuItem: NSMenuItem!
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
         self.settingAppCall()
@@ -18,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Register push notification
         let type: NSRemoteNotificationType = [NSRemoteNotificationType.Alert,NSRemoteNotificationType.Badge, NSRemoteNotificationType.Sound]
         NSApp.registerForRemoteNotificationTypes(type)
-        // Insert code here to initialize your application
+        // Insert code here to initialize your application        
     }
     
     func settingAppCall() {
@@ -26,6 +30,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Cache.shareInstance
         // Init Sigleton App
         CRMCallManager.shareInstance
+        
+        for window in NSApp.windows{
+            if let w = window.windowController  {
+            CRMCallManager.shareInstance.screenManager["LoginWindowController"] = w
+            }
+        }
+        
         // Setting SIP
         if let _ = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult){
         } else {
@@ -51,10 +62,49 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
-
-    @IBAction func preferenceTouches(sender: AnyObject) {
+    
+    func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         
+        if !flag{
+            
+            for window in sender.windows{
+                if let w = window as NSWindow? {
+                    w.makeKeyAndOrderFront(self)
+                }
+            }
+        }
+        return true
     }
+    
+    // MARK: - Handling event menu
 
+    @IBAction func showSignInPage(sender: AnyObject) {
+        
+        if let loginWindowController = CRMCallManager.shareInstance.screenManager["LoginWindowController"] {
+            loginWindowController.showWindow(nil)
+        } else {
+            let loginWindowController = LoginWindowController.createInstance()
+            loginWindowController.showWindow(nil)
+            CRMCallManager.shareInstance.screenManager["LoginWindowController"] = loginWindowController
+        }
+    }
+    
+    @IBAction func showSignOutPage(sender: AnyObject) {
+        
+        CRMCallManager.shareInstance.isShowMainPage = false
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(0, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(MainViewController.Notification.ShowPageSigin, object: nil, userInfo: nil)
+    }
+    
+    @IBAction func showCRMCall(sender: AnyObject) {
+        for window in NSApp.windows{
+            if let w = window as NSWindow? {
+                w.makeKeyAndOrderFront(self)
+            }
+        }
+    }
+    
 }
 

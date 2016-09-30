@@ -15,12 +15,17 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     
     private var handlerNotificationRingIng: AnyObject!
     private var handlerNotificationShowPageRingIng: AnyObject!
+    private var handlerNotificationShowPageSigIn: AnyObject!
     
     private var missCallNumbers = 0
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
         return  CRMCallHelpers.storyBoard.instantiateControllerWithIdentifier("MainViewControllerID") as! MainViewController
+    }
+    
+    func initData() {
+        CRMCallManager.shareInstance.isShowMainPage = true
     }
     
     // MARK: - View Life cycle
@@ -31,13 +36,25 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         println("Init MainViewController Screen")
         registerNotification()
         
+        initData()
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.view.window?.title = "CRMCAll"
     }
     
     override func viewDidDisappear() {
-        deregisterNotification()
+        super.viewDidDisappear()
+        
+        CRMCallManager.shareInstance.deinitSocket()
     }
     
     // MARK: - Notification
+    struct Notification {
+        static let ShowPageSigin = "ShowPageSigin"
+    }
+    
     func registerNotification() {
         handlerNotificationRingIng = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RingIng, object: nil, queue: nil, usingBlock: { notification in
             
@@ -90,11 +107,21 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                 })
             }
         })
+        
+        handlerNotificationShowPageSigIn = NSNotificationCenter.defaultCenter().addObserverForName(MainViewController.Notification.ShowPageSigin, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            let loginViewController = LoginViewController.createInstance()
+            self.view.window?.contentViewController = loginViewController
+        })
+
     }
     
     func deregisterNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRingIng)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageRingIng)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageSigIn)
     }
     
 }

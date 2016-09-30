@@ -36,12 +36,33 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         return  CRMCallHelpers.storyBoard.instantiateControllerWithIdentifier("SettingViewControllerID") as! SettingViewController
     }
     
+    func initData() {
+        
+        // GET SETTING INFO
+        let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+        let hostSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
+        let idSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
+        let pwdSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+        
+        guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
+            println("Please, call setting and again. \nGo to Preferences...")
+            return
+        }
+        
+        hostTextField.stringValue = host
+        idTextField.stringValue = id
+        passworldTextField.stringValue = pwd
+        phoneNumberTextField.stringValue = phone
+    }
+    
     // MARK: - View Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         println("Init Screen SettingViewController")
+        
+        initData()
         
         registerNotification()
         
@@ -52,6 +73,15 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         }
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.view.window?.title = "Call Setting"
+        
+        if CRMCallManager.shareInstance.isShowLoginPage || CRMCallManager.shareInstance.isShowMainPage {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please Logout and close login windows", dismissText: "Cancel", completion: { result in })
+        }
+    }
+    
     override func viewDidDisappear() {
         // SAVE Info Setting
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -59,6 +89,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         defaults.setObject(idTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.IDSetting)
         defaults.setObject(passworldTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PasswordSetting)
         defaults.setObject(phoneNumberTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PhoneNumberSetting)
+        defaults.synchronize()
         
         deregisterNotification()
         self.liveTimer = nil
@@ -116,9 +147,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test success, can receive and call.", dismissText: "Cancel", completion: { result in })
-            
-            println("// SHOW MESSAGE TEST ---------------------------------->")
-            
+
             CRMCallManager.shareInstance.deinitSocket()
         })
         
@@ -178,6 +207,11 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     // MARK: - Handling event
     @IBAction func testConnectServer(sender: AnyObject) {
         
+        if CRMCallManager.shareInstance.isShowLoginPage || CRMCallManager.shareInstance.isShowMainPage {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please Logout and close login windows", dismissText: "Cancel", completion: { result in })
+            return
+        }
+
         if !isTestAgian {
             CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please wait a minute then check agian!", dismissText: "Cancel", completion: { result in })
             return

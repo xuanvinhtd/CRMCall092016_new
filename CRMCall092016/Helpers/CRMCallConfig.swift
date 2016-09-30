@@ -35,6 +35,10 @@ final class CRMCallConfig {
         static let IDSetting = "IDSetting"
         static let PasswordSetting = "PasswordSetting"
         static let PhoneNumberSetting = "PhoneNumberSetting"
+        
+        static let Domain = "Domain"
+        static let UserID = "UserID"
+        static let PasswordUser = "PasswordUser"
     }
     
     // MARK: Tab
@@ -49,6 +53,8 @@ final class CRMCallConfig {
         static let SocketDidConnected = "CRMCallConfig.Notification.SocketDidConnected"
         static let SocketDisConnected = "CRMCallConfig.Notification.SocketDisConnected"
         static let RecivedServerInfor = "CRMCallConfig.Notification.RecivedServerInfor"
+        static let LoginSuccessSocket = "CRMCallConfig.Notification.LoginSuccessSocket"
+        static let LoginFailSocket    = "CRMCallConfig.Notification.LoginFailSocket"
         
         static let LiveServer = "CRMCallConfig.Notification.LiveServer"
         

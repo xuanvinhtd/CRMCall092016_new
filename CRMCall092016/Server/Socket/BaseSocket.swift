@@ -109,9 +109,7 @@ class BaseSocket: NSObject {
             SWXMLHashManager.parseXMLToDictionary(withXML: xml, Completion: { result, typeData in
                 
                 if typeData == CRMCallHelpers.TypeData.ServerInfo {
-                    
-                    println("---------> Data server infor: \n\(result)")
-                    
+                                    
                     if let port = result["PORT"], host = result["IP"] {
                         self.port = UInt16(port)!
                         self.host = host
@@ -203,36 +201,30 @@ extension BaseSocket: GCDAsyncSocketDelegate {
     private func cacheData(with xmlData: String) {
         SWXMLHashManager.parseXMLToDictionary(withXML: xmlData, Completion: { result, typeData in
             
-            if typeData == CRMCallHelpers.TypeData.UserLogout {
+            if typeData == .UserLogout {
                 
-                println("---------> Data logout user : \n\(result)")
-                NSNotificationCenter.defaultCenter().postNotificationName(ViewController.Notification.LogoutSuccess, object: nil, userInfo: nil) //DEMO VINH
-                
-                //DEMO VINH SHOW CACHE
-                dispatch_async(dispatch_get_main_queue(), {
-                    if let info = Cache.shareInstance.getCustomerInfo() {
-                        println("======> CustomerInfo:\n \(info.first)")
-                    } else {
-                        println("======> CustomerInfo: NULL")
-                    }
-                })
-                
+                NSNotificationCenter.defaultCenter().postNotificationName(LoginViewController.Notification.LogoutSuccess, object: nil, userInfo: nil)
             }
             
             if typeData == .UserLogin {
                 
+                if result["RESULT"] == "1" {
+                    NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LiveServer, object: nil, userInfo: nil)
+                    NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LoginSuccessSocket, object: nil, userInfo: nil)
+                    
+                    // CACHES USER DATA
+                    dispatch_async(dispatch_get_main_queue(), {
+                        Cache.shareInstance.userInfo(with: result)
+                    })
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LoginFailSocket, object: nil, userInfo: nil)
+                }
+            
                 if result["RESULT"] == "2" {
                     NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
                     
                 } else if result["RESULT"] == "3" {
                     NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPHostFaile, object: nil, userInfo: nil)
-                    
-                } else {
-                    NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LiveServer, object: nil, userInfo: nil)
-                    // CACHES USER DATA
-                    dispatch_async(dispatch_get_main_queue(), {
-                        Cache.shareInstance.userInfo(with: result)
-                    })
                 }
             }
             

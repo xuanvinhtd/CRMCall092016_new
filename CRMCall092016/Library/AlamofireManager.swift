@@ -16,8 +16,6 @@ final class AlamofireManager {
         Alamofire.request(.GET, url)
             .responseString { response in
                 
-                println("\(response)")
-                
                 guard let Completion = completion else {
                     fatalError("Not found Closure completion")
                 }
@@ -89,7 +87,7 @@ final class AlamofireManager {
                 
                 guard let rs = result else {
                     println("Data from Server = nil")
-                    completion(data: ["msg":"Data get from server nil"],success: false)
+                    completion(data: ["msg":"Please check login info again"],success: false)
                     return
                 }
                 

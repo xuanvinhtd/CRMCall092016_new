@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import Cocoa
 
 final class CRMCallManager {
     // MARK: Properties
     static let shareInstance = CRMCallManager()
+    
+    var screenManager: [String: NSWindowController] = [:]
     
     var crmCallSocket: CRMCallSocket?
     
@@ -18,7 +21,11 @@ final class CRMCallManager {
     
     var session_gw = ""
     var session_key = ""
-    var isLoginSuccess = false
+    var isUserLoginSuccess = false
+    var isSocketLoginSuccess = false
+    
+    var isShowLoginPage = false
+    var isShowMainPage = false
     
     // MARK: Initialzation
     
@@ -40,6 +47,11 @@ final class CRMCallManager {
             crmCallSocket!.deInit()
             crmCallSocket = nil
         }
+        
+        session_gw = ""
+        session_key = ""
+        isUserLoginSuccess = false
+        isSocketLoginSuccess = false
     }
     
 }

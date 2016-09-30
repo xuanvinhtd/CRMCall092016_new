@@ -36,6 +36,7 @@
 		92E3E3311D800947008033ED /* CRMCallConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3301D800947008033ED /* CRMCallConfig.swift */; };
 		92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3321D800C8B008033ED /* BaseSocket.swift */; };
 		92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E3E3341D8011FC008033ED /* CRMCallLog.swift */; };
+		92EA40EE1D9CEFF800C85D9A /* LoginWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA40ED1D9CEFF800C85D9A /* LoginWindowController.swift */; };
 		92F3C8171D9236CE00FBCD9A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F3C8161D9236CE00FBCD9A /* SettingViewController.swift */; };
 		A786E68B3F379810ED36B746 /* Pods_CRMCall092016.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2F9C69A515659B29DDA8FF /* Pods_CRMCall092016.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		92E3E3301D800947008033ED /* CRMCallConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallConfig.swift; sourceTree = "<group>"; };
 		92E3E3321D800C8B008033ED /* BaseSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseSocket.swift; sourceTree = "<group>"; };
 		92E3E3341D8011FC008033ED /* CRMCallLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallLog.swift; sourceTree = "<group>"; };
+		92EA40ED1D9CEFF800C85D9A /* LoginWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginWindowController.swift; sourceTree = "<group>"; };
 		92F3C8161D9236CE00FBCD9A /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +162,8 @@
 		92E3E3111D8004C3008033ED /* CRMCall092016 */ = {
 			isa = PBXGroup;
 			children = (
+				92E3E32A1D80060F008033ED /* ViewControllers */,
+				92EA40EC1D9CEF8200C85D9A /* WindowController */,
 				925861141D94DF9B00521D7D /* Extension */,
 				92E3E31B1D8004C3008033ED /* Info.plist */,
 				92B0F0491D88F05800C70BC3 /* Caches */,
@@ -167,7 +171,6 @@
 				92E3E3211D8004F4008033ED /* Helpers */,
 				92E3E32C1D80066C008033ED /* Library */,
 				92E3E32B1D80063C008033ED /* Server */,
-				92E3E32A1D80060F008033ED /* ViewControllers */,
 				92E3E3121D8004C3008033ED /* AppDelegate.swift */,
 				92E3E3141D8004C3008033ED /* ViewController.swift */,
 				92E3E3161D8004C3008033ED /* Assets.xcassets */,
@@ -239,6 +242,14 @@
 				9228402F1D865A720059A0D7 /* CRMCallSocket.swift */,
 			);
 			path = Socket;
+			sourceTree = "<group>";
+		};
+		92EA40EC1D9CEF8200C85D9A /* WindowController */ = {
+			isa = PBXGroup;
+			children = (
+				92EA40ED1D9CEFF800C85D9A /* LoginWindowController.swift */,
+			);
+			path = WindowController;
 			sourceTree = "<group>";
 		};
 		B90B80225EDE160752F141DD /* Frameworks */ = {
@@ -404,6 +415,7 @@
 				9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */,
 				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
+				92EA40EE1D9CEFF800C85D9A /* LoginWindowController.swift in Sources */,
 				925861191D94E12900521D7D /* RingIngViewController.swift in Sources */,
 				9258611B1D94FE7C00521D7D /* ViewControllerProtocol.swift in Sources */,
 				92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */,

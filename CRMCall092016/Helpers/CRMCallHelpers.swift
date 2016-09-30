@@ -12,6 +12,7 @@ import Cocoa
 final class CRMCallHelpers {
     
     static let storyBoard = NSStoryboard.init(name: "Main", bundle: nil)
+    static let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
     
     enum TypeData {
         case UserLogin

@@ -18,14 +18,17 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var isSaveIDCheckBox: NSButton!
     @IBOutlet weak var isAutoLoginCheckBox: NSButton!
     @IBOutlet weak var btnLogin: NSButton!
+    @IBOutlet weak var progressLogin: NSProgressIndicator!
     
     private var handlerNotificationSocketDisConnected: AnyObject!
     private var handlerNotificationSocketDidConnected: AnyObject!
-    private var handlerNotificationSIPLoginSuccess: AnyObject!
-    private var handlerNotificationSIPLoginFaile: AnyObject!
-    private var handlerNotificationSIPHostFaile: AnyObject!
+    private var handlerNotificationSocketLoginSuccess: AnyObject!
+    private var handlerNotificationSocketLoginFail: AnyObject!
+    private var handlerNotificationLogoutSuccess: AnyObject!
+    private var handlerNotificationRevicedServerInfor: AnyObject!
     
-    let mainViewController = MainViewController.createInstance()
+    private var flatDisconnect = false
+    private var flatRegisterNotification = false
     
     // MARK: - Intialzation
     static func createInstance() -> NSViewController {
@@ -33,19 +36,20 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     }
     
     func initData() {
+
+        CRMCallManager.shareInstance.isShowLoginPage = true
         
         let defaults = NSUserDefaults.standardUserDefaults()
         if let isSaveID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SaveID) as? Int {
             if isSaveID == 1 {
                 
-                isSaveIDCheckBox.state = 1
+                let domain = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.Domain) as? String
+                let userID = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.UserID) as? String
                 
-                let hostSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-                let idSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-                
-                self.domainTextField.stringValue = hostSetting ?? ""
-                self.userIDTextField.stringValue = idSetting ?? ""
+                self.domainTextField.stringValue = domain ?? ""
+                self.userIDTextField.stringValue = userID ?? ""
             }
+            isSaveIDCheckBox.state = isSaveID
         } else {
             defaults.setObject(isSaveIDCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.SaveID)
         }
@@ -53,10 +57,18 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         if let isAutoLogin = defaults.objectForKey(CRMCallConfig.UserDefaultKey.AutoLogin) as? Int {
             if isAutoLogin == 1 {
                 
-                isAutoLoginCheckBox.state = 1
+                let domain = defaults.objectForKey(CRMCallConfig.UserDefaultKey.Domain) as? String
+                let user = defaults.objectForKey(CRMCallConfig.UserDefaultKey.UserID) as? String
+                let password = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordUser) as? String
+                
+                self.passwordTextField.stringValue = password ?? ""
+                self.domainTextField.stringValue = domain ?? ""
+                self.userIDTextField.stringValue = user ?? ""
                 
                 actionLogin("")
+                showAndStartProgress(true)
             }
+            isAutoLoginCheckBox.state = isAutoLogin
         } else {
             defaults.setObject(isAutoLoginCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
         }
@@ -72,12 +84,29 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         initData()
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.view.window?.title = "Login"
+        
+        if !flatRegisterNotification {
+            flatDisconnect = true
+            CRMCallManager.shareInstance.isShowLoginPage = true
+            registerNotification()
+        }
+    }
+    
     override func viewDidDisappear() {
         self.deregisterNotification()
+        
+        CRMCallManager.shareInstance.isShowLoginPage = false
         
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(isSaveIDCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.SaveID)
         defaults.setObject(isAutoLoginCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
+        
+        defaults.setObject(domainTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.Domain)
+        defaults.setObject(userIDTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.UserID)
+        defaults.setObject(passwordTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PasswordUser)
         defaults.synchronize()
     }
     
@@ -89,12 +118,14 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     }
     
     func registerNotification() {
+        
         handlerNotificationSocketDisConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDisConnected, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
                 crmCallSocket.logoutRequest()
+                crmCallSocket.stopLiveTimer()
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
@@ -102,11 +133,18 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             if NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) != "1" {
                 self.showMessageSetting()
             }
+            self.showAndStartProgress(false)
+            
+            self.flatDisconnect = true
         })
         
         handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            if self.isAutoLoginCheckBox.state != 1 && !self.flatDisconnect { // USING FOR AUTO LOGIN
+                return
+            }
             
             // GET SETTING INFO
             let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
@@ -124,39 +162,67 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
+            
+            self.flatDisconnect = false
         })
         
-        handlerNotificationSIPLoginSuccess = NSNotificationCenter.defaultCenter().addObserverForName(SettingViewController.Notification.SIPLoginSuccess, object: nil, queue: nil, usingBlock: { notification in
+        handlerNotificationSocketLoginSuccess = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.LoginSuccessSocket, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            CRMCallManager.shareInstance.isSocketLoginSuccess = true
             self.crmServerLogin()
         })
         
-        handlerNotificationSIPLoginFaile = NSNotificationCenter.defaultCenter().addObserverForName(SettingViewController.Notification.SIPLoginFaile, object: nil, queue: nil, usingBlock: { notification in
+        handlerNotificationSocketLoginFail = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.LoginFailSocket, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
+            CRMCallManager.shareInstance.isSocketLoginSuccess = false
+            CRMCallManager.shareInstance.deinitSocket()
+            self.showAndStartProgress(false)
             self.showMessageSetting()
+        })
+
+        handlerNotificationLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            CRMCallManager.shareInstance.isSocketLoginSuccess = false
+            
+            CRMCallManager.shareInstance.deinitSocket()
+            self.showAndStartProgress(false)
         })
         
-        handlerNotificationSIPHostFaile = NSNotificationCenter.defaultCenter().addObserverForName(SettingViewController.Notification.SIPHostFaile, object: nil, queue: nil, usingBlock: { notification in
+        handlerNotificationRevicedServerInfor = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            self.showMessageSetting()
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                crmCallSocket.connect()
+            } else {
+                println("CRMCallManager.shareInstance.crmCallSocket = nil")
+            }
         })
+        
+        flatRegisterNotification = true
     }
     
     func deregisterNotification() {
+        
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDisConnected)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDidConnected)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPLoginSuccess)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPLoginFaile)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSIPHostFaile)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLoginSuccess)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLoginFail)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationLogoutSuccess)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
+        
+        flatRegisterNotification = false
     }
     
     // MARK: - Handling event
     @IBAction func actionLogin(sender: AnyObject) {
+
+        showAndStartProgress(true)
         
         //GET SETTING INFO
         let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
@@ -169,20 +235,25 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             return
         }
         
-        // SIPLOGIN
-        if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-            
-            if crmCallSocket.isConnectedToHost == true {
-                crmCallSocket.loginRequest(withUserID: id, passwold: pwd, phone: phone, domain: host)
+        if CRMCallManager.shareInstance.isSocketLoginSuccess == false {
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {  // SIPLOGIN
                 
+                if crmCallSocket.isConnectedToHost == true {
+                    crmCallSocket.loginRequest(withUserID: id, passwold: pwd, phone: phone, domain: host)
+                    
+                } else {
+                    println("Connect to server again.....")
+                    crmCallSocket.connect()
+                }
             } else {
-                println("Connect to server again.....")
-                crmCallSocket.connect()
+                CRMCallManager.shareInstance.initSocket()
             }
         } else {
-            CRMCallManager.shareInstance.initSocket()
+            crmServerLogin()
         }
     }
+    
+    
     
     // MARK: - Other func
     
@@ -200,29 +271,37 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
                     return
                 }
                 
-                CRMCallManager.shareInstance.isLoginSuccess = true
+                CRMCallManager.shareInstance.isUserLoginSuccess = true
                 
                 CRMCallManager.shareInstance.session_gw = data["session_gw"] as! String
                 CRMCallManager.shareInstance.session_key = data["session_key"] as! String
                 
-                self.view.window?.contentViewController = self.mainViewController
+                let mainViewController = MainViewController.createInstance()
+                self.view.window?.contentViewController = mainViewController
             } else {
-                CRMCallManager.shareInstance.isLoginSuccess = false
+                CRMCallManager.shareInstance.isUserLoginSuccess = false
                 
-                if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-                    crmCallSocket.logoutRequest()
-                    crmCallSocket.stopLiveTimer()
-                } else {
-                    println("CRMCallManager.shareInstance.crmCallSocket = nil")
-                }
-
-                CRMCallAlert.showNSAlert(with: NSAlertStyle.WarningAlertStyle, title: "Notification", messageText: datas["msg"] as! String, dismissText: "Yes", completion: nil)
+                self.showAndStartProgress(false)
+                
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: datas["msg"] as! String, dismissText: "Cancel", completion: { result in })
             }
         }
     }
     
     private func showMessageSetting() {
-        CRMCallAlert.showNSAlert(with: NSAlertStyle.WarningAlertStyle, title: "Notification", messageText: "Please, call setting and again. \nGo to Preferences...", dismissText: "Yes", completion: nil)
+        CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please, call setting and again. \nGo to Preferences...", dismissText: "Cancel", completion: { result in })
+    }
+    
+    private func showAndStartProgress(state: Bool) {
+        dispatch_async(dispatch_get_main_queue()) {
+            if state {
+                self.progressLogin.hidden = !state
+                self.progressLogin.startAnimation(self)
+            } else {
+                self.progressLogin.hidden = !state
+                self.progressLogin.stopAnimation(self)
+            }
+        }
     }
     
 }

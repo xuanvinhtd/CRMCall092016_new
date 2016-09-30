@@ -9,7 +9,7 @@
         <scene sceneID="JPo-4y-FX3">
             <objects>
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
-                    <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
+                    <menu key="mainMenu" title="Main Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6">
                         <items>
                             <menuItem title="CRMCall092016" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -24,7 +24,6 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
-                                                <action selector="preferenceTouches:" target="Voe-Tx-rLC" id="tIF-i9-zzC"/>
                                                 <segue destination="Vsp-GR-UGn" kind="show" id="AJr-Vt-3mQ"/>
                                             </connections>
                                         </menuItem>
@@ -64,61 +63,14 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
+                                        <menuItem title="Sign In" keyEquivalent="i" id="DVo-aG-piG">
                                             <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
+                                                <action selector="showSignInPage:" target="Voe-Tx-rLC" id="ylT-Iy-50p"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
+                                        <menuItem title="Sign Out" keyEquivalent="o" id="Cx0-RG-Xad">
                                             <connections>
-                                                <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Open Recent" id="tXI-mr-wws">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oas-Oc-fiZ">
-                                                <items>
-                                                    <menuItem title="Clear Menu" id="vNY-rz-j42">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="clearRecentDocuments:" target="Ady-hI-5gd" id="Daa-9d-B3U"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
-                                        <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
-                                            <connections>
-                                                <action selector="performClose:" target="Ady-hI-5gd" id="HmO-Ls-i7Q"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
-                                            <connections>
-                                                <action selector="saveDocument:" target="Ady-hI-5gd" id="teZ-XB-qJY"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
-                                            <connections>
-                                                <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="mDf-zr-I0C"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Revert to Saved" id="KaW-ft-85H">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
-                                        <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="runPageLayout:" target="Ady-hI-5gd" id="Din-rz-gC5"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
-                                            <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
+                                                <action selector="showSignOutPage:" target="Voe-Tx-rLC" id="Rlb-9h-0at"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -619,6 +571,12 @@
                                                 <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Show CRMCall" id="339-nh-6sC">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showCRMCall:" target="Voe-Tx-rLC" id="2cg-Gg-dQf"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="eu3-7i-yIM"/>
                                         <menuItem title="Bring All to Front" id="LE2-aR-0XJ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -647,7 +605,12 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CRMCall092016" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CRMCall092016" customModuleProvider="target">
+                    <connections>
+                        <outlet property="signInMenuItem" destination="DVo-aG-piG" id="QNh-ep-UA5"/>
+                        <outlet property="signOutMenuItem" destination="Cx0-RG-Xad" id="3dr-Bs-S2N"/>
+                    </connections>
+                </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="646.5" y="-120"/>
@@ -686,7 +649,7 @@
                 </windowController>
                 <customObject id="MoE-qL-7ae" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="647" y="250"/>
+            <point key="canvasLocation" x="431" y="197"/>
         </scene>
         <!--Ring Ing View Controller-->
         <scene sceneID="nAx-cT-EMB">
@@ -763,7 +726,7 @@
         <!--Window Controller-->
         <scene sceneID="gWG-NH-2Gn">
             <objects>
-                <windowController id="Kc0-sG-2So" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="LoginWindowControllerID" showSeguePresentationStyle="single" id="Kc0-sG-2So" customClass="LoginWindowController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="cU2-J3-yvm">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -776,12 +739,12 @@
                 </windowController>
                 <customObject id="iQ3-ST-QdP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1912" y="-484"/>
+            <point key="canvasLocation" x="1191" y="191"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Login-->
         <scene sceneID="tai-gM-Itg">
             <objects>
-                <viewController storyboardIdentifier="LoginViewControllerID" showSeguePresentationStyle="single" id="h5H-Ex-vAe" customClass="LoginViewController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Login" storyboardIdentifier="LoginViewControllerID" showSeguePresentationStyle="single" id="h5H-Ex-vAe" customClass="LoginViewController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Db9-8L-EMV">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -837,6 +800,9 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="GVd-NY-dTO">
+                                <rect key="frame" x="366" y="75" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fd1-6n-0Nu" secondAttribute="trailing" constant="20" id="0Oo-7M-zjm"/>
@@ -845,10 +811,12 @@
                             <constraint firstItem="xnS-Y4-FV8" firstAttribute="top" secondItem="7VN-Ar-xgj" secondAttribute="bottom" constant="15" id="9Ob-Bn-rPA"/>
                             <constraint firstItem="fd1-6n-0Nu" firstAttribute="leading" secondItem="Db9-8L-EMV" secondAttribute="leading" constant="20" id="Ipq-MP-ILd"/>
                             <constraint firstItem="CUa-ig-mb3" firstAttribute="top" secondItem="fd1-6n-0Nu" secondAttribute="bottom" constant="16" id="Vgr-tg-k36"/>
+                            <constraint firstItem="xnS-Y4-FV8" firstAttribute="leading" secondItem="GVd-NY-dTO" secondAttribute="trailing" constant="16" id="bfT-9A-aOF"/>
                             <constraint firstItem="SBo-2J-erN" firstAttribute="top" secondItem="7VN-Ar-xgj" secondAttribute="bottom" constant="15" id="cBy-fn-lzW"/>
                             <constraint firstItem="7VN-Ar-xgj" firstAttribute="top" secondItem="CUa-ig-mb3" secondAttribute="bottom" constant="16" id="cbw-z2-0KG"/>
                             <constraint firstAttribute="trailing" secondItem="CUa-ig-mb3" secondAttribute="trailing" constant="20" id="eLG-QL-dJ9"/>
                             <constraint firstAttribute="trailing" secondItem="7VN-Ar-xgj" secondAttribute="trailing" constant="20" id="lo4-d8-5AJ"/>
+                            <constraint firstItem="GVd-NY-dTO" firstAttribute="top" secondItem="7VN-Ar-xgj" secondAttribute="bottom" constant="18" id="mP8-n1-tU9"/>
                             <constraint firstItem="fd1-6n-0Nu" firstAttribute="top" secondItem="Db9-8L-EMV" secondAttribute="top" constant="63" id="n5o-xK-984"/>
                             <constraint firstAttribute="trailing" secondItem="xnS-Y4-FV8" secondAttribute="trailing" constant="20" id="oPU-Md-1hc"/>
                             <constraint firstItem="GaC-Q3-mwx" firstAttribute="top" secondItem="7VN-Ar-xgj" secondAttribute="bottom" constant="15" id="ruc-R3-u3Y"/>
@@ -862,12 +830,13 @@
                         <outlet property="isAutoLoginCheckBox" destination="SBo-2J-erN" id="e3A-wO-2Bw"/>
                         <outlet property="isSaveIDCheckBox" destination="GaC-Q3-mwx" id="PsX-9m-oyC"/>
                         <outlet property="passwordTextField" destination="7VN-Ar-xgj" id="Yr6-o6-TYR"/>
+                        <outlet property="progressLogin" destination="GVd-NY-dTO" id="1rt-RV-dd1"/>
                         <outlet property="userIDTextField" destination="CUa-ig-mb3" id="CGK-hn-o1o"/>
                     </connections>
                 </viewController>
                 <customObject id="sBY-lF-nIr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1912" y="-9"/>
+            <point key="canvasLocation" x="1846" y="148"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="mZb-dv-fqY">
@@ -1048,7 +1017,7 @@
                 </viewController>
                 <customObject id="IIm-HZ-rX2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="647" y="678"/>
+            <point key="canvasLocation" x="431" y="684"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
