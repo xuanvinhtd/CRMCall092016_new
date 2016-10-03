@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Cocoa
 import RealmSwift
 
 class Cache {
@@ -14,15 +15,10 @@ class Cache {
     // MARK: - Initialzetion
     static let shareInstance = Cache()
     
-    private var realm: Realm?
+    let realmQueue = dispatch_queue_create("CRMCall.Realm", nil)
     
     init() {
         setupConfig()
-        do {
-            realm = try Realm()
-        } catch let error {
-            println("Cannot init Realm with error: \(error)")
-        }
     }
     
     private func setupConfig() {
@@ -45,13 +41,8 @@ class Cache {
     }
     
     // MARK: - USERINFO
-
+    
     func userInfo(with info: [String: String]) {
-        
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return
-        }
         
         let userInfo = Customer()
         
@@ -103,56 +94,73 @@ class Cache {
             userInfo.cachePurpose = "None"
         }
         
-        if !realm.refresh() {
+        dispatch_async(realmQueue) {
             do {
-                let _ = try realm.write {
-                    realm.add(userInfo, update: true)
+                let realm = try Realm()
+                
+                if !realm.refresh() {
+                    do {
+                        let _ = try realm.write {
+                            realm.add(userInfo, update: true)
+                        }
+                    } catch let e {
+                        println("Insert User with Error: \(e)")
+                    }
                 }
-            } catch let e {
-                println("Insert User with Error: \(e)")
+                
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
             }
         }
+        
     }
     
     func getUserInfo() -> Results<Customer>? {
         
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return nil
+        var realm: Realm?
+        var result: Results<Customer>?
+
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                result = realm!.objects(Customer.self)
+                
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
         }
         
-        return realm.objects(Customer.self)
+        return result
     }
     
     func cleanInfoUser() {
-        
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return
-        }
         
         guard let userInfo = getUserInfo() else {
             println("Cannot clean caches infor user")
             return
         }
         
-        do {
-            try realm.write{
-                realm.delete(userInfo)
+        dispatch_async(realmQueue) {
+            do {
+                let realm = try Realm()
+                
+                do {
+                    try realm.write{
+                        realm.delete(userInfo)
+                    }
+                } catch let error {
+                    println("clean User info with error: \(error)")
+                }
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
             }
-        } catch let error {
-            println("clean User info with error: \(error)")
         }
     }
     
     // MARK: - CUSTOMER
     
     func customerInfo(with info: [String: String], staffList: List<Staff>?, productList: List<Product>?) {
-        
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return
-        }
         
         let customerInfo = UserInfo()
         
@@ -221,74 +229,100 @@ class Cache {
         } else {
             customerInfo.rating = "none rating"
         }
-
+        
         if let type = info["TYPE"] as String? {
             customerInfo.rating = type
         } else {
             customerInfo.rating = "none type"
         }
         
-        if let productList = productList {
-            for customer in productList {
+        if productList != nil {
+            for customer in productList! {
                 customerInfo.products.append(customer)
             }
         }
         
-        if let staffList = staffList {
-            for staff in staffList {
+        if staffList != nil {
+            for staff in staffList! {
                 customerInfo.staffs.append(staff)
             }
         }
-
-        if !realm.refresh() {
+        
+        dispatch_async(realmQueue) {
             do {
-                let _ = try realm.write {
-                    realm.add(customerInfo, update: true)
+                let realm = try Realm()
+                
+                if !realm.refresh() {
+                    do {
+                        let _ = try realm.write {
+                            realm.add(customerInfo, update: true)
+                        }
+                    } catch let e {
+                        println("Insert customer info with Error: \(e)")
+                    }
                 }
-            } catch let e {
-                println("Insert customer info with Error: \(e)")
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
             }
         }
     }
     
     func getCustomerInfo() -> Results<UserInfo>? {
         
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return nil
+        var realm: Realm?
+        var result: Results<UserInfo>?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                result = realm!.objects(UserInfo.self)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
         }
         
-        return realm.objects(UserInfo.self)
+        return result
     }
     
-    func getCustomerInfo(with predicate: NSPredicate) -> Results<UserInfo>? {
+    func getCustomerInfo(with predicate: NSPredicate, Result: ((Results<UserInfo>?) ->Void)){
         
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return nil
+        var realm: Realm?
+        var data: Results<UserInfo>?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                data = realm!.objects(UserInfo.self).filter(predicate)
+                Result(data)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
         }
-        
-        return realm.objects(UserInfo.self).filter(predicate)
     }
     
     func cleanCustomerInfo() {
-        
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return
-        }
-        
+
         guard let userInfo = getCustomerInfo() else {
             println("Cannot clean caches customer info")
             return
         }
         
-        do {
-            try realm.write{
-                realm.delete(userInfo)
+        dispatch_async(realmQueue) {
+            do {
+                let realm = try Realm()
+                
+                do {
+                    try realm.write{
+                        realm.delete(userInfo)
+                    }
+                } catch let error {
+                    println("clean customers info with error: \(error)")
+                }
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
             }
-        } catch let error {
-            println("clean customers info with error: \(error)")
         }
     }
     
@@ -297,14 +331,9 @@ class Cache {
     
     
     // MARK: - PRODUCT
-
+    
     // MARK: - RINGING
     func ringInfo(with info: [String: String]) {
-        
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return
-        }
         
         let ringInfo = RingIng()
         
@@ -344,25 +373,56 @@ class Cache {
             ringInfo.direction = "INBOUND"
         }
         
-        if !realm.refresh() {
+        dispatch_async(realmQueue) {
             do {
-                let _ = try realm.write {
-                    realm.add(ringInfo, update: true)
+                let realm = try Realm()
+                
+                if !realm.refresh() {
+                    do {
+                        let _ = try realm.write {
+                            realm.add(ringInfo, update: true)
+                        }
+                    } catch let e {
+                        println("Insert ringInfo with Error: \(e)")
+                    }
                 }
-            } catch let e {
-                println("Insert ringInfo with Error: \(e)")
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
             }
         }
     }
     
-    func getRingInfo() -> Results<RingIng>? {
+    func getRingInfo(Result: ((Results<RingIng>?)->Void)) {
         
-        guard let realm = self.realm else {
-            println("Cannot init Realm")
-            return nil
+        var realm: Realm?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                let data = realm!.objects(RingIng.self)
+                Result(data)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
+        }
+    }
+    
+    func getRingInfo(with predicate: NSPredicate) -> Results<RingIng>? {
+        
+        var realm: Realm?
+        var result: Results<RingIng>?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                result = realm!.objects(RingIng.self).filter(predicate)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
         }
         
-        return realm.objects(RingIng.self)
+        return result
     }
-
 }

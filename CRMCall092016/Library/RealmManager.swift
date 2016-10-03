@@ -33,7 +33,7 @@ final class RealmManager {
         Realm.Configuration.defaultConfiguration = config
     }
     
-    // MARK: Caches data
+    // MARK: Caches USER INFO
     
     static func cacheUserInfo(with info: [String: String]) {
         do {

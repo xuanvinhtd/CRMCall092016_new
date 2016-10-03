@@ -20,14 +20,16 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var btnLogin: NSButton!
     @IBOutlet weak var progressLogin: NSProgressIndicator!
     
+    
+    
     private var handlerNotificationSocketDisConnected: AnyObject!
     private var handlerNotificationSocketDidConnected: AnyObject!
     private var handlerNotificationSocketLoginSuccess: AnyObject!
     private var handlerNotificationSocketLoginFail: AnyObject!
-    private var handlerNotificationLogoutSuccess: AnyObject!
+    private var handlerNotificationSocketLogoutSuccess: AnyObject!
     private var handlerNotificationRevicedServerInfor: AnyObject!
     
-    private var flatDisconnect = false
+    var flatDisconnect = false
     private var flatRegisterNotification = false
     
     // MARK: - Intialzation
@@ -110,6 +112,10 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         defaults.synchronize()
     }
     
+    deinit {
+        deregisterNotification()
+    }
+    
     // MARK: - Notification
     struct Notification {
         static let LoginSuccess = "LoginSuccessNotification"
@@ -183,7 +189,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             self.showMessageSetting()
         })
 
-        handlerNotificationLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
+        handlerNotificationSocketLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
@@ -213,7 +219,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDidConnected)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLoginSuccess)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLoginFail)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationLogoutSuccess)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
         
         flatRegisterNotification = false
@@ -252,8 +258,6 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             crmServerLogin()
         }
     }
-    
-    
     
     // MARK: - Other func
     
@@ -295,9 +299,11 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     private func showAndStartProgress(state: Bool) {
         dispatch_async(dispatch_get_main_queue()) {
             if state {
+                self.btnLogin.enabled = !state
                 self.progressLogin.hidden = !state
                 self.progressLogin.startAnimation(self)
             } else {
+                self.btnLogin.enabled = !state
                 self.progressLogin.hidden = !state
                 self.progressLogin.stopAnimation(self)
             }

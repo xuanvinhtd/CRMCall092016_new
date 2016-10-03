@@ -16,6 +16,13 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     private var handlerNotificationRingIng: AnyObject!
     private var handlerNotificationShowPageRingIng: AnyObject!
     private var handlerNotificationShowPageSigIn: AnyObject!
+    private var handlerNotificationSocketDisConnected: AnyObject!
+    private var handlerNotificationSocketLogoutSuccess: AnyObject!
+    
+    
+    @IBOutlet weak var lastPhoneCombobox: NSPopUpButtonCell!
+    @IBOutlet weak var searchButton: NSButton!
+    
     
     private var missCallNumbers = 0
     
@@ -26,6 +33,8 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     
     func initData() {
         CRMCallManager.shareInstance.isShowMainPage = true
+        
+        loadDataCombobox()
     }
     
     // MARK: - View Life cycle
@@ -47,7 +56,10 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     override func viewDidDisappear() {
         super.viewDidDisappear()
         
-        CRMCallManager.shareInstance.deinitSocket()
+    }
+    
+    deinit {
+        deregisterNotification()
     }
     
     // MARK: - Notification
@@ -56,6 +68,18 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     }
     
     func registerNotification() {
+        handlerNotificationSocketDisConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDisConnected, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            println("----------------xxxxx--DISCONNECT SOCKET TO SERVER--xxxxx--------------------")
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                crmCallSocket.logoutRequest()
+                crmCallSocket.stopLiveTimer()
+            } else {
+                println("CRMCallManager.shareInstance.crmCallSocket = nil")
+            }
+        })
+        
         handlerNotificationRingIng = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RingIng, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
@@ -79,13 +103,15 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                 self.missCallNumbers += 1
                 self.missCallNumber.stringValue = String(self.missCallNumbers)
                 
+                self.loadDataCombobox()
+                
                 CRMCallManager.shareInstance.myCurrentStatus = .None
                 
                 if let viewControllerArr = self.presentedViewControllers {
                     for viewController: NSViewController in viewControllerArr {
                         if viewController.isKindOfClass(RingIngViewController) {
                             dispatch_async(dispatch_get_main_queue(), {
-                            self.dismissViewController(viewController)
+                                self.dismissViewController(viewController)
                             })
                         }
                     }
@@ -112,16 +138,63 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            let loginViewController = LoginViewController.createInstance()
+            self.deregisterNotification()
+            
+            let loginViewController = LoginViewController.createInstance() as! LoginViewController
+            loginViewController.flatDisconnect = true
             self.view.window?.contentViewController = loginViewController
         })
-
+        
+        handlerNotificationSocketLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            CRMCallManager.shareInstance.isSocketLoginSuccess = false
+            CRMCallManager.shareInstance.deinitSocket()
+            
+            println("----------------xxxx---RECONNET SOCKET TO SERVER---xxxx------------")
+            CRMCallHelpers.reconnectToSocket()
+        })
     }
     
     func deregisterNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDisConnected)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRingIng)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageRingIng)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageSigIn)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
+    }
+    
+    // MARK: - Handling event
+    
+    @IBAction func acctionSearch(sender: AnyObject) {
+        dispatch_async(dispatch_get_main_queue(), {
+            let ringViewController = RingIngViewController.createInstance()
+            self.presentViewControllerAsModalWindow(ringViewController)
+        })
+    }
+    
+    // MARK: - Private func
+    private func loadDataCombobox() {
+        Cache.shareInstance.getRingInfo { data in
+            guard let _data = data else {
+                println("Not found data Ring info")
+                return
+            }
+            
+            if let ringList = _data.valueForKeyPath("from") as! NSArray? {
+                
+                var mySet = Set<String>()
+                mySet.unionInPlace(ringList.map { $0 as! String })
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    for ring in mySet {
+                        self.lastPhoneCombobox.addItemWithTitle(ring)
+                    }
+                })
+            }
+            
+        }
     }
     
 }

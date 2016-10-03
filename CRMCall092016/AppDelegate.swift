@@ -91,6 +91,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBAction func showSignOutPage(sender: AnyObject) {
         
+        CRMCallManager.shareInstance.deinitSocket()
+        
         CRMCallManager.shareInstance.isShowMainPage = false
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(0, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)

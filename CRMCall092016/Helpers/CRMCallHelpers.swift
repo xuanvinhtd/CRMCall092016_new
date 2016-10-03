@@ -56,4 +56,32 @@ final class CRMCallHelpers {
             return uuid as String
         }
     }
+    
+    static func reconnectToSocket() {
+        //GET SETTING INFO
+        let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+        let hostSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
+        let idSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
+        let pwdSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+        
+        guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
+            println("Not found info setting")
+            return
+        }
+        
+        if CRMCallManager.shareInstance.isSocketLoginSuccess == false {
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {  // SIPLOGIN
+                
+                if crmCallSocket.isConnectedToHost == true {
+                    crmCallSocket.loginRequest(withUserID: id, passwold: pwd, phone: phone, domain: host)
+                    
+                } else {
+                    println("Connect to server again.....")
+                    crmCallSocket.connect()
+                }
+            } else {
+                CRMCallManager.shareInstance.initSocket()
+            }
+        }
+    }
 }

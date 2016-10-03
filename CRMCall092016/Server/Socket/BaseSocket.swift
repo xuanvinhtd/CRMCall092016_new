@@ -213,7 +213,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                     NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LoginSuccessSocket, object: nil, userInfo: nil)
                     
                     // CACHES USER DATA
-                    dispatch_async(dispatch_get_main_queue(), {
+                    dispatch_async(Cache.shareInstance.realmQueue, { 
                         Cache.shareInstance.userInfo(with: result)
                     })
                 } else {
@@ -242,10 +242,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 println("---------> Customer Data: \n\(result)")
                 //CACHE
                 if result["RESULT"] == "0" {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        Cache.shareInstance.customerInfo(with: result, staffList: nil, productList: nil)
-                    })
-                    
+                    Cache.shareInstance.customerInfo(with: result, staffList: nil, productList: nil)
                 } else {
                     
                 }
@@ -278,11 +275,8 @@ extension BaseSocket: GCDAsyncSocketDelegate {
             
             if typeData == .RingIng {
                 println("DATA RingIng:-------------> \n \(result)")
-                
-                //CACHE
-                dispatch_async(dispatch_get_main_queue(), {
-                    Cache.shareInstance.ringInfo(with: result)
-                })
+
+                Cache.shareInstance.ringInfo(with: result)
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.RingIng, object: nil, userInfo: result)
             }
