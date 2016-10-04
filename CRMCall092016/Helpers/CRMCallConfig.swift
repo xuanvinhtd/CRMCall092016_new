@@ -59,6 +59,11 @@ final class CRMCallConfig {
         static let LiveServer = "CRMCallConfig.Notification.LiveServer"
         
         static let RingIng = "CRMCallConfig.Notification.RingIng"
+        static let InviteEvent = "CRMCallConfig.Notification.InviteEvent"
+        static let InviteResultEvent = "CRMCallConfig.Notification.InviteResultEvent"
+        static let CancelEvent = "CRMCallConfig.Notification.CancelEvent"
+        static let BusyEvent = "CRMCallConfig.Notification.BusyEvent"
+        static let ByeEvent = "CRMCallConfig.Notification.ByeEvent"
     }
     
     // MARK: API
@@ -66,6 +71,18 @@ final class CRMCallConfig {
         
         static func login(with domain: String) -> String {
             return "https://\(domain)/ngw/sign/sso"
+        }
+        
+        static func phoneType() -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/get_cti_contact_label"
+        }
+        
+        static func purposeList(withCNKey cnKey: String, lang: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customization/options/options_by_category_langcode/\(cnKey)/activity_purposes/\(lang)"
+        }
+        
+        static func productList(withCNKey cnKey: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/product/management/list_prod/\(cnKey)"
         }
         
         static let GetPortAndHostURL = "http://\(CRMCallConfig.HostName)/winapp/hcsong/crmcall/\(CRMCallConfig.HostName)/server.xml"

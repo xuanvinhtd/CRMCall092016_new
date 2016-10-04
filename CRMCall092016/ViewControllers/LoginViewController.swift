@@ -279,6 +279,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
                 
                 CRMCallManager.shareInstance.session_gw = data["session_gw"] as! String
                 CRMCallManager.shareInstance.session_key = data["session_key"] as! String
+                CRMCallManager.shareInstance.domain = self.domainTextField.stringValue
                 
                 let mainViewController = MainViewController.createInstance()
                 self.view.window?.contentViewController = mainViewController

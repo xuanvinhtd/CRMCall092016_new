@@ -84,4 +84,15 @@ final class CRMCallHelpers {
             }
         }
     }
+    
+    static func findKeyForValue(value: String, dictionary: [String: String]) ->String?
+    {
+        for (key, strValue) in dictionary {
+            if (value == strValue) {
+                return key
+            }
+        }
+        
+        return nil
+    }
 }

@@ -98,4 +98,42 @@ final class AlamofireManager {
                 }
         }
     }
+    
+    static func requestUrlByGET(withURL url: String, parameter: [String: String], Completion completion: ((data: [String: AnyObject], success: Bool) ->Void)?) {
+        
+        var result: [String: AnyObject]? = [:]
+        
+        Manager.request(.GET, url, parameters: nil)
+            .responseJSON { response in
+                
+                print(response.request)
+                
+                if response.result.isSuccess {
+                    guard let resultQ = response.result.value as? [String: AnyObject] else {
+                        println("Do not convert data to dictionary at data get from Server")
+                        return
+                    }
+                    result = resultQ
+                } else {
+                    result = nil
+                }
+                
+                guard let completion = completion else {
+                    println("Not found clouse completion")
+                    return
+                }
+                
+                guard let rs = result else {
+                    println("Data from Server = nil")
+                    completion(data: ["msg":"Please check login info again"],success: false)
+                    return
+                }
+                
+                if let isSuccess = rs["success"] as? Bool {
+                    completion(data: rs, success:  isSuccess)
+                } else {
+                    completion(data: rs, success:  true)
+                }
+        }
+    }
 }

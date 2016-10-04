@@ -109,7 +109,7 @@ class BaseSocket: NSObject {
             SWXMLHashManager.parseXMLToDictionary(withXML: xml, Completion: { result, typeData in
                 
                 if typeData == CRMCallHelpers.TypeData.ServerInfo {
-                                    
+                    
                     if let port = result["PORT"], host = result["IP"] {
                         self.port = UInt16(port)!
                         self.host = host
@@ -213,13 +213,13 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                     NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LoginSuccessSocket, object: nil, userInfo: nil)
                     
                     // CACHES USER DATA
-                    dispatch_async(Cache.shareInstance.realmQueue, { 
+                    dispatch_async(Cache.shareInstance.realmQueue, {
                         Cache.shareInstance.userInfo(with: result)
                     })
                 } else {
                     NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.LoginFailSocket, object: nil, userInfo: nil)
                 }
-            
+                
                 if result["RESULT"] == "2" {
                     NSNotificationCenter.defaultCenter().postNotificationName(SettingViewController.Notification.SIPLoginFaile, object: nil, userInfo: nil)
                     
@@ -275,10 +275,37 @@ extension BaseSocket: GCDAsyncSocketDelegate {
             
             if typeData == .RingIng {
                 println("DATA RingIng:-------------> \n \(result)")
-
+                
                 Cache.shareInstance.ringInfo(with: result)
                 
-                NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.RingIng, object: nil, userInfo: result)
+                if let direction = result["DIRECTION"] {
+                    if  direction == CRMCallHelpers.Direction.InBound.rawValue {
+                        CRMCallManager.shareInstance.myCurrentDirection = .InBound
+                    }
+                    if  direction == CRMCallHelpers.Direction.OutBound.rawValue {
+                        CRMCallManager.shareInstance.myCurrentDirection = .OutBound
+                    }
+                } else {
+                    CRMCallManager.shareInstance.myCurrentDirection = .None
+                }
+
+                if let event = result["EVENT"] {
+                    if  event == CRMCallHelpers.Event.Invite.rawValue {
+                        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.InviteEvent, object: nil, userInfo: result)
+                    }
+                    if  event == CRMCallHelpers.Event.InviteResult.rawValue {
+                        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.InviteResultEvent, object: nil, userInfo: result)
+                    }
+                    if  event == CRMCallHelpers.Event.Cancel.rawValue {
+                        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.CancelEvent, object: nil, userInfo: result)
+                    }
+                    if  event == CRMCallHelpers.Event.Busy.rawValue {
+                        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.BusyEvent, object: nil, userInfo: result)
+                    }
+                    if  event == CRMCallHelpers.Event.Bye.rawValue {
+                        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ByeEvent, object: nil, userInfo: result)
+                    }
+                }
             }
             
         })

@@ -10,6 +10,7 @@
 		922840301D865A720059A0D7 /* CRMCallSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228402F1D865A720059A0D7 /* CRMCallSocket.swift */; };
 		922D7CE31D98FAC7006FA43B /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922D7CE21D98FAC7006FA43B /* RequestBuilder.swift */; };
 		9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245B9871D90ECF00017D8EB /* CRMCallAlert.swift */; };
+		9247B5161DA244CD008CB8A0 /* Dictionary+CRMCALL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9247B5151DA244CD008CB8A0 /* Dictionary+CRMCALL.swift */; };
 		925861191D94E12900521D7D /* RingIngViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925861181D94E12900521D7D /* RingIngViewController.swift */; };
 		9258611B1D94FE7C00521D7D /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258611A1D94FE7C00521D7D /* ViewControllerProtocol.swift */; };
 		9258611D1D952A3300521D7D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258611C1D952A3300521D7D /* LoginViewController.swift */; };
@@ -65,6 +66,7 @@
 		9228402F1D865A720059A0D7 /* CRMCallSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallSocket.swift; sourceTree = "<group>"; };
 		922D7CE21D98FAC7006FA43B /* RequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		9245B9871D90ECF00017D8EB /* CRMCallAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CRMCallAlert.swift; path = RequestBuilder/CRMCallAlert.swift; sourceTree = "<group>"; };
+		9247B5151DA244CD008CB8A0 /* Dictionary+CRMCALL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+CRMCALL.swift"; sourceTree = "<group>"; };
 		925861181D94E12900521D7D /* RingIngViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingIngViewController.swift; sourceTree = "<group>"; };
 		9258611A1D94FE7C00521D7D /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
 		9258611C1D952A3300521D7D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		925861141D94DF9B00521D7D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9247B5151DA244CD008CB8A0 /* Dictionary+CRMCALL.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
 				92EA40EE1D9CEFF800C85D9A /* LoginWindowController.swift in Sources */,
+				9247B5161DA244CD008CB8A0 /* Dictionary+CRMCALL.swift in Sources */,
 				925861191D94E12900521D7D /* RingIngViewController.swift in Sources */,
 				9258611B1D94FE7C00521D7D /* ViewControllerProtocol.swift in Sources */,
 				92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */,

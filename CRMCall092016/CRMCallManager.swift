@@ -18,6 +18,7 @@ final class CRMCallManager {
     var crmCallSocket: CRMCallSocket?
     
     var myCurrentStatus: CRMCallHelpers.UserStatus = CRMCallHelpers.UserStatus.None
+    var myCurrentDirection: CRMCallHelpers.Direction = CRMCallHelpers.Direction.None
     
     var session_gw = ""
     var session_key = ""
@@ -26,6 +27,8 @@ final class CRMCallManager {
     
     var isShowLoginPage = false
     var isShowMainPage = false
+    
+    var domain = ""
     
     // MARK: Initialzation
     
