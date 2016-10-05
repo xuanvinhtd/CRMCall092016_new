@@ -292,18 +292,26 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 if let event = result["EVENT"] {
                     if  event == CRMCallHelpers.Event.Invite.rawValue {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.InviteEvent, object: nil, userInfo: result)
+                        
+                        CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.Ringing
                     }
                     if  event == CRMCallHelpers.Event.InviteResult.rawValue {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.InviteResultEvent, object: nil, userInfo: result)
+                        
+                        CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.Busy
                     }
                     if  event == CRMCallHelpers.Event.Cancel.rawValue {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.CancelEvent, object: nil, userInfo: result)
+                        
+                        CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.None
                     }
                     if  event == CRMCallHelpers.Event.Busy.rawValue {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.BusyEvent, object: nil, userInfo: result)
                     }
                     if  event == CRMCallHelpers.Event.Bye.rawValue {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ByeEvent, object: nil, userInfo: result)
+                        
+                        CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.None
                     }
                 }
             }

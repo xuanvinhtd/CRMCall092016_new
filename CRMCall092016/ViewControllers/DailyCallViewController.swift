@@ -36,6 +36,15 @@ class DailyCallViewController: NSViewController, ViewControllerProtocol {
     private var purposeList: [[String: String]] = [[String: String]]()
     private var productList: [[String: String]] = [[String: String]]()
     
+    lazy var popover: NSPopover = {
+        let popover = NSPopover()
+        popover.behavior = .Semitransient
+        var popUpViewController = PopUpViewController(nibName: "PopUpViewController", bundle: nil)
+        popover.contentViewController = popUpViewController
+        popover.delegate = self
+        return popover
+    }()
+
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
         return  CRMCallHelpers.storyBoard.instantiateControllerWithIdentifier("DailyCallViewControllerID") as! DailyCallViewController
@@ -103,6 +112,10 @@ class DailyCallViewController: NSViewController, ViewControllerProtocol {
 
     }
     
+    func configItems() {
+        //NSTapGes
+    }
+    
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +123,9 @@ class DailyCallViewController: NSViewController, ViewControllerProtocol {
         println("Init DailyCallViewController Screen")
         
         initData()
+        configItems()
+        
+        
     }
     
     override func viewDidAppear() {
@@ -125,4 +141,55 @@ class DailyCallViewController: NSViewController, ViewControllerProtocol {
         println("--> title \(CRMCallHelpers.findKeyForValue(self.phoneTypePopUpBtn.titleOfSelectedItem!, dictionary: self.addressDict))")
     }
     
+    @IBAction func actionSave(sender: AnyObject) {
+        
+        if let dailyWindwoController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.DailyCallWindowController] {
+            dailyWindwoController.close()
+            CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.DailyCallWindowController)
+        }
+    }
+    
+    @IBAction func actionAddTask(sender: AnyObject) {
+    }
+    
+    @IBAction func actionCreateTicket(sender: AnyObject) {
+    }
+    
+    @IBAction func actionShowPurpose(sender: AnyObject) {
+        popover.appearance = NSAppearance(named: NSAppearanceNameAqua)!
+        
+        let positioningView = sender
+        let positioningRect = NSZeroRect
+        let preferredEdge = NSRectEdge.MaxX
+        
+        popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
+    }
+    
+    @IBAction func actionShowSubject(sender: AnyObject) {
+        
+    }
+}
+
+//MARK: - Popover Delegate
+
+extension DailyCallViewController: NSPopoverDelegate {
+    
+    func popoverShouldDetach(popover: NSPopover) -> Bool {
+        return true
+    }
+//    
+//    func detachableWindowForPopover(popover: NSPopover) -> NSWindow? {
+//        return (windowTypeSelection.selectedRow == 1) ? detachedWindowController.window : nil
+//    }
+    
+    func popoverDidShow(notification: NSNotification) {
+        println("click show")
+    }
+    
+    func popoverDidClose(notification: NSNotification) {
+        let closeReason = notification.userInfo![NSPopoverCloseReasonKey] as! String
+        if (closeReason == NSPopoverCloseReasonStandard) {
+            println("click close")
+        }
+    }
 }

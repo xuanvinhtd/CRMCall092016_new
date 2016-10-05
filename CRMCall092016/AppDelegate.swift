@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         for window in NSApp.windows{
             if let w = window.windowController  {
-            CRMCallManager.shareInstance.screenManager["LoginWindowController"] = w
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = w
             }
         }
         
@@ -80,12 +80,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func showSignInPage(sender: AnyObject) {
         
-        if let loginWindowController = CRMCallManager.shareInstance.screenManager["LoginWindowController"] {
+        if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] {
             loginWindowController.showWindow(nil)
         } else {
             let loginWindowController = LoginWindowController.createInstance()
             loginWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager["LoginWindowController"] = loginWindowController
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = loginWindowController
         }
     }
     

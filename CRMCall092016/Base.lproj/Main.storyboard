@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="Kc0-sG-2So">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jsm-7x-mRW">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -670,6 +670,24 @@
             </objects>
             <point key="canvasLocation" x="646" y="291"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="gi2-Jv-wpe">
+            <objects>
+                <windowController storyboardIdentifier="RingIngWindowControllerID" id="Vws-aE-lAe" customClass="RingIngWindowController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="JvR-4b-HPd">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="163" y="199" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+                    </window>
+                    <connections>
+                        <segue destination="bgs-b6-mMF" kind="relationship" relationship="window.shadowedContentViewController" id="ZxE-WZ-JF2"/>
+                    </connections>
+                </windowController>
+                <customObject id="R36-o0-a7b" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1247" y="-647"/>
+        </scene>
         <!--Ring Ing View Controller-->
         <scene sceneID="nAx-cT-EMB">
             <objects>
@@ -792,7 +810,7 @@
                 </viewController>
                 <customObject id="jDZ-IB-7bA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1247" y="-251.5"/>
+            <point key="canvasLocation" x="1247" y="-224.5"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="gWG-NH-2Gn">
@@ -1057,6 +1075,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="actionSave:" target="jsm-7x-mRW" id="FQ9-x9-jCH"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cjp-hG-iMY">
                                 <rect key="frame" x="117" y="23" width="88" height="32"/>
@@ -1064,6 +1085,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="actionAddTask:" target="jsm-7x-mRW" id="8VB-iF-Oh8"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8sg-1O-Odv">
                                 <rect key="frame" x="226" y="23" width="109" height="32"/>
@@ -1071,6 +1095,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="actionCreateTicket:" target="jsm-7x-mRW" id="gwa-vK-oSZ"/>
+                                </connections>
                             </button>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bvA-6M-VQj">
                                 <rect key="frame" x="20" y="81" width="447" height="314"/>
@@ -1125,20 +1152,20 @@
                                     </textField>
                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0g9-KB-gKS">
                                         <rect key="frame" x="287" y="278" width="143" height="26"/>
-                                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="bjw-Eu-2KX" id="PBD-wd-ms1">
+                                        <popUpButtonCell key="cell" type="push" title="Item 3" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="KCO-Xy-i15" id="PBD-wd-ms1">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="menu"/>
                                             <menu key="menu" id="tHI-Vz-ftu">
                                                 <items>
-                                                    <menuItem title="Item 1" state="on" id="bjw-Eu-2KX"/>
+                                                    <menuItem title="Item 1" id="bjw-Eu-2KX"/>
                                                     <menuItem title="Item 2" id="jV0-L5-hrV"/>
-                                                    <menuItem title="Item 3" id="KCO-Xy-i15"/>
+                                                    <menuItem title="Item 3" state="on" id="KCO-Xy-i15"/>
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
                                     </popUpButton>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rcm-gc-7je">
-                                        <rect key="frame" x="73" y="198" width="354" height="22"/>
+                                        <rect key="frame" x="73" y="198" width="332" height="22"/>
                                         <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2r3-YR-sP5">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1184,26 +1211,45 @@
                                             <rect key="frame" x="-100" y="-100" width="87" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="wM4-gx-K5i">
+                                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="wM4-gx-K5i">
                                             <rect key="frame" x="337" y="1" width="16" height="168"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LrN-zi-Z3n">
-                                        <rect key="frame" x="73" y="226" width="354" height="22"/>
+                                        <rect key="frame" x="73" y="226" width="332" height="22"/>
                                         <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="SyK-Ek-OL8">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-fg-ODe">
+                                        <rect key="frame" x="403" y="192" width="39" height="32"/>
+                                        <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PFX-4b-iGT">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="actionShowSubject:" target="jsm-7x-mRW" id="Nfg-tQ-G8Z"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </customView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HHO-UQ-qZI">
+                                <rect key="frame" x="423" y="301" width="39" height="32"/>
+                                <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zSN-g1-cYl">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="actionShowPurpose:" target="jsm-7x-mRW" id="QkA-YD-mWU"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="NoteTextView" destination="IkA-ta-BGK" id="Ibx-ap-5uQ"/>
-                        <outlet property="addTaskButton" destination="cjp-hG-iMY" id="m6o-fP-WCD"/>
                         <outlet property="assignedTextFeild" destination="k00-Wp-pxo" id="dzL-dN-XJP"/>
                         <outlet property="companyTextField" destination="3RZ-tE-Csv" id="p5H-lR-tPK"/>
                         <outlet property="createTicketButton" destination="8sg-1O-Odv" id="aen-Xg-baK"/>

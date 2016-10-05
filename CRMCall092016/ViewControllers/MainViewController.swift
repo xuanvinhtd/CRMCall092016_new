@@ -13,7 +13,6 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     // MARK: - Properties
     @IBOutlet weak var missCallNumber: NSTextField!
     
-    private var handlerNotificationRingIng: AnyObject!
     private var handlerNotificationInviteEvent: AnyObject!
     private var handlerNotificationInviteResultEvent: AnyObject!
     private var handlerNotificationCancelEvent: AnyObject!
@@ -86,62 +85,6 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             }
         })
         
-        handlerNotificationRingIng = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RingIng, object: nil, queue: nil, usingBlock: { notification in
-            
-            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            
-            guard let userInfo = notification.userInfo else {
-                println("Not found the userInfo to get info of user")
-                return
-            }
-            
-            let callID =  userInfo["CALLID"] as! String
-            let phoneNumber =  userInfo["FROM"] as! String
-            let event = userInfo["EVENT"] as! String
-            
-            if event == CRMCallHelpers.Event.Invite.rawValue {
-                CRMCallManager.shareInstance.crmCallSocket?.getUserInfoRequest(with: callID, phonenumber: phoneNumber)
-            }
-            
-            if event == CRMCallHelpers.Event.Cancel.rawValue || event == CRMCallHelpers.Event.Bye.rawValue {
-                NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.RingCancel, object: nil, userInfo: ["STATUS":"Cancel call."])
-                
-                if event == CRMCallHelpers.Event.Cancel.rawValue {
-                    self.missCallNumbers += 1
-                    self.missCallNumber.stringValue = String(self.missCallNumbers)
-                }
-                
-                self.loadDataCombobox()
-                
-                CRMCallManager.shareInstance.myCurrentStatus = .None
-
-                
-                if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
-                    if let viewControllerArr = self.presentedViewControllers {
-                        for viewController: NSViewController in viewControllerArr {
-                            if viewController.isKindOfClass(RingIngViewController) {
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.dismissViewController(viewController)
-                                })
-                            }
-                        }
-                    }
-
-                } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound { //VINH DEMO
-//                    if let viewControllerArr = self.presentedViewControllers {
-//                        for viewController: NSViewController in viewControllerArr {
-//                            if viewController.isKindOfClass(RingIngViewController) {
-//                                dispatch_async(dispatch_get_main_queue(), {
-//                                    self.dismissViewController(viewController)
-//                                })
-//                            }
-//                        }
-//                    }
-                }
-            }
-            
-        })
-        
         handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
@@ -149,17 +92,25 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             
             dispatch_async(dispatch_get_main_queue(), {
                 
-                var viewController: NSViewController
-                
                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
-                    viewController = RingIngViewController.createInstance()
+                    
+                    if let ringWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+                        ringWindowController.showWindow(nil)
+                    } else {
+                        let ringWindowController = RingIngWindowController.createInstance()
+                        ringWindowController.showWindow(nil)
+                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] = ringWindowController
+                    }
                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
-                    viewController = DailyCallViewController.createInstance()
-                } else {
-                   viewController = NSViewController()
+                    
+                    if let dailyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.DailyCallWindowController] {
+                        dailyWindowController.showWindow(nil)
+                    } else {
+                        let dailyWindowController = DailyCallWindowController.createInstance()
+                        dailyWindowController.showWindow(nil)
+                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = dailyWindowController
+                    }
                 }
-                
-                self.presentViewControllerAsModalWindow(viewController)
             })
         })
         
@@ -197,56 +148,66 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             let callID =  userInfo["CALLID"] as! String
             let phoneNumber =  userInfo["FROM"] as! String
             CRMCallManager.shareInstance.crmCallSocket?.getUserInfoRequest(with: callID, phonenumber: phoneNumber)
-            
-            
-            
         })
         
         handlerNotificationInviteResultEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.InviteResultEvent, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            guard let userInfo = notification.userInfo else {
-                println("Not found the userInfo to get info of user")
-                return
-            }
+            let WhatWillYouDoWhenInviteResultEvent = ""
         })
-
-        handlerNotificationByeEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.ByeEvent, object: nil, queue: nil, usingBlock: { notification in
-            
-            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            
-            guard let userInfo = notification.userInfo else {
-                println("Not found the userInfo to get info of user")
-                return
-            }
-        })
-
+        
         handlerNotificationBusyEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.BusyEvent, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            guard let userInfo = notification.userInfo else {
-                println("Not found the userInfo to get info of user")
-                return
-            }
+            let WhatWillYouDoWhenBusEvent = ""
         })
-
+        
         handlerNotificationCancelEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.CancelEvent, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            guard let userInfo = notification.userInfo else {
-                println("Not found the userInfo to get info of user")
-                return
+            self.missCallNumbers += 1
+            self.missCallNumber.stringValue = String(self.missCallNumbers)
+            
+            self.loadDataCombobox()
+            dispatch_async(dispatch_get_main_queue(), {
+                if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                    
+                    if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+                        loginWindowController.close()
+                        CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+                    }
+                    
+                } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                    
+                }
+            })
+        })
+        
+        handlerNotificationByeEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.ByeEvent, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            self.loadDataCombobox()
+            
+            if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                
+                if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+                    loginWindowController.close()
+                    CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+                }
+
+            } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                
             }
         })
-
+        
     }
     
     func deregisterNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDisConnected)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRingIng)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageRingIng)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageSigIn)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
@@ -267,12 +228,12 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         //        })
         
         // dispatch_async(dispatch_get_main_queue(), {
-        if let loginWindowController = CRMCallManager.shareInstance.screenManager["DailyCallWindowController"] {
-            loginWindowController.showWindow(nil)
+        if let dailyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.DailyCallWindowController] {
+            dailyWindowController.showWindow(nil)
         } else {
-            let loginWindowController = DailyCallWindowController.createInstance()
-            loginWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager["DailyCallWindowController"] = loginWindowController
+            let dailyWindowController = DailyCallWindowController.createInstance()
+            dailyWindowController.showWindow(nil)
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.DailyCallWindowController] = dailyWindowController
         }
         
         //   })

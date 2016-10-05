@@ -45,6 +45,12 @@ final class CRMCallHelpers {
         case Bye = "BYE"
     }
     
+    struct NameScreen {
+        static let LoginWindowController = "LoginWindowController"
+        static let DailyCallWindowController = "DailyCallWindowController"
+        static let RingIngWindowController = "RingIngWindowController"
+    }
+    
     static func getUUID() -> String {
         if let uuid = NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.UUIDKey) {
             return uuid
