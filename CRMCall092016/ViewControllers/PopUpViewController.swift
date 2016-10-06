@@ -11,44 +11,34 @@ import AppKit
 @objc(PopUpViewController) class PopUpViewController: NSViewController {
     
     // MARK: Properties
-    
     @IBOutlet weak var dataTableView: NSTableView!
     
-    var dataPurpose = [String]()
+    var dataDict = [NSMutableDictionary]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        dataTableView.setDelegate(self)
-        dataTableView.setDataSource(self)
     }
 }
 
 extension PopUpViewController: NSTableViewDelegate, NSTableViewDataSource {
  
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return dataPurpose.count ?? 0
+        return dataDict.count ?? 0
     }
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
-
+    func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
         
-        if tableColumn == tableView.tableColumns[0] {
-            
-            if let cell = tableView.makeViewWithIdentifier("PurporseNameCellID", owner: nil)  {
-                
-                return cell
-            }
-            
-        } else if tableColumn == tableView.tableColumns[1] {
-            
-            if let cell = tableView.makeViewWithIdentifier("ChooseCellID", owner: nil) as? NSButtonCell {
-                
-                return cell
-            }
+        let object = dataDict[row] as NSMutableDictionary
+        
+        if tableColumn?.identifier == "NameID" {
+            return object[(tableColumn?.identifier)!] as! String
+        } else {
+            return object[(tableColumn?.identifier)!] as! Int
         }
-
-        return nil
+    }
+    
+    func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int) {
+        dataDict[row].setObject(object!, forKey: (tableColumn?.identifier)!)
     }
     
 }

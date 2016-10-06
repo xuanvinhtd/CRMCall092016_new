@@ -268,7 +268,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         
         AlamofireManager.requestUrlByPOST(withURL: url, parameter: parameter) { (datas, success) in
             if success {
-                println("-----------> Data Login Success = \(datas)")
+                println("----------->Login Data Success: \(datas)")
                 
                 guard let data = datas["data"] as? [String: AnyObject] else {
                     println("Cannot get data after login success")
@@ -277,8 +277,18 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
                 
                 CRMCallManager.shareInstance.isUserLoginSuccess = true
                 
-                CRMCallManager.shareInstance.session_gw = data["session_gw"] as! String
-                CRMCallManager.shareInstance.session_key = data["session_key"] as! String
+                if let sessionGW = data["session_gw"] as? String {
+                    CRMCallManager.shareInstance.session_gw = sessionGW
+                }
+                
+                if let sessionkey = data["session_key"] as? String {
+                    CRMCallManager.shareInstance.session_key = sessionkey
+                }
+                
+                if let cn = data["u_cn"] as? String {
+                    CRMCallManager.shareInstance.cn = cn
+                }
+                
                 CRMCallManager.shareInstance.domain = self.domainTextField.stringValue
                 
                 let mainViewController = MainViewController.createInstance()

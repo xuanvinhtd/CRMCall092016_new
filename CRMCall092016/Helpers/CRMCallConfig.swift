@@ -14,6 +14,8 @@ final class CRMCallConfig {
     static let DeviceID = "MAC"
     static let IsPType = "4"
     
+    static let LangID = "en"
+    
     static let AppGroupID = "com.xuanvintd.CRMCall092016"
     
     static let HostName = "global3.hanbiro.com"
@@ -77,12 +79,20 @@ final class CRMCallConfig {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/get_cti_contact_label"
         }
         
-        static func purposeList(withCNKey cnKey: String, lang: String) -> String {
-            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customization/options/options_by_category_langcode/\(cnKey)/activity_purposes/\(lang)"
+        static func purposeList(withCNKey cnKey: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customization/options/options_by_category_langcode/\(cnKey)/activity_purposes/\(CRMCallConfig.LangID)"
         }
         
         static func productList(withCNKey cnKey: String) -> String {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/product/management/list_prod/\(cnKey)"
+        }
+        
+        static func uploadCallHistory(withCompany cn: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/call/\(cn)"
+        }
+        
+        static func getUploadCallHistory(withCompany cn: String, id: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/call/\(cn)/\(id)"
         }
         
         static let GetPortAndHostURL = "http://\(CRMCallConfig.HostName)/winapp/hcsong/crmcall/\(CRMCallConfig.HostName)/server.xml"

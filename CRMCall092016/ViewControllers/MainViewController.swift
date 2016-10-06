@@ -103,12 +103,12 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                     }
                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
                     
-                    if let dailyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.DailyCallWindowController] {
-                        dailyWindowController.showWindow(nil)
+                    if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+                        historyWindowController.showWindow(nil)
                     } else {
-                        let dailyWindowController = DailyCallWindowController.createInstance()
-                        dailyWindowController.showWindow(nil)
-                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = dailyWindowController
+                        let historyWindowController = HistoryCallWindowController.createInstance()
+                        historyWindowController.showWindow(nil)
+                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
                     }
                 }
             })
@@ -154,14 +154,32 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            let WhatWillYouDoWhenInviteResultEvent = ""
+            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+                historyWindowController.showWindow(nil)
+            } else {
+                let historyWindowController = HistoryCallWindowController.createInstance()
+                historyWindowController.showWindow(nil)
+                CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+            }
         })
         
         handlerNotificationBusyEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.BusyEvent, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            let WhatWillYouDoWhenBusEvent = ""
+            dispatch_async(dispatch_get_main_queue(), {
+                if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                    
+                    if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+                        loginWindowController.close()
+                        CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+                    }
+                    
+                } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                    
+                }
+            })
+
         })
         
         handlerNotificationCancelEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.CancelEvent, object: nil, queue: nil, usingBlock: { notification in
@@ -228,12 +246,12 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         //        })
         
         // dispatch_async(dispatch_get_main_queue(), {
-        if let dailyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.DailyCallWindowController] {
-            dailyWindowController.showWindow(nil)
+        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+            historyWindowController.showWindow(nil)
         } else {
-            let dailyWindowController = DailyCallWindowController.createInstance()
-            dailyWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.DailyCallWindowController] = dailyWindowController
+            let historyWindowController = HistoryCallWindowController.createInstance()
+            historyWindowController.showWindow(nil)
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
         }
         
         //   })

@@ -47,7 +47,7 @@ final class CRMCallHelpers {
     
     struct NameScreen {
         static let LoginWindowController = "LoginWindowController"
-        static let DailyCallWindowController = "DailyCallWindowController"
+        static let HistoryCallWindowController = "HistoryCallWindowController"
         static let RingIngWindowController = "RingIngWindowController"
     }
     
@@ -100,5 +100,10 @@ final class CRMCallHelpers {
         }
         
         return nil
+    }
+    
+    static func getDateNow(withFormat format: String) -> String {
+    
+        return ""
     }
 }
