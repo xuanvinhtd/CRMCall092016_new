@@ -51,6 +51,176 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         registerNotification()
         
         initData()
+        
+        testAPI()
+    }
+    
+    func testAPI() {
+    
+        ///////////------Search customer---------------/////////////
+        let types = [CRMCallHelpers.TypeApi.Company.rawValue
+                    // CRMCallHelpers.TypeApi.Contact.rawValue,
+                     //CRMCallHelpers.TypeApi.Employee.rawValue
+                     ]
+        let pages  = ["1", "10"]
+        let url = CRMCallConfig.API.searchCustomer(withCompany: "102", types: types, pages: pages, keyword: "", sort: CRMCallHelpers.Sort.Name.rawValue, order: CRMCallHelpers.Order.Desc.rawValue)
+        
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> SEARCH CUSTOMER DATA CALL RESPONCE: \(datas)")
+                
+                if let data = datas["rows"] as? [String: AnyObject] {
+                    println("SEARCH CUSTOMER DATA CALL GET FROM SERVER ----> \(data)")
+                } else {
+                    println("Not found SEARCH CUSTOMER from server")
+                }
+                
+                
+            } else {
+                println("---XXXXX---->>> GET DATA SEARCH CUSTOMER FAIL WITH MESSAGE: \(datas)")
+            }
+        }
+ 
+        
+//        //////////////-----------Register employee-----------/////////////
+//        let info = CRMCallHelpers.createDictionaryEmployee(withData: ["vinh label"], phoneNumber: ["01667289026"])
+//        let parameter1 = RequestBuilder.registerEmployee(withName: "VINH KILLER", info: info)
+//        
+//        let url1 = CRMCallConfig.API.registerEmployee(withCompany: "102", companyCode: "ACCT-6484-00014")
+//        
+//        AlamofireManager.requestUrlByPOST(withURL: url1, parameter: parameter1) { (datas, success) in
+//            if success {
+//                println("-----------> Register employee data responce: \(datas)")
+//                
+////                guard let data = datas["rows"] as? [String: AnyObject] else {
+////                    println("Cannot get data after register employee success")
+////                    return
+////                }
+//            } else {
+//                println("---XXXXX---->>> Register employee data fail with message: \(datas)")
+//            }
+//        }
+        
+        
+//        ///-------------- REGISTER NEW PHONE OF COMPANY-------------//
+//        let parameter2 = CRMCallHelpers.createDictionaryTelephoneOfSomeOne(withData: "1", phoneNumber: "1111111", cateID: "400", cn: "102")
+//        
+//        let url2 = CRMCallConfig.API.registerTelephoneOfCompany(withCompany: "102", companyCode: "ACCT-6484-00014")
+//        
+//        AlamofireManager.requestUrlByPUT(withURL: url2, parameter: parameter2) { (datas, success) in
+//            if success {
+//                println("-----------> Register telephone of company data responce: \(datas)")
+//                
+//                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+//                //                    println("Cannot get data after register employee success")
+//                //                    return
+//                //                }
+//            } else {
+//                println("---XXXXX---->>> Register telephone of company data fail with message: \(datas)")
+//            }
+//        }
+        
+        
+        
+       
+//        ///-------------- REGISTER NEW PHONE OF EMPLOYEE-------------//
+//        let parameter3 = CRMCallHelpers.createDictionaryTelephoneOfSomeOne(withData: "2", phoneNumber: "01667289000", cateID: "400", cn: "102")
+//        
+//        let url3 = CRMCallConfig.API.registerTelephoneForEmployee(withCompany: "102", employeeCode: "CONT-6484-00039")
+//        
+//        AlamofireManager.requestUrlByPUT(withURL: url3, parameter: parameter3) { (datas, success) in
+//            if success {
+//                println("-----------> Register telephone of company data responce: \(datas)")
+//                
+//                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+//                //                    println("Cannot get data after register employee success")
+//                //                    return
+//                //                }
+//            } else {
+//                println("---XXXXX---->>> Register telephone of company data fail with message: \(datas)")
+//            }
+//        }
+        
+        
+        ///-------------- REGISTER LABEL -------------//
+//        let parameter4 = CRMCallHelpers.createDictionaryRegisterManually(withData: "1", labelValue: "vinh cute 123", phoneNumber: "01667289999", cateID: "400", cn: "102")
+//        let url4 = CRMCallConfig.API.registerWithLabel(withCompany: "1", companyCode: "ACCT-6484-00014")
+//        
+//        AlamofireManager.requestUrlByPUT(withURL: url4, parameter: parameter4) { (datas, success) in
+//            if success {
+//                println("-----------> Register label data responce: \(datas)")
+//                
+//                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+//                //                    println("Cannot get data after register employee success")
+//                //                    return
+//                //                }
+//            } else {
+//                println("---XXXXX---->>> Register label data fail with message: \(datas)")
+//            }
+//        }
+        
+       
+        ///-------------- SEARCH API -------------//
+//        let url5 = CRMCallConfig.API.searchHistoryCall(withCompany: "102", limit: 25, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, since: "2015-09-28T00:00:00+9", until: "2016-10-28T00:00:00+9", dateRange: CRMCallHelpers.Sort.DateTime.rawValue, type: CRMCallHelpers.TypeApi.Call.rawValue)
+//        
+//        AlamofireManager.requestUrlByGET(withURL: url5, parameter: nil) { (datas, success) in
+//            if success {
+//                println("-----------> Search history Call data responce: \(datas)")
+//                
+//                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+//                //                    println("Cannot get data after register employee success")
+//                //                    return
+//                //                }
+//            } else {
+//                println("---XXXXX---->>> Get Search history Call data fail with message: \(datas)")
+//            }
+//        }
+        
+       
+        ///-------------- SEARCH API CUSTOMER IN CALL HISTORY-------------//
+        let types6 = [CRMCallHelpers.TypeApi.Call.rawValue,
+                     CRMCallHelpers.TypeApi.Meeting.rawValue,
+                     CRMCallHelpers.TypeApi.Fax.rawValue,
+                     CRMCallHelpers.TypeApi.Post.rawValue,
+                     CRMCallHelpers.TypeApi.Appointment.rawValue,
+                     CRMCallHelpers.TypeApi.Task.rawValue,
+                     CRMCallHelpers.TypeApi.Sms.rawValue,
+                     CRMCallHelpers.TypeApi.Email.rawValue
+        ]
+        let url6 = CRMCallConfig.API.searchHistoryCallOfCustomer(withCompany: "102", customerCode: "CONT-6484-00013", limit: 21, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types6)
+        
+        AlamofireManager.requestUrlByGET(withURL: url6, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Search history Call of customer data responce: \(datas)")
+                
+                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+                //                    println("Cannot get data after register employee success")
+                //                    return
+                //                }
+            } else {
+                println("---XXXXX---->>> Get Search history Call of customer data fail with message: \(datas)")
+            }
+        }
+        
+        ///-------------- GET ALL STAFF -------------//
+
+        let url7 = CRMCallConfig.API.getAllStaffs()
+        
+        AlamofireManager.requestUrlByGET(withURL: url7, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Get All Staff data responce: \(datas)")
+                
+                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+                //                    println("Cannot get data after register employee success")
+                //                    return
+                //                }
+            } else {
+                println("---XXXXX---->>> Get all staff data fail with message: \(datas)")
+            }
+        }
+
+
+        
     }
     
     override func viewDidAppear() {

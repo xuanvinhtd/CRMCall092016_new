@@ -96,27 +96,40 @@ final class CRMCallConfig {
         }
         
         static func searchCustomer(withCompany cn: String, types: [String], pages: [String], keyword: String, sort: String, order: String) -> String {
-            return "https://\(CRMCallManager.shareInstance.domain)/ngw/cti/customer/management/search_by/\(cn)/all/all?type=\(types.joinWithSeparator(","))&keyword=\(keyword)&paging=\(pages.joinWithSeparator(","))&sort=\(sort)&order=\(order)"
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/search_by/\(cn)/all/all?type=\(types.joinWithSeparator(","))&keyword=\(keyword)&paging=\(pages.joinWithSeparator(","))&sort=\(sort)&order=\(order)"
         }
         
-        static func registerEmployee(withCompany cn: String) -> String {
-            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/employee/add/\(cn)/ACCT-024-41873/400"
+        static func registerEmployee(withCompany cn: String, companyCode: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/employee/add/\(cn)/\(companyCode)/400"
         }
         
-        static func registerTelephoneOfCompany(withCompany cn: String) -> String {
-            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/ACCT-024-41873(company code)/phone"
+        static func registerWithLabel(withCompany cn: String, companyCode: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/\(companyCode)/phone"
+        }
+
+        
+        static func registerTelephoneOfCompany(withCompany cn: String, companyCode: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/\(companyCode)/phone"
         }
         
-        static func registerTelephoneForEmployee(withCompany cn: String) -> String {
-            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/CONT-024-51167(employee code)/phone"
+        static func registerTelephoneForEmployee(withCompany cn: String, employeeCode: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/\(employeeCode)/phone"
         }
         
-        static func registerTelephoneForContact(withCompany cn: String) -> String {
-            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/CONT-024-49903(contact code)/phone"
+        static func registerTelephoneForContact(withCompany cn: String, contactCode: String) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/\(contactCode)/phone"
         }
         
         static func searchHistoryCall(withCompany cn: String, limit: Int, offset: Int, sort: String, order: String, since: String, until: String, dateRange: String, type: String) -> String {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/search/1?limit=\(limit)&offset=\(offset)&sort=\(sort)&order=\(order)&since=\(since)&until=\(until)&date_range=\(dateRange)&type=\(type)"
+        }
+        
+        static func searchHistoryCallOfCustomer(withCompany cn: String, customerCode: String, limit: Int, offset: Int, sort: String, order: String, type: [String]) -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/search/\(cn)?limit=\(limit)&offset=\(offset)&sort=\(sort)&order=\(order)&since=&until=&type=\(type.joinWithSeparator(","))&customer_code=\(customerCode)"
+        }
+        
+        static func getAllStaffs() -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/account/crm_user/user_tree"
         }
         
         static let GetPortAndHostURL = "http://\(CRMCallConfig.HostName)/winapp/hcsong/crmcall/\(CRMCallConfig.HostName)/server.xml"

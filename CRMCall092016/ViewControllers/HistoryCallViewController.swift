@@ -167,7 +167,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         // GET TYPE PHONE
         var url = CRMCallConfig.API.phoneType()
         let parameter = RequestBuilder.cookies()
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: parameter) { (datas, success) in
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
             if success {
                 println("----------->Type phone data responce: \(datas)")
                 
@@ -188,7 +188,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         // GET PURPOSE LIST
         url = CRMCallConfig.API.purposeList(withCNKey: "102")
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: parameter) { (datas, success) in
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
             if success {
                 if let data = datas["rows"] as? [[String: String]] {
                     self.purposeList = data
@@ -205,7 +205,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         // GET PRODUCT LIST
         url = CRMCallConfig.API.productList(withCNKey: "102")
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: parameter) { (datas, success) in
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
             if success {
                 println("-----------> Product data responce: \(datas)")
                 

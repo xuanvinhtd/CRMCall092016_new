@@ -29,5 +29,9 @@ final class RequestBuilder {
                 "HANBIRO_GW": CRMCallManager.shareInstance.session_gw,
                 "hmail_key":CRMCallManager.shareInstance.session_key]
     }
+    
+    static func registerEmployee(withName name: String, info: [[String: AnyObject]]) -> [String: AnyObject] {
+        return ["name": name, "phone_data": info]
+    }
 
 }

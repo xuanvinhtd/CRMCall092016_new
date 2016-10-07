@@ -45,6 +45,32 @@ final class CRMCallHelpers {
         case Bye = "BYE"
     }
     
+    enum Order: String {
+        case Desc = "desc"
+        case Asc = "asc"
+    }
+    
+    enum Sort: String {
+        case ID = "id"
+        case Name = "name"
+        case Regdate = "regdate"
+        case DateTime = "date_time"
+    }
+    
+    enum TypeApi: String {
+        case Company = "company"
+        case Contact = "contact"
+        case Employee = "employee"
+        case Call = "call"
+        case Meeting = "metting"
+        case Fax = "fax"
+        case Post = "post"
+        case Appointment = "appointment"
+        case Task = "task"
+        case Email = "email"
+        case Sms = "sms"
+    }
+    
     struct NameScreen {
         static let LoginWindowController = "LoginWindowController"
         static let HistoryCallWindowController = "HistoryCallWindowController"
@@ -151,4 +177,53 @@ final class CRMCallHelpers {
         
         return result
     }
+    
+    static func createDictionaryEmployee(withData label: [String], phoneNumber: [String]) -> [[String : AnyObject]]{
+        var result = [[String : AnyObject]]()
+        
+        var employeeDict = [String : AnyObject]()
+        var index = 0
+        
+        for _ in label {
+            employeeDict["label"] = label[index]
+            employeeDict["phone_number"] = phoneNumber[index]
+            index += 0
+        }
+        
+        result.append(employeeDict)
+        
+        return result
+    }
+    
+    static func createDictionaryTelephoneOfSomeOne(withData label: String, phoneNumber: String, cateID: String, cn: String) -> [String : AnyObject]{
+        
+        var data = [String : AnyObject]()
+        var result = [String : AnyObject]()
+        
+        result["label"] = label
+        result["phone_number"] = phoneNumber
+        result["cate_id"] = cateID
+        result["cn"] = cn
+        
+        data["data"] = result
+        
+        return data
+    }
+    
+    static func createDictionaryRegisterManually(withData label: String, labelValue: String, phoneNumber: String, cateID: String, cn: String) -> [String : AnyObject]{
+        
+        var data = [String : AnyObject]()
+        var result = [String : AnyObject]()
+        
+        result["label"] = label
+        result["label_value"] = labelValue
+        result["phone_number"] = phoneNumber
+        result["cate_id"] = cateID
+        result["cn"] = cn
+        
+        data["data"] = result
+        
+        return data
+    }
+
 }
