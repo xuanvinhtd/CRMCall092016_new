@@ -102,8 +102,53 @@ final class CRMCallHelpers {
         return nil
     }
     
-    static func getDateNow(withFormat format: String) -> String {
+    // MARK: - CREATE DICTIONARY STAFF, PURPOSE, CUSTOMER
     
-        return ""
+    static func createDictionaryStaff(withData data: [Staff], phoneNumber: String) -> [[String : AnyObject]]{
+        var result = [[String : AnyObject]]()
+        
+        for item in data {
+            var staffDict = [String : AnyObject]()
+            staffDict["staff_cn"] = item.cn
+            staffDict["staff_no"] = item.no
+            staffDict["staff_name"] = item.name
+            staffDict["staff_phone"] = phoneNumber
+            
+            result.append(staffDict)
+        }
+        
+        return result
+    }
+    
+    static func createDictionaryCustomer(withData data: UserInfo) -> [[String : AnyObject]]{
+        var result = [[String : AnyObject]]()
+        
+        var staffDict = [String : AnyObject]()
+        staffDict["customer_cn"] = data.cn
+        staffDict["customer_code"] = data.code
+        staffDict["customer_name"] = data.name
+        staffDict["customer_phone"] = data.phone
+        staffDict["parent_name"] = data.parentName
+        
+        result.append(staffDict)
+        
+        return result
+    }
+    
+    static func createDictionaryPurpose(withData data: [NSMutableDictionary]) -> [[String : AnyObject]]{
+        var result = [[String : AnyObject]]()
+        
+        for item in data {
+            var purposeDict = [String : AnyObject]()
+            
+            let isCheck = item["CheckID"] as! Int
+            if isCheck == 1 {
+                let valueStr = item["id"] as! String
+                purposeDict["id"] = valueStr
+                result.append(purposeDict)
+            }
+        }
+        
+        return result
     }
 }

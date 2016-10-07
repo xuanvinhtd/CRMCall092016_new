@@ -32,6 +32,8 @@ final class CRMCallManager {
     
     var domain = ""
     
+    //var
+    
     // MARK: Initialzation
     
     init () {

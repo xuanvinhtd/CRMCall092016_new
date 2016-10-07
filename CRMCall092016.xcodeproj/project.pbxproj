@@ -19,6 +19,7 @@
 		9258611D1D952A3300521D7D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258611C1D952A3300521D7D /* LoginViewController.swift */; };
 		925981C01D9E68160006BE89 /* HistoryCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925981BF1D9E68160006BE89 /* HistoryCallViewController.swift */; };
 		925981C21D9E692C0006BE89 /* HistoryCallWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925981C11D9E692C0006BE89 /* HistoryCallWindowController.swift */; };
+		9266A7601DA5DFD70031082A /* NSDate+InternetDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266A75F1DA5DFD70031082A /* NSDate+InternetDateTime.swift */; };
 		92793B411D8F7FD000586A5F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92793B401D8F7FD000586A5F /* Cache.swift */; };
 		9279E0901D9BA1B700F577A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9279E08E1D9BA1B700F577A5 /* MainViewController.swift */; };
 		92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */; };
@@ -78,6 +79,7 @@
 		9258611C1D952A3300521D7D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		925981BF1D9E68160006BE89 /* HistoryCallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCallViewController.swift; sourceTree = "<group>"; };
 		925981C11D9E692C0006BE89 /* HistoryCallWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCallWindowController.swift; sourceTree = "<group>"; };
+		9266A75F1DA5DFD70031082A /* NSDate+InternetDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+InternetDateTime.swift"; sourceTree = "<group>"; };
 		92793B401D8F7FD000586A5F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		9279E08E1D9BA1B700F577A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallHelpers.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				9247B5151DA244CD008CB8A0 /* Dictionary+CRMCALL.swift */,
+				9266A75F1DA5DFD70031082A /* NSDate+InternetDateTime.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */,
 				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
+				9266A7601DA5DFD70031082A /* NSDate+InternetDateTime.swift in Sources */,
 				92EA40EE1D9CEFF800C85D9A /* LoginWindowController.swift in Sources */,
 				9247B5161DA244CD008CB8A0 /* Dictionary+CRMCALL.swift in Sources */,
 				925861191D94E12900521D7D /* RingIngViewController.swift in Sources */,

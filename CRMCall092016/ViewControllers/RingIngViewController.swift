@@ -26,7 +26,6 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
     
     func initData() {
         
-       // dispatch_async(Cache.shareInstance.realmQueue, {
             Cache.shareInstance.getRingInfo({ info in
                 
                 guard let _info = info else {
@@ -107,7 +106,6 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
                 
                 println("======> RingIng Info:\n \(_info.last)")
             })
-     //   })
     }
     
     // MARK: - Initialzation

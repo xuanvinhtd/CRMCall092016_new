@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Chronos
 
 class HistoryCallViewController: NSViewController, ViewControllerProtocol {
 
@@ -21,7 +22,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var dateTextField: NSTextField!
     @IBOutlet weak var priorityPopUpBtn: NSPopUpButton!
     @IBOutlet weak var assignedTextFeild: NSTextField!
-    @IBOutlet var NoteTextView: NSTextView!
+    @IBOutlet var noteTextView: NSTextView!
     @IBOutlet weak var purposeTextField: NSTextField!
     @IBOutlet weak var productTextField: NSTextField!
     @IBOutlet weak var subjectTextField: NSTextField!
@@ -35,11 +36,14 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
     @IBOutlet weak var panelGeneral: NSView!
     @IBOutlet weak var panelDetail: NSView!
+    @IBOutlet weak var durationsTextField: NSTextField!
     
     private var purposeID = "purposeID"
     private var subjectID = "SubjectID"
     
     private var addressDict = ["":""]
+    private var priorityDict = ["":""]
+    
     private var purposeList: [[String: String]] = [[String: String]]()
     private var productList: [[String: String]] = [[String: String]]()
     
@@ -47,6 +51,13 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     private var productDict = [NSMutableDictionary]()
     
     private var dataHistoryDict = [NSMutableDictionary]()
+    
+    private var idCallGroup = ""
+    
+    private var timer: DispatchTimer!
+    
+    private var staffDict = [[String : AnyObject]]()
+    private var customerDict = [[String : AnyObject]]()
     
     lazy var popover: NSPopover = {
         let popover = NSPopover()
@@ -56,6 +67,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         popover.delegate = self
         return popover
     }()
+    
+    private var handlerNotificationByeEvent: AnyObject!
 
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -63,6 +76,93 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     }
     
     func initData() {
+        
+        self.timer = DispatchTimer(interval: 1.0, closure: {
+            (timer: RepeatingTimer, count: Int) in
+            
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.durationsTextField.stringValue = String(count) + "s"
+            })
+        })
+        timer.start(true)
+        
+        if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+            typeCallLabel.stringValue = "[Incoming]"
+        } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+            typeCallLabel.stringValue = "[Outcoming]"
+        } else {
+            typeCallLabel.stringValue = "[None]"
+        }
+        
+        priorityDict = ["1":"★", "2":"★★", "3":"★★★", "4":"★★★★", "5":"★★★★★"]
+        var values = Array(priorityDict.values)
+        values = values.sort()
+        priorityPopUpBtn.addItemsWithTitles(values)
+        
+        dateTextField.stringValue = NSDate().stringFormattedDateTime
+        
+        Cache.shareInstance.getRingInfo({ info in
+            
+            guard let _info = info else {
+                println("======> RingIng Info: NULL")
+                self.phoneTextField.stringValue = "0"
+                return
+            }
+            self.phoneTextField.stringValue = (_info.last?.from)!
+            
+            if let idCall = (_info.last?.callID) {
+                
+                Cache.shareInstance.getCustomerInfo(with:  NSPredicate(format: "idx = %@", "0_2897483473@192.168.4.2"), Result: { userInfo in
+                    
+                    guard let userInfo = userInfo?.first else {
+                        println("Not found Info CallID of \(_info.last?.from) and CallID: \(idCall)")
+                        self.nameTextField.stringValue = "No Name"
+                        return
+                    }
+                    self.nameTextField.stringValue = userInfo.name
+                    self.idCallGroup = userInfo.idx
+                    self.customerDict = CRMCallHelpers.createDictionaryCustomer(withData: userInfo)
+                    
+//                    let demoProduct = [
+//                        Product(value: ["idx":"1", "cn":"1", "name":"vinh", "code":"1234"]),
+//                        Product(value: ["idx":"2", "cn":"2", "name":"vinh1", "code":"1235"]),
+//                        Product(value: ["idx":"3", "cn":"3", "name":"vinh2", "code":"1236"]),
+//                        Product(value: ["idx":"5", "cn":"5", "name":"vinh4", "code":"1238"]),
+//                        Product(value: ["idx":"6", "cn":"3", "name":"vinh2", "code":"1236"]),
+//                        Product(value: ["idx":"7", "cn":"3", "name":"vinh2", "code":"1236"]),
+//                        Product(value: ["idx":"8", "cn":"3", "name":"vinh2", "code":"1236"]),
+//                        Product(value: ["idx":"9", "cn":"3", "name":"vinh2", "code":"1236"]),
+//                        Product(value: ["idx":"10", "cn":"3", "name":"vinh2", "code":"1236"]),
+//                        Product(value: ["idx":"11", "cn":"3", "name":"vinh2", "code":"1236"])
+//                    ]
+                    
+                    let demoStaff = [
+                        Staff(value: ["no":"1", "cn":"5", "name":"Staftvinh1"]),
+                        Staff(value: ["no":"2", "cn":"4", "name":"Staftvinh2"]),
+                        Staff(value: ["no":"3", "cn":"6", "name":"Staftvinh3"]),
+                        Staff(value: ["no":"4", "cn":"7", "name":"Staftvinh4"]),
+                        Staff(value: ["no":"5", "cn":"7", "name":"Staftvinh4"]),
+                        Staff(value: ["no":"6", "cn":"7", "name":"Staftvinh4"]),
+                        Staff(value: ["no":"7", "cn":"7", "name":"Staftvinh4"]),
+                        Staff(value: ["no":"8", "cn":"7", "name":"Staftvinh4"]),
+                        Staff(value: ["no":"9", "cn":"7", "name":"Staftvinh4"]),
+                        Staff(value: ["no":"10", "cn":"8", "name":"Staftvinh5"])
+                    ]
+                    
+                    var staffNameList = [String]()
+                    for staff in demoStaff {
+                        staffNameList.append(staff.name)
+                    }
+                    let staffLst = staffNameList.joinWithSeparator(",")
+                    
+                    let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+                    
+                    self.staffDict = CRMCallHelpers.createDictionaryStaff(withData: demoStaff, phoneNumber: phoneSetting ?? "0")
+                                        
+                    self.assignedTextFeild.stringValue = staffLst
+                })
+            }
+        })
         
         // GET TYPE PHONE
         var url = CRMCallConfig.API.phoneType()
@@ -145,12 +245,33 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         println("Init HistoryCallViewController Screen")
         
         initData()
+        registerNotification()
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
         
         configItems()
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        
+        deregisterNotification()
+    }
+    
+    // MARK: - Notification
+    func registerNotification() {
+        handlerNotificationByeEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.ByeEvent, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            self.timer.cancel()
+        })
+    }
+    
+    func deregisterNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationByeEvent)
     }
     
     // MARK: - Handling event
@@ -260,16 +381,23 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
     private func uploadCallHistory() {
         
-        let url = CRMCallConfig.API.uploadCallHistory(withCompany: "1")
+        let url = CRMCallConfig.API.uploadCallHistory(withCompany: CRMCallManager.shareInstance.cn)
         
-        let customerDict = [[String : AnyObject]]()
-        let purposeDict = [[String : AnyObject]]()
-        let staffDict = [[String : AnyObject]]()
+        let dateTimer = NSDate().stringFormattedAsRFC3339
         
-        let dateNow = ""
+        var priority = "1"
+        if let p = CRMCallHelpers.findKeyForValue(self.priorityPopUpBtn.titleOfSelectedItem!, dictionary: self.priorityDict) {
+            priority = p
+        }
         
-        let parameter = RequestBuilder.saveDailyCall(withCN: CRMCallManager.shareInstance.cn, groupCall: "663c0eea35e0873e39b5758a60f759a2@211.172.242.34", regdate: "2016-09-28T17:17:09+9", dateTime: "2016-09-28T17:17:09+9", priority: 1, duration: 3, direction: "in", note: "vinh note", subject: "vinh subject", customerDict: customerDict, staffDict: staffDict, purposeDict: purposeDict)
+        let direction = "[Incoming]" == self.typeCallLabel.stringValue ? "in" : "out"
         
+        let purposeDict = CRMCallHelpers.createDictionaryPurpose(withData: self.purposeDict)
+        
+        let parameter = RequestBuilder.saveDailyCall(withCN: CRMCallManager.shareInstance.cn,
+                                                     groupCall: self.idCallGroup, regdate: dateTimer, dateTime: dateTimer,
+                                                     priority: Int(priority)!, duration: self.timer.count, direction: direction,
+                                                     note: self.noteTextView.string ?? "", subject: self.subjectTextField.stringValue, customerDict: self.customerDict, staffDict: self.staffDict, purposeDict: purposeDict)
         println("url request : \n \(url)")
         println("paramater request : \n \(parameter)")
         
