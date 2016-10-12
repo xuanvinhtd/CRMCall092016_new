@@ -57,6 +57,14 @@ final class CRMCallHelpers {
         case DateTime = "date_time"
     }
     
+    enum CustomerType: String {
+        case Company = "Company"
+        case Contact = "Contact"
+        case Employee = "Employee"
+        case ALL = "ALL"
+    }
+
+    
     enum TypeApi: String {
         case Company = "company"
         case Contact = "contact"
@@ -75,6 +83,7 @@ final class CRMCallHelpers {
         static let LoginWindowController = "LoginWindowController"
         static let HistoryCallWindowController = "HistoryCallWindowController"
         static let RingIngWindowController = "RingIngWindowController"
+        static let CustomerListViewController = "CustomerListViewController"
     }
     
     static func getUUID() -> String {

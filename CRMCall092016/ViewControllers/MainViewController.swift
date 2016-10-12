@@ -193,10 +193,11 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             if success {
                 println("-----------> Search history Call of customer data responce: \(datas)")
                 
-                //                guard let data = datas["rows"] as? [String: AnyObject] else {
-                //                    println("Cannot get data after register employee success")
-                //                    return
-                //                }
+                guard let data = datas["rows"] as? [String: AnyObject] else {
+                    println("Cannot get data after register employee success")
+                    return
+                }
+                
             } else {
                 println("---XXXXX---->>> Get Search history Call of customer data fail with message: \(datas)")
             }
@@ -323,14 +324,15 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         handlerNotificationInviteResultEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.InviteResultEvent, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            
-            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
-                historyWindowController.showWindow(nil)
-            } else {
-                let historyWindowController = HistoryCallWindowController.createInstance()
-                historyWindowController.showWindow(nil)
-                CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
-            }
+            dispatch_async(dispatch_get_main_queue(), { 
+                if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+                    historyWindowController.showWindow(nil)
+                } else {
+                    let historyWindowController = HistoryCallWindowController.createInstance()
+                    historyWindowController.showWindow(nil)
+                    CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+                }
+            })
         })
         
         handlerNotificationBusyEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.BusyEvent, object: nil, queue: nil, usingBlock: { notification in

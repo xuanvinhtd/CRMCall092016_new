@@ -25,9 +25,7 @@ final class RequestBuilder {
         return ["cn":cn, "group_call": groupCall, "regdate":regdate, "date_time":dateTime,
                 "category": "", "priority":priority, "duration": duration, "direction": direction,
                 "content": note, "subject":subject,
-                "customer":customerDict, "staff": staffDict, "purpose": purposeDict,
-                "HANBIRO_GW": CRMCallManager.shareInstance.session_gw,
-                "hmail_key":CRMCallManager.shareInstance.session_key]
+                "customer":customerDict, "staff": staffDict, "purpose": purposeDict]
     }
     
     static func registerEmployee(withName name: String, info: [[String: AnyObject]]) -> [String: AnyObject] {

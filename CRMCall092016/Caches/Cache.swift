@@ -49,13 +49,13 @@ class Cache {
         if let idx = info["ID"] as String? {
             userInfo.idx = idx
         } else {
-            userInfo.idx = "None"
+            userInfo.idx = ""
         }
         
         if let userKey = info["USERKEY"] as String? {
             userInfo.userKey = userKey
         } else {
-            userInfo.userKey = "None"
+            userInfo.userKey = ""
         }
         
         if let phone = info["PHONE"] as String? {
@@ -67,13 +67,13 @@ class Cache {
         if let userName = info["USERNAME"] as String? {
             userInfo.userName = userName
         } else {
-            userInfo.userName = "None"
+            userInfo.userName = ""
         }
         
         if let email = info["EMAIL"] as String? {
             userInfo.email = email
         } else {
-            userInfo.email = "None"
+            userInfo.email = ""
         }
         
         if let sex = info["SEX"] as String? {
@@ -85,13 +85,13 @@ class Cache {
         if let cacheProduct = info["CACHE_PRODUCT"] as String? {
             userInfo.cacheProduct = cacheProduct
         } else {
-            userInfo.cacheProduct = "None"
+            userInfo.cacheProduct = ""
         }
         
         if let cachePurpose = info["CACHE_PURPOSE"] as String? {
             userInfo.cachePurpose = cachePurpose
         } else {
-            userInfo.cachePurpose = "None"
+            userInfo.cachePurpose = ""
         }
         
         dispatch_async(realmQueue) {
@@ -167,13 +167,13 @@ class Cache {
         if let idx = info["ID"] as String? {
             customerInfo.idx = idx
         } else {
-            customerInfo.idx = "None"
+            customerInfo.idx = ""
         }
         
         if let category = info["CATEGORY"] as String? {
             customerInfo.category = category
         } else {
-            customerInfo.category = "None"
+            customerInfo.category = ""
         }
         
         if let cn = info["CN"] as String? {
@@ -191,7 +191,7 @@ class Cache {
         if let name = info["NAME"] as String? {
             customerInfo.name = name
         } else {
-            customerInfo.name = "None name"
+            customerInfo.name = ""
         }
         
         if let parentCN = info["PARENT_CN"] as String? {
@@ -209,7 +209,7 @@ class Cache {
         if let parentName = info["PARENT_NAME"] as String? {
             customerInfo.parentName = parentName
         } else {
-            customerInfo.parentName = "None"
+            customerInfo.parentName = ""
         }
         
         if let phone = info["PHONE"] as String? {
@@ -227,13 +227,13 @@ class Cache {
         if let rating = info["RATING"] as String? {
             customerInfo.rating = rating
         } else {
-            customerInfo.rating = "none rating"
+            customerInfo.rating = ""
         }
         
         if let type = info["TYPE"] as String? {
             customerInfo.rating = type
         } else {
-            customerInfo.rating = "none type"
+            customerInfo.rating = ""
         }
         
         if productList != nil {
