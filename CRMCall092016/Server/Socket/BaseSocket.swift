@@ -241,11 +241,11 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 
                 println("---------> Customer Data: \n\(result)")
                 //CACHE
-                if result["RESULT"] == "0" {
-                    Cache.shareInstance.customerInfo(with: result, staffList: nil, productList: nil)
-                } else {
-                    
-                }
+//                if result["RESULT"] == "1" {
+//                    Cache.shareInstance.customerInfo(with: result, staffList: nil, productList: nil)
+//                } else {
+//                    
+//                }
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.Show, object: nil, userInfo: nil)
             }

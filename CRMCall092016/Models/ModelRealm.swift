@@ -70,13 +70,12 @@ class Staff: Object {
 
 class Product: Object {
     
-    dynamic var idx = "0"
     dynamic var cn = ""
     dynamic var name = ""
-    dynamic var code = ""
+    dynamic var code = "0"
     
     override static func primaryKey() -> String? {
-        return "idx"
+        return "code"
     }
     
     class func createList(with dataLst: [[String: String]]) -> List<Product> {
@@ -86,8 +85,6 @@ class Product: Object {
         var idx = 0
         for item in dataLst {
             let product = Product()
-
-            product.idx = String(idx)
             
             if let productCN = item["PRODUCT_CN"] as String? {
                 product.cn = productCN

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import RealmSwift
 import SWXMLHash
 
 
@@ -67,8 +67,31 @@ final class SWXMLHashManager {
 
         if let dataDic = xmlDocument["XML"]["USER"]["USERINFO"].element {
             
+            let staffList = List<Staff>()
+            let productList = List<Product>()
+            if let dataStaffDict = xmlDocument["XML"]["USER"]["USERINFO"]["STAFF"].element {
+                
+                println("Data customer staff: \(dataStaffDict.attributes)")
+                let staff = Staff()
+                staff.cn = dataStaffDict.attributes["STAFF_CN"]!
+                staff.name = dataStaffDict.attributes["STAFF_NAME"]!
+                staff.no = dataStaffDict.attributes["STAFF_NO"]!
+                staffList.append(staff)
+            }
+            
+            if let dataProductDict = xmlDocument["XML"]["USER"]["USERINFO"]["PRODUCT"].element {
+                
+                println("Data customer product: \(dataProductDict.attributes)")
+                let product = Product()
+                product.cn = dataProductDict.attributes["PRODUCT_CN"]!
+                product.name = dataProductDict.attributes["PRODUCT_NAME"]!
+                product.code = dataProductDict.attributes["PRODUCT_CODE"]!
+                productList.append(product)
+            }
+            
+            Cache.shareInstance.customerInfo(with: dataDic.attributes, staffList: staffList, productList: productList)
+            
             completion(dataDic.attributes, CRMCallHelpers.TypeData.UserInfo)
-            return
         }
         
         completion([:], CRMCallHelpers.TypeData.None)

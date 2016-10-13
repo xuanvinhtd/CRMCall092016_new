@@ -52,14 +52,15 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
     private var dataHistoryDict = [[String : AnyObject]]()
     
-    private var idCallGroup = ""
-    
     private var timer: DispatchTimer!
     
     private var staffDict = [[String : AnyObject]]()
     private var customerDict = [[String : AnyObject]]()
     
     private var customerSelect = [String : AnyObject]()
+    
+    private var isUnRegister = false
+    private var indexTypePhone = 0
     
     lazy var popover: NSPopover = {
         let popover = NSPopover()
@@ -71,6 +72,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     }()
     
     private var handlerNotificationByeEvent: AnyObject!
+    private var handlerNotificationInviteResultEvent: AnyObject!
+    private var handlerNotificationCancelEvent: AnyObject!
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -86,7 +89,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 self.durationsTextField.stringValue = String(count) + "s"
             })
         })
-        timer.start(true)
+        self.durationsTextField.stringValue = String(0) + "s"
+        if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+            self.timer.start(true)
+        }
         
         if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
             typeCallLabel.stringValue = "[Incoming]"
@@ -103,6 +109,67 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         dateTextField.stringValue = NSDate().stringFormattedDateTime
         
+        // GET TYPE PHONE
+        var url = CRMCallConfig.API.phoneType()
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("----------->Type phone data responce: \(datas)")
+                
+                if let address = datas["address"] as? [String: String] {
+                    self.addressDict = address
+                    
+                    let arrString = Array(address.values)
+                    for str in arrString {
+                        self.phoneTypePopUpBtn.addItemWithObjectValue(str)
+                    }
+                    
+                    self.phoneTypePopUpBtn.selectItemAtIndex(self.indexTypePhone - 1)
+                    
+                } else {
+                    println("Not found address from server")
+                }
+                
+            } else {
+                println("---XXXXX---->>> Get data type phone fail with message: \(datas)")
+            }
+        }
+        
+        // GET PURPOSE LIST
+        url = CRMCallConfig.API.purposeList(withCNKey: CRMCallManager.shareInstance.cn)
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                if let data = datas["rows"] as? [[String: String]] {
+                    self.purposeList = data
+                    self.purposeDict = self.buildDictionary(withValue: self.purposeList, isPurpose: true)
+                } else {
+                    println("Not found purpose list from server")
+                }
+                
+                println("Purpose data: \(self.purposeList)")
+            } else {
+                println("---XXXXX---->>> Get purpose data fail with message: \(datas)")
+            }
+        }
+        
+        // GET PRODUCT LIST
+        url = CRMCallConfig.API.productList(withCNKey: CRMCallManager.shareInstance.cn)
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Product data responce: \(datas)")
+                
+                if let data = datas["rows"] as? [[String: String]] {
+                    self.productList = data
+                    self.productDict = self.buildDictionary(withValue: self.productList, isPurpose: false)
+                } else {
+                    println("Not found product list from server")
+                }
+                
+                println("Product data:  \(self.productList)")
+            } else {
+                println("---XXXXX---->>> get product data fail with messgae: \(datas)")
+            }
+        }
+        
         Cache.shareInstance.getRingInfo({ info in
             
             guard let _info = info else {
@@ -110,19 +177,21 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 self.phoneTextField.stringValue = "0"
                 return
             }
-            self.phoneTextField.stringValue = (_info.last?.from)!
             
             if let idCall = (_info.last?.callID) {
                 
-                Cache.shareInstance.getCustomerInfo(with:  NSPredicate(format: "idx = %@", "0_2897483473@192.168.4.2"), Result: { userInfo in
+                Cache.shareInstance.getCustomerInfo(with:  NSPredicate(format: "idx = %@", idCall), Result: { userInfo in
                     
                     guard let userInfo = userInfo?.first else {
                         println("Not found Info CallID of \(_info.last?.from) and CallID: \(idCall)")
                         self.nameTextField.stringValue = ""
                         return
                     }
-                    self.nameTextField.stringValue = "" //userInfo.name
-                    self.idCallGroup = userInfo.idx
+                    self.nameTextField.stringValue = userInfo.name
+                    self.phoneTextField.stringValue = userInfo.phone
+                    self.companyTextField.stringValue = userInfo.parentName
+                    self.indexTypePhone = Int(userInfo.phoneType.stringByReplacingOccurrencesOfString(":", withString: "")) ?? 0
+                    
                     self.customerDict = CRMCallHelpers.createDictionaryCustomer(withData: userInfo)
                     
                     //                    let demoProduct = [
@@ -200,68 +269,6 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 })
             }
         })
-        
-        
-        // GET TYPE PHONE
-        var url = CRMCallConfig.API.phoneType()
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
-            if success {
-                println("----------->Type phone data responce: \(datas)")
-                
-                if let address = datas["address"] as? [String: String] {
-                    self.addressDict = address
-                    
-                    let arrString = Array(address.values)
-                    for str in arrString {
-                       self.phoneTypePopUpBtn.addItemWithObjectValue(str)
-                    }
-                    self.phoneTypePopUpBtn.selectItemAtIndex(0)
-                    
-                } else {
-                    println("Not found address from server")
-                }
-                
-            } else {
-                println("---XXXXX---->>> Get data type phone fail with message: \(datas)")
-            }
-        }
-        
-        // GET PURPOSE LIST
-        url = CRMCallConfig.API.purposeList(withCNKey: "102")
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
-            if success {
-                if let data = datas["rows"] as? [[String: String]] {
-                    self.purposeList = data
-                    self.purposeDict = self.buildDictionary(withValue: self.purposeList, isPurpose: true)
-                } else {
-                    println("Not found purpose list from server")
-                }
-                
-                println("Purpose data: \(self.purposeList)")
-            } else {
-                println("---XXXXX---->>> Get purpose data fail with message: \(datas)")
-            }
-        }
-        
-        // GET PRODUCT LIST
-        url = CRMCallConfig.API.productList(withCNKey: "102")
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
-            if success {
-                println("-----------> Product data responce: \(datas)")
-                
-                if let data = datas["rows"] as? [[String: String]] {
-                    self.productList = data
-                    self.productDict = self.buildDictionary(withValue: self.productList, isPurpose: false)
-                } else {
-                    println("Not found product list from server")
-                }
-                
-                println("Product data:  \(self.productList)")
-            } else {
-                println("---XXXXX---->>> get product data fail with messgae: \(datas)")
-            }
-        }
-        
     }
     
     func configItems() {
@@ -314,10 +321,33 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             
             self.timer.cancel()
         })
+        
+        handlerNotificationInviteResultEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.InviteResultEvent, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            dispatch_async(dispatch_get_main_queue(), {
+                if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                   
+                } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                   self.timer.start(true)
+                }
+            })
+        })
+        
+        handlerNotificationCancelEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.CancelEvent, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.timer.cancel()
+            })
+        })
     }
     
     func deregisterNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationByeEvent)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationInviteResultEvent)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationCancelEvent)
     }
     
     // MARK: - Handling event
@@ -337,7 +367,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         self.uploadCallHistory()
         
-        if !self.nameTextField.enabled {
+        if isUnRegister {
             return
         }
         
@@ -348,11 +378,17 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             }
             
             if customerSelect["type"] as! String == CRMCallHelpers.TypeApi.Company.rawValue {
-                if self.nameTextField.stringValue != "" {
-                    self.registerEmployee()
+                
+                let value = self.phoneTypePopUpBtn.stringValue
+                if let _ = CRMCallHelpers.findKeyForValue(value, dictionary: self.addressDict) {
+                    if self.nameTextField.stringValue != "" {
+                        self.registerEmployee()
+                    } else {
+                        self.registerPhoneForCompany()
+                    }
                 } else {
-                    self.registerPhoneForCompany()
-                }
+                    self.registerPhoneForCompanyLabel()
+                }// Manually input
             }
             
             if customerSelect["type"] as! String == CRMCallHelpers.TypeApi.Contact.rawValue {
@@ -404,6 +440,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         self.nameTextField.enabled = true
         self.companyTextField.enabled = true
+        self.nameTextField.stringValue = ""
+        self.companyTextField.stringValue = ""
         
         if let customersViewController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
             customersViewController.showWindow(nil)
@@ -488,14 +526,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         let purposeDict = CRMCallHelpers.createDictionaryPurpose(withData: self.purposeDict)
         
         let parameter = RequestBuilder.saveDailyCall(withCN: CRMCallManager.shareInstance.cn,
-                                                     groupCall: self.idCallGroup, regdate: dateTimer, dateTime: dateTimer,
+                                                     groupCall: "", regdate: dateTimer, dateTime: dateTimer,
                                                      priority: Int(priority)!, duration: self.timer.count, direction: direction,
-                                                     note: self.noteTextView.string ?? "", subject: self.subjectTextField.stringValue, customerDict: self.customerDict, staffDict: [[String : AnyObject]](), purposeDict: purposeDict)
-        
-//        let parameter = RequestBuilder.saveDailyCall(withCN: CRMCallManager.shareInstance.cn,
-//                                                     groupCall: self.idCallGroup, regdate: dateTimer, dateTime: dateTimer,
-//                                                     priority: Int(priority)!, duration: self.timer.count, direction: direction,
-//                                                     note: self.noteTextView.string ?? "", subject: self.subjectTextField.stringValue, customerDict: self.customerDict, staffDict: self.staffDict, purposeDict: purposeDict)
+                                                     note: self.noteTextView.string ?? "", subject: self.subjectTextField.stringValue, customerDict: self.customerDict, staffDict: self.staffDict, purposeDict: purposeDict)
+
         println("url request : \n \(url)")
         println("paramater request : \n \(parameter)")
         
@@ -524,7 +558,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             let parameter = RequestBuilder.registerEmployee(withName: self.nameTextField.stringValue, info: info)
             
             let url = CRMCallConfig.API.registerEmployee(withCompany: CRMCallManager.shareInstance.cn, companyCode: (customerSelect["code"] ?? "") as! String)
-            
+        
+        println("url request : \n \(url)")
+        println("paramater request : \n \(parameter)")
+        
             AlamofireManager.requestUrlByPOST(withURL: url, parameter: parameter) { (datas, success) in
                 if success {
                     println("-----------> Register employee data responce: \(datas)")
@@ -537,6 +574,32 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                     println("---XXXXX---->>> Register employee data fail with message: \(datas)")
                 }
             }
+    }
+    
+    private func registerPhoneForCompanyLabel() {
+        
+        let labelPhone = "1"
+        let labelValue = self.phoneTypePopUpBtn.stringValue
+        
+        let parameter = CRMCallHelpers.createDictionaryRegisterManually(withData: labelPhone, labelValue: labelValue, phoneNumber: self.phoneTextField.stringValue, cateID: "400", cn: CRMCallManager.shareInstance.cn)
+        
+        let url = CRMCallConfig.API.registerWithLabel(withCompany: CRMCallManager.shareInstance.cn, companyCode: (customerSelect["code"] ?? "") as! String)
+        
+        println("url request : \n \(url)")
+        println("paramater request : \n \(parameter)")
+        
+        AlamofireManager.requestUrlByPUT(withURL: url, parameter: parameter) { (datas, success) in
+            if success {
+                println("-----------> Register employee data responce: \(datas)")
+                
+                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+                //                    println("Cannot get data after register employee success")
+                //                    return
+                //                }
+            } else {
+                println("---XXXXX---->>> Register employee data fail with message: \(datas)")
+            }
+        }
     }
     
     private func registerPhoneForCompany() {
@@ -691,6 +754,9 @@ extension HistoryCallViewController: CustomerListDelegate {
     
     func chooseCustomer(withDict dict: [String: AnyObject]?) {
         if let d = dict {
+            
+            self.isUnRegister = false
+            
             println("Data select \(d)")
             customerSelect = d
             
@@ -727,6 +793,7 @@ extension HistoryCallViewController: CustomerListDelegate {
             }
             
         } else {
+            self.isUnRegister = true
             self.nameTextField.enabled = true
             self.companyTextField.enabled = true
         }

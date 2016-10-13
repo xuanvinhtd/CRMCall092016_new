@@ -103,7 +103,7 @@ final class AlamofireManager {
         
         var result: [String: AnyObject]? = [:]
         
-        Manager.request(.POST, url, parameters: parameter)
+        Manager.request(.POST, url, parameters: parameter, encoding: .JSON)
             .responseJSON { response in
                 
                 print(response.request)

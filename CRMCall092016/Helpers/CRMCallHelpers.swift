@@ -61,7 +61,7 @@ final class CRMCallHelpers {
         case Company = "Company"
         case Contact = "Contact"
         case Employee = "Employee"
-        case ALL = "ALL"
+        case ALL = "All"
     }
 
     
@@ -159,7 +159,7 @@ final class CRMCallHelpers {
         var result = [[String : AnyObject]]()
         
         var staffDict = [String : AnyObject]()
-        staffDict["customer_cn"] = data.cn
+        //staffDict["customer_cn"] = data.cn
         staffDict["customer_code"] = data.code
         staffDict["customer_name"] = data.name
         staffDict["customer_phone"] = data.phone
@@ -190,16 +190,14 @@ final class CRMCallHelpers {
     static func createDictionaryEmployee(withData label: [String], phoneNumber: [String]) -> [[String : AnyObject]]{
         var result = [[String : AnyObject]]()
         
-        var employeeDict = [String : AnyObject]()
+        
         var index = 0
         
         for _ in label {
-            employeeDict["label"] = label[index]
-            employeeDict["phone_number"] = phoneNumber[index]
-            index += 0
+            let employeeDict = ["label":"1","phone_number":"123"]
+            index += 1
+            result.append(employeeDict)
         }
-        
-        result.append(employeeDict)
         
         return result
     }
@@ -228,7 +226,6 @@ final class CRMCallHelpers {
         result["label_value"] = labelValue
         result["phone_number"] = phoneNumber
         result["cate_id"] = cateID
-        result["cn"] = cn
         
         data["data"] = result
         
