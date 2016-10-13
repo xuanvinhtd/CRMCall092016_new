@@ -41,66 +41,33 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
                         
                         guard let userInfo = userInfo?.first else {
                             println("Not found Info CallID of \(_info.last?.from) and CallID: \(idCall)")
-                            self.nameCaller.stringValue = "No Name VINH DEMO"
+                            self.nameCaller.stringValue = ""
                             return
                         }
                         
-                        let demoProduct = [
-                            Product(value: ["idx":"1", "cn":"1", "name":"vinh", "code":"1234"]),
-                            Product(value: ["idx":"2", "cn":"2", "name":"vinh1", "code":"1235"]),
-                            Product(value: ["idx":"3", "cn":"3", "name":"vinh2", "code":"1236"]),
-                            Product(value: ["idx":"5", "cn":"5", "name":"vinh4", "code":"1238"]),
-                            Product(value: ["idx":"6", "cn":"3", "name":"vinh2", "code":"1236"]),
-                            Product(value: ["idx":"7", "cn":"3", "name":"vinh2", "code":"1236"]),
-                            Product(value: ["idx":"8", "cn":"3", "name":"vinh2", "code":"1236"]),
-                            Product(value: ["idx":"9", "cn":"3", "name":"vinh2", "code":"1236"]),
-                            Product(value: ["idx":"10", "cn":"3", "name":"vinh2", "code":"1236"]),
-                            Product(value: ["idx":"11", "cn":"3", "name":"vinh2", "code":"1236"])
-                        ]
-                        
-                        let demoStaff = [
-                            Staff(value: ["no":"1", "cn":"5", "name":"Staftvinh1"]),
-                            Staff(value: ["no":"2", "cn":"4", "name":"Staftvinh2"]),
-                            Staff(value: ["no":"3", "cn":"6", "name":"Staftvinh3"]),
-                            Staff(value: ["no":"4", "cn":"7", "name":"Staftvinh4"]),
-                            Staff(value: ["no":"5", "cn":"7", "name":"Staftvinh4"]),
-                            Staff(value: ["no":"6", "cn":"7", "name":"Staftvinh4"]),
-                            Staff(value: ["no":"7", "cn":"7", "name":"Staftvinh4"]),
-                            Staff(value: ["no":"8", "cn":"7", "name":"Staftvinh4"]),
-                            Staff(value: ["no":"9", "cn":"7", "name":"Staftvinh4"]),
-                            Staff(value: ["no":"10", "cn":"8", "name":"Staftvinh5"])
-                        ]
-                        
-                        var strProduct = ""
-                        var index = 0
-                        
-                        for product in demoProduct {
-                            if index == 0 {
-                                strProduct += product.name
-                            } else {
-                                strProduct += ", " + product.name
+                        if userInfo.phone == "0" { // User not register
+                            
+                            if let infoRing = _info.last {
+                                self.phoneCaller.stringValue = infoRing.to
                             }
                             
-                            index += 1
-                        }
-                        self.productsTextField.stringValue = strProduct
-                        
-                        var strStaff = ""
-                        index = 0
-                        
-                        for staff in demoStaff {
-                            if index == 0 {
-                                strStaff += staff.name
-                            } else {
-                                strStaff += ", " + staff.name
-                            }
+                        } else { // User regestered
+                            self.nameCaller.stringValue = userInfo.name
+                            self.phoneCaller.stringValue = userInfo.name
                             
-                            index += 1
+                            var productNames = [String]()
+                            for product in userInfo.products {
+                                productNames.append(product.name)
+                            }
+                            self.productsTextField.stringValue = productNames.joinWithSeparator(",")
+                            
+                            
+                            var staffNameList = [String]()
+                            for staff in userInfo.staffs {
+                                staffNameList.append(staff.name)
+                            }
+                            self.assignedTextField.stringValue = staffNameList.joinWithSeparator(",")
                         }
-                        
-                        self.assignedTextField.stringValue = strStaff
-                        
-                        self.nameCaller.stringValue = userInfo.name
                     })
                 }
                 

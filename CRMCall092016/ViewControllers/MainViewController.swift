@@ -332,6 +332,12 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             dispatch_async(dispatch_get_main_queue(), {
                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                    
+                    if let ringWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+                        ringWindowController.close()
+                        CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+                    }
+                    
                     if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
                         historyWindowController.showWindow(nil)
                     } else {
@@ -339,6 +345,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                         historyWindowController.showWindow(nil)
                         CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
                     }
+                    
                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
                     
                 }
@@ -394,8 +401,8 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             
             if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
                 
-                if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
-                    loginWindowController.close()
+                if let ringWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+                    ringWindowController.close()
                     CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
                 }
                 

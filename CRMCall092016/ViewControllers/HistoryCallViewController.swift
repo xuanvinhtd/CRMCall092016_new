@@ -43,12 +43,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
     private var addressDict = ["":""]
     private var priorityDict = ["":""]
-    
-    private var purposeList: [[String: String]] = [[String: String]]()
-    private var productList: [[String: String]] = [[String: String]]()
-    
+
     private var purposeDict = [NSMutableDictionary]()
     private var productDict = [NSMutableDictionary]()
+    private var productCodeOfCustomer = [String]()
     
     private var dataHistoryDict = [[String : AnyObject]]()
     
@@ -60,6 +58,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     private var customerSelect = [String : AnyObject]()
     
     private var isUnRegister = false
+
     private var indexTypePhone = 0
     
     lazy var popover: NSPopover = {
@@ -123,7 +122,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                         self.phoneTypePopUpBtn.addItemWithObjectValue(str)
                     }
                     
-                    self.phoneTypePopUpBtn.selectItemAtIndex(self.indexTypePhone - 1)
+                    let index = self.indexTypePhone == 0 ? self.indexTypePhone : self.indexTypePhone - 1
+                    self.phoneTypePopUpBtn.selectItemAtIndex(index)
                     
                 } else {
                     println("Not found address from server")
@@ -139,13 +139,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
             if success {
                 if let data = datas["rows"] as? [[String: String]] {
-                    self.purposeList = data
-                    self.purposeDict = self.buildDictionary(withValue: self.purposeList, isPurpose: true)
+                    self.purposeDict = self.buildDictionary(withValue: data, isPurpose: true)
                 } else {
                     println("Not found purpose list from server")
                 }
-                
-                println("Purpose data: \(self.purposeList)")
             } else {
                 println("---XXXXX---->>> Get purpose data fail with message: \(datas)")
             }
@@ -158,13 +155,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 println("-----------> Product data responce: \(datas)")
                 
                 if let data = datas["rows"] as? [[String: String]] {
-                    self.productList = data
-                    self.productDict = self.buildDictionary(withValue: self.productList, isPurpose: false)
+                    self.productDict = self.buildDictionary(withValue: data, isPurpose: false)
                 } else {
                     println("Not found product list from server")
                 }
-                
-                println("Product data:  \(self.productList)")
             } else {
                 println("---XXXXX---->>> get product data fail with messgae: \(datas)")
             }
@@ -187,58 +181,49 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                         self.nameTextField.stringValue = ""
                         return
                     }
-                    self.nameTextField.stringValue = userInfo.name
-                    self.phoneTextField.stringValue = userInfo.phone
-                    self.companyTextField.stringValue = userInfo.parentName
-                    self.indexTypePhone = Int(userInfo.phoneType.stringByReplacingOccurrencesOfString(":", withString: "")) ?? 0
                     
-                    self.customerDict = CRMCallHelpers.createDictionaryCustomer(withData: userInfo)
-                    
-                    //                    let demoProduct = [
-                    //                        Product(value: ["idx":"1", "cn":"1", "name":"vinh", "code":"1234"]),
-                    //                        Product(value: ["idx":"2", "cn":"2", "name":"vinh1", "code":"1235"]),
-                    //                        Product(value: ["idx":"3", "cn":"3", "name":"vinh2", "code":"1236"]),
-                    //                        Product(value: ["idx":"5", "cn":"5", "name":"vinh4", "code":"1238"]),
-                    //                        Product(value: ["idx":"6", "cn":"3", "name":"vinh2", "code":"1236"]),
-                    //                        Product(value: ["idx":"7", "cn":"3", "name":"vinh2", "code":"1236"]),
-                    //                        Product(value: ["idx":"8", "cn":"3", "name":"vinh2", "code":"1236"]),
-                    //                        Product(value: ["idx":"9", "cn":"3", "name":"vinh2", "code":"1236"]),
-                    //                        Product(value: ["idx":"10", "cn":"3", "name":"vinh2", "code":"1236"]),
-                    //                        Product(value: ["idx":"11", "cn":"3", "name":"vinh2", "code":"1236"])
-                    //                    ]
-                    
-                    let demoStaff = [
-                        Staff(value: ["no":"1", "cn":"5", "name":"Staftvinh1"]),
-                        Staff(value: ["no":"2", "cn":"4", "name":"Staftvinh2"]),
-                        Staff(value: ["no":"3", "cn":"6", "name":"Staftvinh3"]),
-                        Staff(value: ["no":"4", "cn":"7", "name":"Staftvinh4"]),
-                        Staff(value: ["no":"5", "cn":"7", "name":"Staftvinh4"]),
-                        Staff(value: ["no":"6", "cn":"7", "name":"Staftvinh4"]),
-                        Staff(value: ["no":"7", "cn":"7", "name":"Staftvinh4"]),
-                        Staff(value: ["no":"8", "cn":"7", "name":"Staftvinh4"]),
-                        Staff(value: ["no":"9", "cn":"7", "name":"Staftvinh4"]),
-                        Staff(value: ["no":"10", "cn":"8", "name":"Staftvinh5"])
-                    ]
-                    
-                    var staffNameList = [String]()
-                    for staff in demoStaff {
-                        staffNameList.append(staff.name)
+                    if userInfo.phone == "0" { // User not register
+                        
+                        if let infoRing = _info.last {
+                            self.phoneTextField.stringValue = infoRing.to
+                        }
+                      
+                    } else { // User regestered
+                        self.nameTextField.stringValue = userInfo.name
+                        self.phoneTextField.stringValue = userInfo.phone
+                        self.companyTextField.stringValue = userInfo.parentName
+                        self.indexTypePhone = Int(userInfo.phoneType.stringByReplacingOccurrencesOfString(":", withString: "")) ?? 0
+                        
+                        self.customerDict = CRMCallHelpers.createDictionaryCustomer(withData: userInfo)
+                        
+                        var productNames = [String]()
+                        for product in userInfo.products {
+                            productNames.append(product.name)
+                            self.productCodeOfCustomer.append(product.code)
+                        }
+                        self.productTextField.stringValue = productNames.joinWithSeparator(",")
+                        
+
+                        
+                        var staffNameList = [String]()
+                        for staff in userInfo.staffs {
+                            staffNameList.append(staff.name)
+                        }
+                        self.assignedTextFeild.stringValue = staffNameList.joinWithSeparator(",")
+                        
+                        let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+                        
+                        self.staffDict = CRMCallHelpers.createDictionaryStaff(withData: userInfo.staffs, phoneNumber: phoneSetting ?? "0")
+                        
+                        if self.nameTextField.stringValue != "" {
+                            self.nameTextField.enabled = false
+                            self.companyTextField.enabled = false
+                        }
                     }
-                    let staffLst = staffNameList.joinWithSeparator(",")
                     
-                    let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-                    
-                    self.staffDict = CRMCallHelpers.createDictionaryStaff(withData: demoStaff, phoneNumber: phoneSetting ?? "0")
-                    
-                    self.assignedTextFeild.stringValue = staffLst
-                    
-                    if self.nameTextField.stringValue != "" {
-                        self.nameTextField.enabled = false
-                        self.companyTextField.enabled = false
-                    }
                     
                     ///-------------- SEARCH API CUSTOMER IN CALL HISTORY-------------// // GET DATA FOR TABLE
-                    let types6 = [CRMCallHelpers.TypeApi.Call.rawValue,
+                    let types = [CRMCallHelpers.TypeApi.Call.rawValue,
                         CRMCallHelpers.TypeApi.Meeting.rawValue,
                         CRMCallHelpers.TypeApi.Fax.rawValue,
                         CRMCallHelpers.TypeApi.Post.rawValue,
@@ -247,9 +232,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                         CRMCallHelpers.TypeApi.Sms.rawValue,
                         CRMCallHelpers.TypeApi.Email.rawValue
                     ]
-                    let url6 = CRMCallConfig.API.searchHistoryCallOfCustomer(withCompany: CRMCallManager.shareInstance.cn, customerCode: "CONT-6484-00013", limit: 21, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types6)
+                    let customerCode = ((self.customerDict[0]["customer_code"]) as? String) ?? ""
+                    let urlHistory = CRMCallConfig.API.searchHistoryCallOfCustomer(withCompany: CRMCallManager.shareInstance.cn, customerCode: customerCode, limit: 21, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types)
                     
-                    AlamofireManager.requestUrlByGET(withURL: url6, parameter: nil) { (datas, success) in
+                    AlamofireManager.requestUrlByGET(withURL: urlHistory, parameter: nil) { (datas, success) in
                         if success {
                             println("-----------> Search history Call of customer data responce: \(datas)")
                             
@@ -306,11 +292,16 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         deregisterNotification()
         
-        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
-            historyWindowController.close()
-            CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.HistoryCallWindowController)
+        self.closeWindown()
+    }
+    
+    private func closeWindown() {
+        dispatch_async(dispatch_get_main_queue()) { 
+            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+                historyWindowController.close()
+                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.HistoryCallWindowController)
+            }
         }
-
     }
     
     // MARK: - Notification
@@ -396,6 +387,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             }
         } else {
             println("Not found data customer from Customer List")
+            self.closeWindown()
         }
         
         //self.getUploadCallHistory()
@@ -430,7 +422,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         let preferredEdge = NSRectEdge.MaxX
         
         let viewController = popover.contentViewController as! PopUpViewController
-        viewController.dataDict = productDict
+        
+        viewController.dataDict = self.setSelectedForDict(withData: productDict, values: self.productCodeOfCustomer)
         viewController.identifier = subjectID
         
         popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
@@ -448,10 +441,11 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         } else {
             let customersViewController = CustomerListWindowController.createInstance()
             let customerView = customersViewController.contentViewController as! CustomerListViewController
-            
+            customerView.keySearchTextFeild.stringValue = self.phoneTextField.stringValue
             customerView.delegate = self
             
             customersViewController.showWindow(nil)
+            customerView.searchCustomer()
             CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] = customersViewController
         }
     }
@@ -510,6 +504,19 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         return result
     }
     
+    private func setSelectedForDict(withData data: [NSMutableDictionary], values: [String]) -> [NSMutableDictionary] {
+        
+        for item in data {
+            for value in values {
+                if value == item["id"] as! String {
+                    item["CheckID"] = 1
+                }
+            }
+        }
+        
+        return data
+    }
+    
     private func uploadCallHistory() {
         
         let url = CRMCallConfig.API.uploadCallHistory(withCompany: CRMCallManager.shareInstance.cn)
@@ -543,6 +550,9 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 }
                 
                 println("-----> Upload history data: \(data)")
+                if self.isUnRegister {
+                    self.closeWindown()
+                }
             } else {
                 println("---XXXXX---->>> Upload call history data fail with message: \(datas)")
             }
@@ -559,8 +569,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             
             let url = CRMCallConfig.API.registerEmployee(withCompany: CRMCallManager.shareInstance.cn, companyCode: (customerSelect["code"] ?? "") as! String)
         
-        println("url request : \n \(url)")
-        println("paramater request : \n \(parameter)")
+            println("url request : \n \(url)")
+            println("paramater request : \n \(parameter)")
         
             AlamofireManager.requestUrlByPOST(withURL: url, parameter: parameter) { (datas, success) in
                 if success {
@@ -573,6 +583,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 } else {
                     println("---XXXXX---->>> Register employee data fail with message: \(datas)")
                 }
+                self.closeWindown()
             }
     }
     
@@ -596,6 +607,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 //                    println("Cannot get data after register employee success")
                 //                    return
                 //                }
+                self.closeWindown()
             } else {
                 println("---XXXXX---->>> Register employee data fail with message: \(datas)")
             }
@@ -617,6 +629,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 //                    println("Cannot get data after register employee success")
                 //                    return
                 //                }
+                self.closeWindown()
             } else {
                 println("---XXXXX---->>> Register telephone of company data fail with message: \(datas)")
             }
@@ -639,6 +652,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 //                    println("Cannot get data after register employee success")
                 //                    return
                 //                }
+                self.closeWindown()
             } else {
                 println("---XXXXX---->>> Register telephone of employee data fail with message: \(datas)")
             }
@@ -661,6 +675,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 //                    println("Cannot get data after register employee success")
                 //                    return
                 //                }
+                self.closeWindown()
             } else {
                 println("---XXXXX---->>> Register telephone of contact data fail with message: \(datas)")
             }

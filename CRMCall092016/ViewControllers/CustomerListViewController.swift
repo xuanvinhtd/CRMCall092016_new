@@ -28,6 +28,8 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     private var itemSelect = [String: AnyObject]()
     
+    var keySearchInit = ""
+    
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
         return  CRMCallHelpers.storyBoard.instantiateControllerWithIdentifier("CustomerListViewControllerID") as! CustomerListViewController
@@ -42,7 +44,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         TypesPopUpbutton.addItemsWithTitles(typesUI)
         
         // Get customer list
-        searchCustomer()
+        //searchCustomer()
     }
 
     func configItems() {
@@ -59,6 +61,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     override func viewDidAppear() {
         super.viewDidAppear()
         self.title = "Customers List"
+        
     }
     
     // MARK: - Handing event
@@ -114,7 +117,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     }
 
     // MARK: - SearchCustomer
-    private func searchCustomer() {
+    func searchCustomer() {
         var types = [""]
         
         if TypesPopUpbutton.titleOfSelectedItem == CRMCallHelpers.CustomerType.ALL.rawValue {
@@ -184,6 +187,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     }
 }
 
+// MARK: - Delegate table
 extension CustomerListViewController: NSTableViewDelegate, NSTableViewDataSource {
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return dataDict.count ?? 0
@@ -216,4 +220,6 @@ extension CustomerListViewController: NSTableViewDelegate, NSTableViewDataSource
             return object["company"] as! String
         }
     }
+    
+    
 }

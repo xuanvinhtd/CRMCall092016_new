@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import RealmSwift
 
 final class CRMCallHelpers {
     
@@ -139,7 +140,7 @@ final class CRMCallHelpers {
     
     // MARK: - CREATE DICTIONARY STAFF, PURPOSE, CUSTOMER
     
-    static func createDictionaryStaff(withData data: [Staff], phoneNumber: String) -> [[String : AnyObject]]{
+    static func createDictionaryStaff(withData data: List<Staff>, phoneNumber: String) -> [[String : AnyObject]]{
         var result = [[String : AnyObject]]()
         
         for item in data {
@@ -189,12 +190,12 @@ final class CRMCallHelpers {
     
     static func createDictionaryEmployee(withData label: [String], phoneNumber: [String]) -> [[String : AnyObject]]{
         var result = [[String : AnyObject]]()
-        
+    
         
         var index = 0
         
         for _ in label {
-            let employeeDict = ["label":"1","phone_number":"123"]
+            let employeeDict = ["label":label[index],"phone_number":phoneNumber[index]]
             index += 1
             result.append(employeeDict)
         }
