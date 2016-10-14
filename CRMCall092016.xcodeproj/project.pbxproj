@@ -22,6 +22,8 @@
 		9266A7601DA5DFD70031082A /* NSDate+InternetDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266A75F1DA5DFD70031082A /* NSDate+InternetDateTime.swift */; };
 		92793B411D8F7FD000586A5F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92793B401D8F7FD000586A5F /* Cache.swift */; };
 		9279E0901D9BA1B700F577A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9279E08E1D9BA1B700F577A5 /* MainViewController.swift */; };
+		928B488F1DB0D71100DBAAE3 /* StaffAvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B488E1DB0D71100DBAAE3 /* StaffAvailabilityViewController.swift */; };
+		928B48911DB0DE2E00DBAAE3 /* StaffAvailabilityWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B48901DB0DE2E00DBAAE3 /* StaffAvailabilityWindowController.swift */; };
 		92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */; };
 		92B2EC961D926F1800E487C9 /* CRMCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2EC951D926F1800E487C9 /* CRMCallManager.swift */; };
 		92C261A21D8B85DF00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
@@ -85,6 +87,8 @@
 		9266A75F1DA5DFD70031082A /* NSDate+InternetDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+InternetDateTime.swift"; sourceTree = "<group>"; };
 		92793B401D8F7FD000586A5F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		9279E08E1D9BA1B700F577A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		928B488E1DB0D71100DBAAE3 /* StaffAvailabilityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffAvailabilityViewController.swift; sourceTree = "<group>"; };
+		928B48901DB0DE2E00DBAAE3 /* StaffAvailabilityWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffAvailabilityWindowController.swift; sourceTree = "<group>"; };
 		92B0F0471D88E53700C70BC3 /* CRMCallHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallHelpers.swift; sourceTree = "<group>"; };
 		92B2EC951D926F1800E487C9 /* CRMCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallManager.swift; sourceTree = "<group>"; };
 		92C261A01D8B85DF00413F54 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				9279E08E1D9BA1B700F577A5 /* MainViewController.swift */,
 				925981BF1D9E68160006BE89 /* HistoryCallViewController.swift */,
 				92ECC33D1DAC727200A093EA /* CustomerListViewController.swift */,
+				928B488E1DB0D71100DBAAE3 /* StaffAvailabilityViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 				925981C11D9E692C0006BE89 /* HistoryCallWindowController.swift */,
 				923BAAB81DA3388F00127BE8 /* RingIngWindowController.swift */,
 				92ECC3411DACA74D00A093EA /* CustomerListWindowController.swift */,
+				928B48901DB0DE2E00DBAAE3 /* StaffAvailabilityWindowController.swift */,
 			);
 			path = WindowController;
 			sourceTree = "<group>";
@@ -449,6 +455,7 @@
 				92C261A71D8BA54800413F54 /* RealmManager.swift in Sources */,
 				92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */,
 				9258611D1D952A3300521D7D /* LoginViewController.swift in Sources */,
+				928B488F1DB0D71100DBAAE3 /* StaffAvailabilityViewController.swift in Sources */,
 				92E3E3131D8004C3008033ED /* AppDelegate.swift in Sources */,
 				92B2EC961D926F1800E487C9 /* CRMCallManager.swift in Sources */,
 				92E3E3291D8005E2008033ED /* AESExtension.m in Sources */,
@@ -468,6 +475,7 @@
 				925981C01D9E68160006BE89 /* HistoryCallViewController.swift in Sources */,
 				923BAAB91DA3388F00127BE8 /* RingIngWindowController.swift in Sources */,
 				92E3E3311D800947008033ED /* CRMCallConfig.swift in Sources */,
+				928B48911DB0DE2E00DBAAE3 /* StaffAvailabilityWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

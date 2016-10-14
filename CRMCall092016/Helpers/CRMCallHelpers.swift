@@ -82,6 +82,7 @@ final class CRMCallHelpers {
     
     struct NameScreen {
         static let LoginWindowController = "LoginWindowController"
+        static let StaffAvailabilityWindowController = "StaffAvailabilityWindowController"
         static let HistoryCallWindowController = "HistoryCallWindowController"
         static let RingIngWindowController = "RingIngWindowController"
         static let CustomerListViewController = "CustomerListViewController"

@@ -435,12 +435,20 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         //        })
         
         // dispatch_async(dispatch_get_main_queue(), {
-        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
-            historyWindowController.showWindow(nil)
+//        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+//            historyWindowController.showWindow(nil)
+//        } else {
+//            let historyWindowController = HistoryCallWindowController.createInstance()
+//            historyWindowController.showWindow(nil)
+//            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+//        }
+        
+        if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
+            staffAvailibilityWindowController.showWindow(nil)
         } else {
-            let historyWindowController = HistoryCallWindowController.createInstance()
-            historyWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+            let staffAvailibilityWindowController = StaffAvailabilityWindowController.createInstance()
+            staffAvailibilityWindowController.showWindow(nil)
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = staffAvailibilityWindowController
         }
         
         //   })

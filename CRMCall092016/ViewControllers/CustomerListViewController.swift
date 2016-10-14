@@ -24,7 +24,9 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     private var dataDict = [[String: AnyObject]]()
     private var indexStart = 0
-    private var offset = 15
+    private var offset = 30
+    private var indexScroll = 0
+    private var isReplaceSearch = true
     
     private var itemSelect = [String: AnyObject]()
     
@@ -48,7 +50,12 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     }
 
     func configItems() {
-
+        
+        let clipView = self.tableViewCustomers.enclosingScrollView!.contentView
+        NSNotificationCenter.defaultCenter().addObserver(self,selector:#selector(CustomerListViewController.myBoundsChangeNotificationHandler(_:)),
+        name:NSViewBoundsDidChangeNotification,
+        object:clipView);
+        
     }
     // MARK: - View life cycle
     override func viewDidLoad() {
@@ -64,13 +71,18 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewBoundsDidChangeNotification, object: nil)
+    }
+    
     // MARK: - Handing event
     
     @IBAction func actionSeach(sender: AnyObject) {
+        isReplaceSearch = true
         searchCustomer()
     }
     
-    @IBAction func actionUnregister(sender: AnyObject) {
+    @IBAction func actionUnregisters(sender: AnyObject) {
         delegate?.chooseCustomer(withDict: nil)
         
         dispatch_async(dispatch_get_main_queue(), {
@@ -115,6 +127,21 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
             }
         })
     }
+    
+    func myBoundsChangeNotificationHandler(withNotification :NSNotification) {
+        let range = getVisibleRow()
+        let local = range.location + range.length
+
+        println("xxxxx \(local)")
+        if isReplaceSearch && local == (dataDict.count - 2) && indexScroll < local {
+            
+            indexScroll = local
+            isReplaceSearch = false
+            indexStart += (offset + 1)
+            
+            searchCustomer()
+        }
+    }
 
     // MARK: - SearchCustomer
     func searchCustomer() {
@@ -146,7 +173,10 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         
         AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
             if success {
-                self.dataDict.removeAll()
+                
+                if self.isReplaceSearch {
+                    self.dataDict.removeAll()
+                }
                 
                 println("-----------> SEARCH CUSTOMER DATA CALL RESPONCE: \(datas)")
                 
@@ -177,6 +207,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
                     }
                     
                     self.tableViewCustomers.reloadData()
+                    self.isReplaceSearch = true
                 } else {
                     println("Not found SEARCH CUSTOMER from server")
                 }
@@ -221,5 +252,34 @@ extension CustomerListViewController: NSTableViewDelegate, NSTableViewDataSource
         }
     }
     
+    func getVisibleRow() -> NSRange {
+        if let scrollView = self.tableViewCustomers.enclosingScrollView {
+            let visibleRect = scrollView.contentView.visibleRect
+            let range = self.tableViewCustomers.rowsInRect(visibleRect)
+            return range
+        }
+        return NSRange()
+    }
     
+    func scrollRowToVisible(row: Int) {
+        println("\(row)")
+    }
+    func scrollRowToVisible(row: Int, animated: Bool) {
+        println("\(row)")
+    }
+//    func tableView(tableView: NSTableView, willDisplayCell cell: AnyObject, forTableColumn tableColumn: NSTableColumn?, row: Int) {
+//       // println("\(row)")
+//        
+//        let range = getVisibleRow()
+//        let local = range.location + range.length
+//        println("loacal \(range.location) late row \(range.length)")
+//        
+//        if isReplaceSearch && local == (dataDict.count - 5) {
+//            
+//            isReplaceSearch = false
+//            indexStart += (offset + 1)
+//            
+//            searchCustomer()
+//        }
+//    }
 }

@@ -776,8 +776,23 @@ extension HistoryCallViewController: CustomerListDelegate {
             customerSelect = d
             
             if d["type"] as! String == CRMCallHelpers.TypeApi.Employee.rawValue {
+                let userInfo = UserInfo()
+                
                 if let name = d["name"] as? String {
                     self.nameTextField.stringValue = name
+                    userInfo.name = name
+                }
+                
+                if let code = d["code"] as? String {
+                    userInfo.code = code
+                }
+                
+                if let phone = d["phone"] as? String {
+                    userInfo.phone = phone
+                }
+                
+                if let parentName = d["parentName"] as? String {
+                    userInfo.parentName = parentName
                 }
                 
                 if let name = d["company"] as? String {
@@ -786,6 +801,8 @@ extension HistoryCallViewController: CustomerListDelegate {
                 
                 self.nameTextField.enabled = false
                 self.companyTextField.enabled = false
+                
+                self.customerDict = CRMCallHelpers.createDictionaryCustomer(withData: userInfo)
             }
             
             if d["type"] as! String == CRMCallHelpers.TypeApi.Company.rawValue {
