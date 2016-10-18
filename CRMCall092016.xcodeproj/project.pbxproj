@@ -19,6 +19,7 @@
 		9258611D1D952A3300521D7D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9258611C1D952A3300521D7D /* LoginViewController.swift */; };
 		925981C01D9E68160006BE89 /* HistoryCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925981BF1D9E68160006BE89 /* HistoryCallViewController.swift */; };
 		925981C21D9E692C0006BE89 /* HistoryCallWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925981C11D9E692C0006BE89 /* HistoryCallWindowController.swift */; };
+		9261758E1DB46A4000C085C0 /* ModelTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9261758D1DB46A4000C085C0 /* ModelTree.swift */; };
 		9266A7601DA5DFD70031082A /* NSDate+InternetDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266A75F1DA5DFD70031082A /* NSDate+InternetDateTime.swift */; };
 		92793B411D8F7FD000586A5F /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92793B401D8F7FD000586A5F /* Cache.swift */; };
 		9279E0901D9BA1B700F577A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9279E08E1D9BA1B700F577A5 /* MainViewController.swift */; };
@@ -84,6 +85,7 @@
 		9258611C1D952A3300521D7D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		925981BF1D9E68160006BE89 /* HistoryCallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCallViewController.swift; sourceTree = "<group>"; };
 		925981C11D9E692C0006BE89 /* HistoryCallWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCallWindowController.swift; sourceTree = "<group>"; };
+		9261758D1DB46A4000C085C0 /* ModelTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTree.swift; sourceTree = "<group>"; };
 		9266A75F1DA5DFD70031082A /* NSDate+InternetDateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+InternetDateTime.swift"; sourceTree = "<group>"; };
 		92793B401D8F7FD000586A5F /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		9279E08E1D9BA1B700F577A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				92E234191D812899006C988E /* ModelRealm.swift */,
+				9261758D1DB46A4000C085C0 /* ModelTree.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				92E2341A1D812899006C988E /* ModelRealm.swift in Sources */,
 				925981C21D9E692C0006BE89 /* HistoryCallWindowController.swift in Sources */,
 				9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */,
+				9261758E1DB46A4000C085C0 /* ModelTree.swift in Sources */,
 				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
 				9266A7601DA5DFD70031082A /* NSDate+InternetDateTime.swift in Sources */,
