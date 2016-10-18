@@ -53,7 +53,63 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         
         initData()
         
+        cachesData()
         //testAPI()
+    }
+    
+    private func cachesData() {
+        
+        ///-------------- GET AND CACHES ALL STAFF -------------//
+        var url = CRMCallConfig.API.getAllStaffs()
+        
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Get All Staff data responce: \(datas)")
+                
+                guard let data = datas["rows"] as? [[String: AnyObject]] else {
+                    println("Cannot get data after register employee success")
+                    return
+                }
+                
+                Cache.shareInstance.staffTree(with: data)
+            } else {
+                println("---XXXXX---->>> Get all staff data fail with message: \(datas)")
+            }
+        }
+        
+        // GET AND CACHES PURPOSE LIST
+        url = CRMCallConfig.API.purposeList(withCNKey: CRMCallManager.shareInstance.cn)
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Product data purpose: \(datas)")
+                
+                if let data = datas["rows"] as? [[String: AnyObject]] {
+                    Cache.shareInstance.productCN(with: data)
+                    
+                } else {
+                    println("Not found purpose list from server")
+                }
+            } else {
+                println("---XXXXX---->>> Get purpose data fail with message: \(datas)")
+            }
+        }
+        
+        // GET AND CACHES PRODUCT LIST
+        url = CRMCallConfig.API.productList(withCNKey: CRMCallManager.shareInstance.cn)
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Product data responce: \(datas)")
+                
+                if let data = datas["rows"] as? [[String: AnyObject]] {
+                    Cache.shareInstance.purpose(with: data)
+                } else {
+                    println("Not found product list from server")
+                }
+            } else {
+                println("---XXXXX---->>> get product data fail with messgae: \(datas)")
+            }
+        }
+
     }
     
     func testAPI() {

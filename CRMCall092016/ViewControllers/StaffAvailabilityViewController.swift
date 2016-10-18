@@ -25,6 +25,37 @@ class StaffAvailabilityViewController: NSViewController, ViewControllerProtocol 
     
     func initData() {
         
+        Cache.shareInstance.getStaffTree { (data) in
+            guard let trees = data else {
+                println("Not found data tree staff from store caches")
+                self.cachesTreeStaff()
+                return
+            }
+            
+            if trees.count == 0 {
+                self.cachesTreeStaff()
+            } else {
+                self.getTreeStaff()
+            }
+        }
+    }
+    
+    private func getTreeStaff() {
+        Cache.shareInstance.getStaffTree { (data) in
+            guard let trees = data else {
+                println("Not found data tree staff from store caches")
+                return
+            }
+            
+            self.tree = CRMCallHelpers.buildTreeStaff(withData: trees)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.keysTree = Array(self.tree.keys)
+                self.sourceView.reloadData()
+            })
+        }
+    }
+    
+    private func cachesTreeStaff() {
         ///-------------- GET ALL STAFF -------------//
         let url = CRMCallConfig.API.getAllStaffs()
         
@@ -37,13 +68,17 @@ class StaffAvailabilityViewController: NSViewController, ViewControllerProtocol 
                     return
                 }
                 
-                self.tree = CRMCallHelpers.BuildTreeStaff(withData: data)
-                self.keysTree = Array(self.tree.keys)
-                self.sourceView.reloadData()
+                Cache.shareInstance.staffTree(with: data)
+                
+                self.getTreeStaff()
             } else {
                 println("---XXXXX---->>> Get all staff data fail with message: \(datas)")
             }
         }
+    }
+    
+    func configItems() {
+        keySerchTextField.delegate = self
     }
     
     // MARK: - View life Cycle
@@ -51,20 +86,31 @@ class StaffAvailabilityViewController: NSViewController, ViewControllerProtocol 
         super.viewDidLoad()
         
         initData()
+        configItems()
         // Do view setup here.
     }
     
     // MARK: - Handling event
     
     @IBAction func actionSearch(sender: AnyObject) {
-        if keySerchTextField.stringValue == "" {
-            initData()
+        searchStaffTree(keySerchTextField.stringValue)
+    }
+    
+    // MARK: - Other func 
+    private func searchStaffTree(withText: String) {
+        if withText == "" {
+            getTreeStaff()
             return
         }
-        self.tree = CRMCallHelpers.SearchTreeStaff(withData: self.tree, andKeySearch: keySerchTextField.stringValue)
-        self.keysTree = Array(self.tree.keys)
-        //self.sourceView.e
-        self.sourceView.reloadData()
+        CRMCallHelpers.SearchTreeStaff(withkeySearch: withText, result: { (data) in
+            self.tree = data
+            self.keysTree = Array(self.tree.keys)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.sourceView.reloadData()
+                self.sourceView.expandItem(nil, expandChildren: true)
+            })
+        })
+
     }
 }
 // MARK: - Outline View Data Source
@@ -72,7 +118,6 @@ extension StaffAvailabilityViewController: NSOutlineViewDataSource {
     func outlineView(outlineView: NSOutlineView, child index: Int, ofItem item: AnyObject?) -> AnyObject {
         guard let item = item else {
             let test = self.tree[self.keysTree[index]] as! Root
-            print("count = \(test.count())")
             return test
         }
         
@@ -85,7 +130,7 @@ extension StaffAvailabilityViewController: NSOutlineViewDataSource {
             assert(false, "outlineView:index:item: gave a dud item")
             return self
         }
-        
+
         return child
     }
     
@@ -149,5 +194,14 @@ extension StaffAvailabilityViewController: NSOutlineViewDelegate {
         }
         
         return view
+    }
+}
+
+// MARK: - Delegate of text field
+
+extension StaffAvailabilityViewController: NSTextFieldDelegate {
+    override func controlTextDidChange(obj: NSNotification) {
+        let object = obj.object as! NSTextField
+        searchStaffTree(object.stringValue)
     }
 }

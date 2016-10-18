@@ -119,7 +119,7 @@ class Cache {
         
         var realm: Realm?
         var result: Results<Customer>?
-
+        
         dispatch_async(realmQueue) {
             do {
                 realm = try Realm()
@@ -303,7 +303,7 @@ class Cache {
     }
     
     func cleanCustomerInfo() {
-
+        
         guard let userInfo = getCustomerInfo() else {
             println("Cannot clean caches customer info")
             return
@@ -326,11 +326,303 @@ class Cache {
         }
     }
     
-    // MARK: - STAFF
+    // MARK: - TREE STAFF
     
+    func staffTree(with info: [[String: AnyObject]]) {
+        
+        var idRoot = 0
+        var idRootChild = 0
+        var idChild = 0
+        
+        for root in info {
+            
+            let rootStaff = RootTree()
+            rootStaff.idx = String(idRoot)
+            
+            if let name = root["title"] as? String {
+                rootStaff.title = name
+            }
+            
+            if let groupId = root["group_mng_id"] as? String {
+                rootStaff.group_mng_id = groupId
+            }
+            
+            if let isFolder = root["isFolder"] as? Bool {
+                rootStaff.isFolder = isFolder
+            }
+            
+            if let isLazy = root["isLazy"] as? Bool {
+                rootStaff.isLazy = isLazy
+            }
+            
+            idRoot += 1
+            
+            guard let children = root["children"] as? [[String: AnyObject]] else {
+                continue
+            }
+            
+            for _rootChild in children {
+                
+                let rootChild = RootChild()
+                rootChild.idx = String(idRootChild)
+                
+                if let name = _rootChild["title"] as? String {
+                    rootChild.title = name
+                }
+                
+                if let groupId = _rootChild["group_mng_id"] as? String {
+                    rootChild.group_mng_id = groupId
+                }
+                
+                if let isFolder = _rootChild["isFolder"] as? Bool {
+                    rootChild.isFolder = isFolder
+                }
+                
+                if let isLazy = _rootChild["isLazy"] as? Bool {
+                    rootChild.isLazy = isLazy
+                }
+                
+                idRootChild += 1
+                
+                guard let _children = _rootChild["children"] as? [[String: AnyObject]] else {
+                    rootStaff.rootchildren.append(rootChild)
+                    continue
+                }
+                
+                for achild in _children {
+                    
+                    let child = ChildTree()
+                    child.idx = String(idChild)
+                    
+                    if let name = achild["title"] as? String {
+                        child.title = name
+                    }
+                    
+                    if let name = achild["name_jp"] as? String {
+                        child.name_jp = name
+                    }
+                    
+                    if let nameCh = achild["name_ch"] as? String {
+                        child.name_ch = nameCh
+                    }
+                    
+                    if let nameChSimp = achild["name_ch_simp"] as? String {
+                        child.name_ch_simp = nameChSimp
+                    }
+                    
+                    if let userNo = achild["user_no"] as? String {
+                        child.user_no = userNo
+                    }
+                    
+                    if let userGroup = achild["user_group_id"] as? String {
+                        child.user_group_id = userGroup
+                    }
+                    
+                    if let localphone = achild["localphone"] as? String {
+                        child.localphone = localphone
+                    }
+                    
+                    if let groupId = achild["group_id"] as? String {
+                        child.group_id = groupId
+                    }
+                    
+                    if let isFolder = achild["isFolder"] as? Bool {
+                        child.isFolder = isFolder
+                    }
+                    
+                    if let isLazy = achild["isLazy"] as? Bool {
+                        child.isLazy = isLazy
+                    }
+                    
+                    rootChild.childrens.append(child)
+                    idChild += 1
+                }
+                
+                rootStaff.rootchildren.append(rootChild)
+            }
+            
+            dispatch_async(realmQueue) {
+                do {
+                    let realm = try Realm()
+                    
+                    if !realm.refresh() {
+                        do {
+                            let _ = try realm.write {
+                                realm.add(rootStaff, update: true)
+                            }
+                        } catch let e {
+                            println("Insert Staff Tree with Error: \(e)")
+                        }
+                    }
+                } catch let error {
+                    println("Cannot init Realm with error: \(error)")
+                }
+            }
+        }
+    }
     
+    func getStaffTree(Result: ((Results<RootTree>?)->Void)) {
+        var realm: Realm?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                let data = realm!.objects(RootTree.self)
+                Result(data)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
+        }
+    }
+    
+    func getStaffTree(with predicate: NSPredicate, Result: ((Results<RootTree>?) ->Void)){
+        
+        var realm: Realm?
+        var data: Results<RootTree>?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                data = realm!.objects(RootTree.self).filter(predicate)
+                Result(data)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
+        }
+    }
+    
+    func cleanStaffTree() {
+        
+        getStaffTree { (data) in
+            guard let tree = data else {
+                println("Cannot clean caches tree staff")
+                return
+            }
+            
+            dispatch_async(self.realmQueue) {
+                do {
+                    let realm = try Realm()
+                    
+                    do {
+                        try realm.write{
+                            realm.delete(tree)
+                        }
+                    } catch let error {
+                        println("clean tree staff with error: \(error)")
+                    }
+                } catch let error {
+                    println("Cannot init Realm with error: \(error)")
+                }
+            }
+        }
+    }
     
     // MARK: - PRODUCT
+    
+    func productCN(with info: [[String: AnyObject]]) {
+        for dict in info {
+            let product = ProductCN()
+            if let idx = dict["product_id"] as? String {
+                product.idx = idx
+            }
+            
+            if let prodCode = dict["prod_code"] as? String {
+                product.prodCode = prodCode
+            }
+            
+            if let name = dict["name"] as? String {
+                product.name = name
+            }
+            
+            if let is_discontinue = dict["is_discontinue"] as? Bool {
+                product.isDiscontinune = is_discontinue
+            }
+            
+            dispatch_async(realmQueue) {
+                do {
+                    let realm = try Realm()
+                    
+                    if !realm.refresh() {
+                        do {
+                            let _ = try realm.write {
+                                realm.add(product, update: true)
+                            }
+                        } catch let e {
+                            println("Insert product with Error: \(e)")
+                        }
+                    }
+                } catch let error {
+                    println("Cannot init Realm with error: \(error)")
+                }
+            }
+        }
+    }
+    
+    func getProductCN(Result: ((Results<ProductCN>?)->Void)) {
+        
+        var realm: Realm?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                let data = realm!.objects(ProductCN.self)
+                Result(data)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
+        }
+    }
+    
+    // MARK: - PURPOSE
+    func purpose(with info: [[String: AnyObject]]) {
+        for dict in info {
+            let purpose = Purpose()
+            if let idx = dict["id"] as? String {
+                purpose.idx = idx
+            }
+            
+            if let content = dict["content"] as? String {
+                purpose.content = content
+            }
+            
+            dispatch_async(realmQueue) {
+                do {
+                    let realm = try Realm()
+                    
+                    if !realm.refresh() {
+                        do {
+                            let _ = try realm.write {
+                                realm.add(purpose, update: true)
+                            }
+                        } catch let e {
+                            println("Insert purpose with Error: \(e)")
+                        }
+                    }
+                } catch let error {
+                    println("Cannot init Realm with error: \(error)")
+                }
+            }
+        }
+    }
+    
+    func getPurpose(Result: ((Results<Purpose>?)->Void)) {
+        
+        var realm: Realm?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                let data = realm!.objects(Purpose.self)
+                Result(data)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
+        }
+    }
     
     // MARK: - RINGING
     func ringInfo(with info: [String: String]) {
@@ -339,32 +631,22 @@ class Cache {
         
         if let idx = info["CALLID"] as String? {
             ringInfo.callID = idx
-        } else {
-            ringInfo.callID = "0"
         }
         
         if let from = info["FROM"] as String? {
             ringInfo.from = from
-        } else {
-            ringInfo.from = "000000"
         }
         
         if let to = info["TO"] as String? {
             ringInfo.to = to
-        } else {
-            ringInfo.to = "000000"
         }
         
         if let event = info["EVENT"] as String? {
             ringInfo.event = event
-        } else {
-            ringInfo.event = "None event"
         }
         
         if let time = info["TIME"] as String? {
             ringInfo.time = time
-        } else {
-            ringInfo.time = "None time"
         }
         
         if let direction = info["DIRECTION"] as String? {

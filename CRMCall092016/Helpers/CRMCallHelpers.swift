@@ -234,75 +234,21 @@ final class CRMCallHelpers {
         return data
     }
     
-    static func BuildTreeStaff(withData data: [[String: AnyObject]]) -> [String: AnyObject] {
+    static func buildTreeStaff(withData data: Results<RootTree>) -> [String: AnyObject] {
         
         var tree: [String: AnyObject] = [:]
         for root in data {
             
-            var name = "root"
-            var groupId = ""
-            var isFolder = true
-            var isLazy = true
+            let root0 = Root(icon: NSImage(named: "Image")!, rootTree: root)
+            tree[root.title] = root0
             
-            if let _name = root["title"] as? String {
-                name = _name
-            }
-            
-            if let _groupId = root["group_mng_id"] as? String {
-                groupId = _groupId
-            }
-            
-            if let _isFolder = root["isFolder"] as? Bool {
-                isFolder = _isFolder
-            }
-            
-            if let _isLazy = root["isLazy"] as? Bool {
-                isLazy = _isLazy
-            }
-            let root0 = Root(name: name, icon: NSImage(named: "Image")!, groupId: groupId, isFolder: isFolder, isLazy: isLazy)
-            tree[name] = root0
-            
-            guard let children = root["children"] as? [[String: AnyObject]] else {
-                continue
-            }
-            
-            for _rootChild in children {
-
-                var name = "root"
-                var groupId = ""
-                var isFolder = true
-                var isLazy = true
+            for _rootChild in root.rootchildren {
                 
-                if let _name = _rootChild["title"] as? String {
-                    name = _name
-                }
+                let rootI = RootI(icon: NSImage(named: "Image")!, rootTree: _rootChild)
                 
-                if let _groupId = _rootChild["group_mng_id"] as? String {
-                    groupId = _groupId
-                }
-                
-                if let _isFolder = _rootChild["isFolder"] as? Bool {
-                    isFolder = _isFolder
-                }
-                
-                if let _isLazy = _rootChild["isLazy"] as? Bool {
-                    isLazy = _isLazy
-                }
-                let rootI = RootI(name: name, icon: NSImage(named: "Image")!, groupId: groupId, isFolder: isFolder, isLazy: isLazy)
-                
-                guard let _children = _rootChild["children"] as? [[String: AnyObject]] else {
-                    root0.rootI.append(rootI)
-                    continue
-                }
-                
-                for child in _children {
+                for child in _rootChild.childrens {
                     
-                    var name = "child"
-                    if let _name = child["title"] as? String {
-                        name = _name
-                    }
-                    
-                    let _ = Child(name: name, icon: NSImage(named: "Image")!, nameEng: child["name_eng"] as? String, nameJp: child["name_jp"] as? String, nameCh: child["name_ch"] as? String, nameChSimp: child["name_ch_simp"] as? String, userNo: child["user_no"] as? String, userGroupId: child["user_group_id"] as? String, localPhone: child["localphone"] as? String, groupID: child["group_id"] as? String, isFolder: child["isFolder"] as? Bool, isLazy: child["isLazy"] as? Bool, rootI: rootI)
+                    let _ = Child(icon: NSImage(named: "Image")!, childTree: child, rootI: rootI)
                 }
                 root0.rootI.append(rootI)
             }
@@ -311,53 +257,68 @@ final class CRMCallHelpers {
         return tree
     }
     
-    static func SearchTreeStaff(withData data: [String: AnyObject], andKeySearch keySearch: String) -> [String: AnyObject] {
+    static func SearchTreeStaff(withkeySearch keySearch: String, result: ([String: AnyObject]->Void)) {
         
         var tree: [String: AnyObject] = [:]
-        
-        for (_, value) in data {
-            if let r = value as? Root {
-                let root0 = Root(name: r.name, icon: NSImage(named: "Image")!, groupId: r.groupMngId, isFolder: r.isFolder, isLazy: r.isLazy)
-                tree[r.name] = root0
+        Cache.shareInstance.getStaffTree({ (data) in
+            guard let trees = data else {
+                println("Not found tree data with predicate")
+                return
+            }
+            
+            let rootTree = CRMCallHelpers.buildTreeStaff(withData: trees)
+            
+            for (_ , value) in rootTree {
                 
-                for r1 in r.rootI {
+                if let r = value as? Root {
+                    let root0 = Root(icon: NSImage(named: "Image")!, rootTree: r.rootTree)
+                    tree[r.name] = root0
                     
-                    let rootI = RootI(name: r1.name, icon: NSImage(named: "Image")!, groupId: r1.groupMngID, isFolder: r1.isFolder, isLazy: r1.isLazy)
-                    root0.rootI.append(rootI)
-                    for child in r1.child {
-                    
-                        if child.name.rangeOfString(keySearch) != nil {
-                            rootI.child.append(child)
-                        }
-                    }
-                }
-            }
-        }
-        
-        // Remove Empty node
-        var index = 0
-        for (key , value) in tree {
-            if let r = value as? Root {
-                if r.rootI.count == 0 {
-                    tree.removeValueForKey(key)
-                } else {
                     for r1 in r.rootI {
-                        if r1.child.count == 0 {
-                            r.rootI.removeAtIndex(index)
+                        let rootI = RootI(icon: NSImage(named: "Image")!, rootTree: r1.rootTree)
+                        root0.rootI.append(rootI)
+                        
+                        if r1.name.containsString(keySearch) {
+                            for child in r1.child {
+                                    let _ = Child(icon: NSImage(named: "Image")!, childTree: child.childTree, rootI: rootI)
+                            }
                         } else {
-                            index += 1
+                            for child in r1.child {
+                                if child.name.containsString(keySearch) {
+                                    let _ = Child(icon: NSImage(named: "Image")!, childTree: child.childTree, rootI: rootI)
+                                }
+                            }
                         }
+                        
+                        
                     }
-                    
-                    if r.rootI.count == 0 {
-                        tree.removeValueForKey(key)
-                    }
-                    index = 0
                 }
             }
-        }
-        
-        return tree
+            
+            // Remove Empty node and search root node
+            var index = 0
+            for (key , value) in tree {
+                if let r = value as? Root {
+                    if r.rootI.count == 0 && !r.name.containsString(keySearch) {
+                        tree.removeValueForKey(key)
+                    } else {
+                        for r1 in r.rootI {
+                            if r1.child.count == 0 && !r1.name.containsString(keySearch) {
+                                r.rootI.removeAtIndex(index)
+                            } else {
+                                index += 1
+                            }
+                        }
+                        
+                        if r.rootI.count == 0 {
+                            tree.removeValueForKey(key)
+                        }
+                        index = 0
+                    }
+                }
+            }
+            result(tree)
+        })
     }
     
 }

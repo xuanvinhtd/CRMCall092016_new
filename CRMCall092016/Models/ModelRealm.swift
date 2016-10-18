@@ -148,5 +148,72 @@ class RingIng: Object {
     }
 }
 
+class Purpose: Object {
+    dynamic var idx = "0"
+    dynamic var content = ""
+    
+    override static func primaryKey() -> String? {
+        return "idx"
+    }
+}
+
+class ProductCN: Object {
+    dynamic var idx = "0"
+    dynamic var name = ""
+    dynamic var prodCode = ""
+    dynamic var isDiscontinune = false
+    
+    override static func primaryKey() -> String? {
+        return "idx"
+    }
+}
+
+class RootTree: Object {
+    dynamic var idx = "0"
+    dynamic var title = ""
+    dynamic var group_mng_id = ""
+    dynamic var isFolder = true
+    dynamic var isLazy = true
+    let rootchildren = List<RootChild>()
+    
+    override static func primaryKey() -> String? {
+        return "idx"
+    }
+}
+
+class RootChild: Object {
+    dynamic var idx = "0"
+    dynamic var title = ""
+    dynamic var group_mng_id = ""
+    dynamic var isFolder = true
+    dynamic var isLazy = true
+    let childrens = List<ChildTree>()
+    
+    override static func primaryKey() -> String? {
+        return "idx"
+    }
+}
+
+class ChildTree: Object {
+    dynamic var idx = "0"
+    dynamic var title = ""
+    dynamic var name_eng = ""
+    dynamic var name_jp = ""
+    dynamic var name_ch = ""
+    dynamic var name_ch_simp = ""
+    dynamic var user_no = ""
+    dynamic var localphone = ""
+    dynamic var group_id = ""
+    dynamic var user_group_id = ""
+    dynamic var isFolder = true
+    dynamic var isLazy = true
+    
+    override static func primaryKey() -> String? {
+        return "idx"
+    }
+}
+
+
+
 
 

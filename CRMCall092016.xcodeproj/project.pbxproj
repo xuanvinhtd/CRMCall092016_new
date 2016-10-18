@@ -29,7 +29,6 @@
 		92B2EC961D926F1800E487C9 /* CRMCallManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2EC951D926F1800E487C9 /* CRMCallManager.swift */; };
 		92C261A21D8B85DF00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
 		92C261A31D8B85DF00413F54 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; };
-		92C261A71D8BA54800413F54 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C261A61D8BA54800413F54 /* RealmManager.swift */; };
 		92C261AA1D8BCD9D00413F54 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; };
 		92C261AB1D8BCD9D00413F54 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92C261AC1D8BCD9D00413F54 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; };
@@ -95,7 +94,6 @@
 		92B2EC951D926F1800E487C9 /* CRMCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallManager.swift; sourceTree = "<group>"; };
 		92C261A01D8B85DF00413F54 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		92C261A11D8B85DF00413F54 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		92C261A61D8BA54800413F54 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		92E234191D812899006C988E /* ModelRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelRealm.swift; sourceTree = "<group>"; };
 		92E2341C1D81443F006C988E /* AlamofireManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireManager.swift; sourceTree = "<group>"; };
 		92E2341E1D81447D006C988E /* SWXMLHashManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHashManager.swift; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 				92C261A11D8B85DF00413F54 /* RealmSwift.framework */,
 				92E2341C1D81443F006C988E /* AlamofireManager.swift */,
 				92E2341E1D81447D006C988E /* SWXMLHashManager.swift */,
-				92C261A61D8BA54800413F54 /* RealmManager.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -455,7 +452,6 @@
 				92F3C8171D9236CE00FBCD9A /* SettingViewController.swift in Sources */,
 				92E234241D814647006C988E /* XMLRequestBuilder.swift in Sources */,
 				92E3E3151D8004C3008033ED /* ViewController.swift in Sources */,
-				92C261A71D8BA54800413F54 /* RealmManager.swift in Sources */,
 				92B0F0481D88E53700C70BC3 /* CRMCallHelpers.swift in Sources */,
 				9258611D1D952A3300521D7D /* LoginViewController.swift in Sources */,
 				928B488F1DB0D71100DBAAE3 /* StaffAvailabilityViewController.swift in Sources */,

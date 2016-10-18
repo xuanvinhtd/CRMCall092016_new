@@ -26,16 +26,12 @@ class Root: NSObject, SourceListItemDisplayable {
     var rootI: [RootI] = []
     var icon: NSImage?
     
-    var groupMngId: String
-    var isFolder: Bool = true
-    var isLazy: Bool = true
+    var rootTree: RootTree
     
-    init(name: String, icon: NSImage, groupId: String, isFolder: Bool, isLazy: Bool) {
-        self.name = name
+    init(icon: NSImage, rootTree: RootTree) {
+        self.name = rootTree.title
         self.icon = icon
-        self.groupMngId = groupId
-        self.isFolder = isFolder
-        self.isLazy = isLazy
+        self.rootTree = rootTree
         super.init()
     }
     
@@ -57,16 +53,12 @@ class RootI: NSObject, SourceListItemDisplayable {
     var child: [Child] = []
     let icon: NSImage?
     
-    var groupMngID: String
-    var isFolder: Bool = true
-    var isLazy: Bool = true
+    var rootTree: RootChild
     
-    init(name: String, icon: NSImage, groupId: String, isFolder: Bool, isLazy: Bool) {
-        self.name = name
+    init(icon: NSImage, rootTree: RootChild) {
+        self.name = rootTree.title
         self.icon = icon
-        self.groupMngID = groupId
-        self.isFolder = isFolder
-        self.isLazy = isLazy
+        self.rootTree = rootTree
         super.init()
     }
     
@@ -84,31 +76,13 @@ class Child: NSObject, SourceListItemDisplayable {
     let rootI: RootI
     let icon: NSImage?
     
-    let nameEng: String?
-    let nameJp: String?
-    let nameCh: String?
-    let nameChSimp: String?
-    let userNo: String?
-    let userGroupId: String?
-    let localPhone: String?
-    let groupID: String?
-    let isFolder: Bool?
-    let isLazy: Bool?
+    var childTree: ChildTree
     
-    init(name: String, icon: NSImage?, nameEng: String?, nameJp: String?, nameCh: String?, nameChSimp: String?, userNo: String?, userGroupId: String?, localPhone: String?, groupID: String?, isFolder: Bool?, isLazy: Bool?, rootI: RootI) {
-        self.name = name
+    init(icon: NSImage?, childTree: ChildTree, rootI: RootI) {
+        self.name = childTree.title
         self.rootI = rootI
         self.icon = icon
-        self.nameEng = nameEng
-        self.nameJp = nameJp
-        self.nameCh = nameCh
-        self.nameChSimp = nameChSimp
-        self.userNo = userNo
-        self.userGroupId = userGroupId
-        self.localPhone = localPhone
-        self.groupID = groupID
-        self.isFolder = isFolder
-        self.isLazy = isLazy
+        self.childTree = childTree
     
         super.init()
         rootI.child.append(self)

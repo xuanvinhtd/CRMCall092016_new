@@ -8,6 +8,7 @@
 
 import Cocoa
 import Chronos
+import RealmSwift
 
 class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
@@ -109,7 +110,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         dateTextField.stringValue = NSDate().stringFormattedDateTime
         
         // GET TYPE PHONE
-        var url = CRMCallConfig.API.phoneType()
+        let url = CRMCallConfig.API.phoneType()
         AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
             if success {
                 println("----------->Type phone data responce: \(datas)")
@@ -135,32 +136,33 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         }
         
         // GET PURPOSE LIST
-        url = CRMCallConfig.API.purposeList(withCNKey: CRMCallManager.shareInstance.cn)
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
-            if success {
-                if let data = datas["rows"] as? [[String: String]] {
-                    self.purposeDict = self.buildDictionary(withValue: data, isPurpose: true)
-                } else {
-                    println("Not found purpose list from server")
-                }
+        
+        Cache.shareInstance.getPurpose { (data) in
+            guard let purposes = data else {
+                self.getPurpose()
+                println("Not found purpose data from store")
+                return
+            }
+            
+            if purposes.count == 0 {
+               self.getPurpose()
             } else {
-                println("---XXXXX---->>> Get purpose data fail with message: \(datas)")
+                self.purposeDict = self.buildDictionary(withValue: purposes)
             }
         }
         
         // GET PRODUCT LIST
-        url = CRMCallConfig.API.productList(withCNKey: CRMCallManager.shareInstance.cn)
-        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
-            if success {
-                println("-----------> Product data responce: \(datas)")
-                
-                if let data = datas["rows"] as? [[String: String]] {
-                    self.productDict = self.buildDictionary(withValue: data, isPurpose: false)
-                } else {
-                    println("Not found product list from server")
-                }
+        Cache.shareInstance.getProductCN { (data) in
+            guard let products = data else {
+                self.getProduct()
+                println("Not found products data from store")
+                return
+            }
+            
+            if products.count == 0 {
+                self.getProduct()
             } else {
-                println("---XXXXX---->>> get product data fail with messgae: \(datas)")
+                self.productDict = self.buildDictionary(withValue: products)
             }
         }
         
@@ -451,6 +453,79 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     }
     
     // MARK: - Other func
+    
+    private func getProduct() {
+        let url = CRMCallConfig.API.productList(withCNKey: CRMCallManager.shareInstance.cn)
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Product data responce: \(datas)")
+                
+                if let data = datas["rows"] as? [[String: String]] {
+                    self.productDict = self.buildDictionary(withValue: data, isPurpose: false)
+                } else {
+                    println("Not found product list from server")
+                }
+            } else {
+                println("---XXXXX---->>> get product data fail with messgae: \(datas)")
+            }
+        }
+    }
+    
+    private func getPurpose() {
+        let url = CRMCallConfig.API.purposeList(withCNKey: CRMCallManager.shareInstance.cn)
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                if let data = datas["rows"] as? [[String: String]] {
+                    self.purposeDict = self.buildDictionary(withValue: data, isPurpose: true)
+                } else {
+                    println("Not found purpose list from server")
+                }
+            } else {
+                println("---XXXXX---->>> Get purpose data fail with message: \(datas)")
+            }
+        }
+    }
+    
+    private func buildDictionary(withValue value: Results<Purpose>) -> [NSMutableDictionary] {
+        var result = [NSMutableDictionary]()
+        
+        for item in value {
+            let key = item.idx
+            let value = item.content
+            
+            let dic = NSMutableDictionary()
+            dic["id"] = key
+            dic["NameID"] = value
+            dic["CheckID"] = 0
+            
+            result.append(dic)
+        }
+        
+        return result
+    }
+    
+    private func buildDictionary(withValue value: Results<ProductCN>) -> [NSMutableDictionary] {
+        var result = [NSMutableDictionary]()
+        
+        for item in value {
+            let is_discontinue = item.isDiscontinune
+            let name = item.name
+            let prod_code = item.prodCode
+            let product_id = item.idx
+            
+            let dic = NSMutableDictionary()
+            dic["id"] = product_id
+            dic["NameID"] = name
+            dic["CheckID"] = 0
+            dic["prod_code"] = prod_code
+            dic["is_discontinue"] = is_discontinue
+            
+            result.append(dic)
+        }
+        
+        return result
+    }
+
     private func buildDictionary(withValue value: [[String: String]], isPurpose: Bool) -> [NSMutableDictionary] {
         var result = [NSMutableDictionary]()
         
