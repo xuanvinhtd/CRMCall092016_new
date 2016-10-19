@@ -281,9 +281,10 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 if let direction = result["DIRECTION"] {
                     if  direction == CRMCallHelpers.Direction.InBound.rawValue {
                         CRMCallManager.shareInstance.myCurrentDirection = .InBound
-                    }
-                    if  direction == CRMCallHelpers.Direction.OutBound.rawValue {
+                    } else if  direction == CRMCallHelpers.Direction.OutBound.rawValue {
                         CRMCallManager.shareInstance.myCurrentDirection = .OutBound
+                    } else {
+                        CRMCallManager.shareInstance.myCurrentDirection = .None
                     }
                 } else {
                     CRMCallManager.shareInstance.myCurrentDirection = .None

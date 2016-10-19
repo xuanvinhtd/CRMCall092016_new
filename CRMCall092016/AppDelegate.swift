@@ -100,6 +100,65 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSNotificationCenter.defaultCenter().postNotificationName(MainViewController.Notification.ShowPageSigin, object: nil, userInfo: nil)
     }
     
+    @IBAction func showStaffAvailiblity(sender: AnyObject) {
+        
+        if !CRMCallManager.shareInstance.isUserLoginSuccess {
+            CRMCallAlert.showNSAlert(with: .InformationalAlertStyle, title: "Notification", messageText: "You must login before", dismissText: "Cancel", completion: { (rs) in
+                
+            })
+            return
+        }
+        
+        if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
+            staffAvailibilityWindowController.showWindow(nil)
+        } else {
+            let staffAvailibilityWindowController = StaffAvailabilityWindowController.createInstance()
+            staffAvailibilityWindowController.showWindow(nil)
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] = staffAvailibilityWindowController
+        }
+    }
+    
+    @IBAction func showMissedCalls(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func showCustomerList(sender: AnyObject) {
+        
+        if !CRMCallManager.shareInstance.isUserLoginSuccess {
+            CRMCallAlert.showNSAlert(with: .InformationalAlertStyle, title: "Notification", messageText: "You must login before", dismissText: "Cancel", completion: { (rs) in
+                
+            })
+            return
+        }
+        
+        if let customerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+            
+            let viewController = customerListWindowController.contentViewController as! CustomerListViewController
+            viewController.isCustomerListReviews = true
+            viewController.searchCustomer()
+            
+            customerListWindowController.showWindow(nil)
+        } else {
+            
+            let customerListWindowController = CustomerListWindowController.createInstance()
+            let viewController = customerListWindowController.contentViewController as! CustomerListViewController
+            viewController.isCustomerListReviews = true
+            viewController.searchCustomer()
+            customerListWindowController.showWindow(nil)
+            
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] = customerListWindowController
+        }
+    }
+    
+    @IBAction func showAddToHistoryCall(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func showRemote(sender: AnyObject) {
+        
+    }
+    
+    
     @IBAction func showCRMCall(sender: AnyObject) {
         for window in NSApp.windows{
             if let w = window as NSWindow? {

@@ -18,16 +18,22 @@ import AppKit
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    func reloadTable() {
+        if dataTableView != nil {
+            dataTableView.reloadData()
+        }
+    }
 }
 
 extension PopUpViewController: NSTableViewDelegate, NSTableViewDataSource {
  
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return dataDict.count ?? 0
+        return (dataDict.count - 1) ?? 0
     }
     
     func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
-        
+
         let object = dataDict[row] as NSMutableDictionary
         
         if tableColumn?.identifier == "NameID" {

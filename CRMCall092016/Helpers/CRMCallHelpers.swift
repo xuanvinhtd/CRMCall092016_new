@@ -161,7 +161,7 @@ final class CRMCallHelpers {
         var result = [[String : AnyObject]]()
         
         var staffDict = [String : AnyObject]()
-        //staffDict["customer_cn"] = data.cn
+        staffDict["customer_cn"] = data.cn
         staffDict["customer_code"] = data.code
         staffDict["customer_name"] = data.name
         staffDict["customer_phone"] = data.phone

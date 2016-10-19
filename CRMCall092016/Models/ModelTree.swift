@@ -10,6 +10,7 @@ import Cocoa
 
 protocol SourceListItemDisplayable: class {
     var name: String { get }
+    var phone: String { get }
     var icon: NSImage? { get }
     func cellID() -> String
     func childAtIndex(index: Int) -> SourceListItemDisplayable?
@@ -23,6 +24,7 @@ extension SourceListItemDisplayable {
 
 class Root: NSObject, SourceListItemDisplayable {
     let name: String
+    var phone: String = ""
     var rootI: [RootI] = []
     var icon: NSImage?
     
@@ -50,6 +52,7 @@ class Root: NSObject, SourceListItemDisplayable {
 
 class RootI: NSObject, SourceListItemDisplayable {
     let name: String
+    var phone: String = ""
     var child: [Child] = []
     let icon: NSImage?
     
@@ -73,12 +76,14 @@ class RootI: NSObject, SourceListItemDisplayable {
 
 class Child: NSObject, SourceListItemDisplayable {
     let name: String
+    var phone: String = ""
     let rootI: RootI
     let icon: NSImage?
     
     var childTree: ChildTree
     
     init(icon: NSImage?, childTree: ChildTree, rootI: RootI) {
+        self.phone = childTree.localphone
         self.name = childTree.title
         self.rootI = rootI
         self.icon = icon

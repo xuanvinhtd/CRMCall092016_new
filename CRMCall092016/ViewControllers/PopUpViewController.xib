@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PopUpViewController" customModule="CRMCall092016" customModuleProvider="target">
             <connections>
+                <outlet property="dataTableView" destination="6zu-1Z-y6X" id="Hz7-uV-FYe"/>
                 <outlet property="view" destination="c22-O7-iKe" id="NKB-oU-LiR"/>
             </connections>
         </customObject>

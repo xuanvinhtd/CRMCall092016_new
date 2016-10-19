@@ -12,6 +12,8 @@ class StaffAvailabilityViewController: NSViewController, ViewControllerProtocol 
     
     // MARK: - Properties
     @IBOutlet weak var sourceView: NSOutlineView!
+    @IBOutlet weak var phoneLocalTextfield: NSTextField!
+    
     var tree: [String: AnyObject] = [:]
     var keysTree: [String] = []
     
@@ -90,11 +92,35 @@ class StaffAvailabilityViewController: NSViewController, ViewControllerProtocol 
         // Do view setup here.
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        self.view.window?.title = "Staff Availiblity"
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        closeWindown()
+    }
+    
+    private func closeWindown() {
+        dispatch_async(dispatch_get_main_queue()) {
+            if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
+                staffAvailibilityWindowController.close()
+                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
+            }
+        }
+    }
+    
     // MARK: - Handling event
     
     @IBAction func actionSearch(sender: AnyObject) {
         searchStaffTree(keySerchTextField.stringValue)
     }
+    
+    @IBAction func actionReaload(sender: AnyObject) {
+        self.cachesTreeStaff()
+    }
+    
     
     // MARK: - Other func 
     private func searchStaffTree(withText: String) {
@@ -194,6 +220,16 @@ extension StaffAvailabilityViewController: NSOutlineViewDelegate {
         }
         
         return view
+    }
+    
+    func outlineViewSelectionDidChange(notification: NSNotification) {
+        if let outLineView = notification.object as? NSOutlineView {
+           let item = outLineView.itemAtRow(outLineView.selectedRow)
+            
+            if let object = item as? SourceListItemDisplayable {
+                phoneLocalTextfield.stringValue = object.phone
+            }
+        }
     }
 }
 

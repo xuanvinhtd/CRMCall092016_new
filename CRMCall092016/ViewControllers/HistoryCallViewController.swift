@@ -90,7 +90,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             })
         })
         self.durationsTextField.stringValue = String(0) + "s"
-        if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+        if CRMCallManager.shareInstance.myCurrentStatus == .Busy {
             self.timer.start(true)
         }
         
@@ -147,7 +147,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             if purposes.count == 0 {
                self.getPurpose()
             } else {
-                self.purposeDict = self.buildDictionary(withValue: purposes)
+                self.purposeDict = self.buildDictionaryPurpose(withValue: purposes)
             }
         }
         
@@ -162,7 +162,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             if products.count == 0 {
                 self.getProduct()
             } else {
-                self.productDict = self.buildDictionary(withValue: products)
+                self.productDict = self.buildDictionaryProductCN(withValue: products)
             }
         }
         
@@ -187,10 +187,13 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                     if userInfo.phone == "0" { // User not register
                         
                         if let infoRing = _info.last {
-                            self.phoneTextField.stringValue = infoRing.to
+                            self.phoneTextField.stringValue = infoRing.from
                         }
+                        self.isUnRegister = false
                       
                     } else { // User regestered
+                        self.isUnRegister = true
+                        
                         self.nameTextField.stringValue = userInfo.name
                         self.phoneTextField.stringValue = userInfo.phone
                         self.companyTextField.stringValue = userInfo.parentName
@@ -204,8 +207,6 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                             self.productCodeOfCustomer.append(product.code)
                         }
                         self.productTextField.stringValue = productNames.joinWithSeparator(",")
-                        
-
                         
                         var staffNameList = [String]()
                         for staff in userInfo.staffs {
@@ -234,6 +235,11 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                         CRMCallHelpers.TypeApi.Sms.rawValue,
                         CRMCallHelpers.TypeApi.Email.rawValue
                     ]
+                    
+                    if self.customerDict.count == 0 {
+                        return
+                    }
+                    
                     let customerCode = ((self.customerDict[0]["customer_code"]) as? String) ?? ""
                     let urlHistory = CRMCallConfig.API.searchHistoryCallOfCustomer(withCompany: CRMCallManager.shareInstance.cn, customerCode: customerCode, limit: 21, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types)
                     
@@ -261,8 +267,6 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
     func configItems() {
         
-        self.title = "History Call"
-        
         self.panelGeneral.wantsLayer = true
         self.panelDetail.wantsLayer = true
         
@@ -285,6 +289,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        
+        self.view.window?.title = "History call"
         
         configItems()
     }
@@ -411,6 +417,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         let viewController = popover.contentViewController as! PopUpViewController
         viewController.dataDict = purposeDict
         viewController.identifier = purposeID
+        viewController.reloadTable()
         
         popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
     }
@@ -427,6 +434,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         viewController.dataDict = self.setSelectedForDict(withData: productDict, values: self.productCodeOfCustomer)
         viewController.identifier = subjectID
+        viewController.reloadTable()
         
         popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
     }
@@ -486,7 +494,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         }
     }
     
-    private func buildDictionary(withValue value: Results<Purpose>) -> [NSMutableDictionary] {
+    private func buildDictionaryPurpose(withValue value: Results<Purpose>) -> [NSMutableDictionary] {
         var result = [NSMutableDictionary]()
         
         for item in value {
@@ -504,7 +512,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         return result
     }
     
-    private func buildDictionary(withValue value: Results<ProductCN>) -> [NSMutableDictionary] {
+    private func buildDictionaryProductCN(withValue value: Results<ProductCN>) -> [NSMutableDictionary] {
         var result = [NSMutableDictionary]()
         
         for item in value {
@@ -862,6 +870,10 @@ extension HistoryCallViewController: CustomerListDelegate {
                     userInfo.code = code
                 }
                 
+                if let cn = d["cn"] as? Int {
+                    userInfo.cn = String(cn)
+                }
+                
                 if let phone = d["phone"] as? String {
                     userInfo.phone = phone
                 }
@@ -876,6 +888,7 @@ extension HistoryCallViewController: CustomerListDelegate {
                 
                 self.nameTextField.enabled = false
                 self.companyTextField.enabled = false
+                self.isUnRegister = true
                 
                 self.customerDict = CRMCallHelpers.createDictionaryCustomer(withData: userInfo)
             }
@@ -897,6 +910,7 @@ extension HistoryCallViewController: CustomerListDelegate {
                 }
                 self.nameTextField.enabled = false
                 self.companyTextField.enabled = false
+                self.isUnRegister = true
             }
             
         } else {

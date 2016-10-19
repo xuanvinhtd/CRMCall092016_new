@@ -48,12 +48,12 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
                         if userInfo.phone == "0" { // User not register
                             
                             if let infoRing = _info.last {
-                                self.phoneCaller.stringValue = infoRing.to
+                                self.phoneCaller.stringValue = infoRing.from
                             }
                             
                         } else { // User regestered
                             self.nameCaller.stringValue = userInfo.name
-                            self.phoneCaller.stringValue = userInfo.name
+                            self.phoneCaller.stringValue = userInfo.phone
                             
                             var productNames = [String]()
                             for product in userInfo.products {
@@ -88,7 +88,7 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.view.window?.title = "Incoming call"
+        self.view.window?.title = "Call"
     }
     
     override func viewDidDisappear() {

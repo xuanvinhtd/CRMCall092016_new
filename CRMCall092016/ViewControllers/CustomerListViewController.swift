@@ -21,6 +21,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var keySearchTextFeild: NSTextField!
     @IBOutlet weak var searchButton: NSButton!
     @IBOutlet weak var tableViewCustomers: NSTableView!
+    @IBOutlet weak var unregisterButton: NSButton!
     
     private var dataDict = [[String: AnyObject]]()
     private var indexStart = 0
@@ -31,6 +32,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     private var itemSelect = [String: AnyObject]()
     
     var keySearchInit = ""
+    var isCustomerListReviews = false
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -67,12 +69,29 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.title = "Customers List"
+        self.view.window?.title = "Customers List" 
         
+        if isCustomerListReviews {
+            unregisterButton.hidden = true
+        }
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        closeWindown()
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewBoundsDidChangeNotification, object: nil)
+    }
+    
+    private func closeWindown() {
+        dispatch_async(dispatch_get_main_queue()) {
+            if let customersWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+                customersWindowController.close()
+                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
+            }
+        }
     }
     
     // MARK: - Handing event
@@ -96,6 +115,18 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     }
     
     @IBAction func actionOK(sender: AnyObject) {
+        
+        if isCustomerListReviews {
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+                    lcustomerListWindowController.close()
+                    CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
+                }
+            })
+            return
+        }
         
         for (_, index) in tableViewCustomers.selectedRowIndexes.enumerate() {
             itemSelect = dataDict[index]
@@ -132,7 +163,6 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         let range = getVisibleRow()
         let local = range.location + range.length
 
-        println("xxxxx \(local)")
         if isReplaceSearch && local == (dataDict.count - 2) && indexScroll < local {
             
             indexScroll = local
@@ -261,12 +291,6 @@ extension CustomerListViewController: NSTableViewDelegate, NSTableViewDataSource
         return NSRange()
     }
     
-    func scrollRowToVisible(row: Int) {
-        println("\(row)")
-    }
-    func scrollRowToVisible(row: Int, animated: Bool) {
-        println("\(row)")
-    }
 //    func tableView(tableView: NSTableView, willDisplayCell cell: AnyObject, forTableColumn tableColumn: NSTableColumn?, row: Int) {
 //       // println("\(row)")
 //        

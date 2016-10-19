@@ -84,7 +84,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                 println("-----------> Product data purpose: \(datas)")
                 
                 if let data = datas["rows"] as? [[String: AnyObject]] {
-                    Cache.shareInstance.productCN(with: data)
+                    Cache.shareInstance.purpose(with: data)
                     
                 } else {
                     println("Not found purpose list from server")
@@ -101,7 +101,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                 println("-----------> Product data responce: \(datas)")
                 
                 if let data = datas["rows"] as? [[String: AnyObject]] {
-                    Cache.shareInstance.purpose(with: data)
+                    Cache.shareInstance.productCN(with: data)
                 } else {
                     println("Not found product list from server")
                 }
@@ -490,24 +490,24 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         //            self.presentViewControllerAsModalWindow(ringViewController)
         //        })
         
-        // dispatch_async(dispatch_get_main_queue(), {
-//        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
-//            historyWindowController.showWindow(nil)
-//        } else {
-//            let historyWindowController = HistoryCallWindowController.createInstance()
-//            historyWindowController.showWindow(nil)
-//            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
-//        }
-        
-        if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
-            staffAvailibilityWindowController.showWindow(nil)
+         dispatch_async(dispatch_get_main_queue(), {
+        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+            historyWindowController.showWindow(nil)
         } else {
-            let staffAvailibilityWindowController = StaffAvailabilityWindowController.createInstance()
-            staffAvailibilityWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = staffAvailibilityWindowController
+            let historyWindowController = HistoryCallWindowController.createInstance()
+            historyWindowController.showWindow(nil)
+            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
         }
         
-        //   })
+           })
+        
+//                if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
+//                    staffAvailibilityWindowController.showWindow(nil)
+//                } else {
+//                    let staffAvailibilityWindowController = StaffAvailabilityWindowController.createInstance()
+//                    staffAvailibilityWindowController.showWindow(nil)
+//                    CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = staffAvailibilityWindowController
+//                }
         
     }
     
