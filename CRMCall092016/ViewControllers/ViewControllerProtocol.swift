@@ -9,7 +9,7 @@
 import Foundation
 import Cocoa
 
-@objc protocol ViewControllerProtocol {
+@objc protocol ViewControllerProtocol : class {
     
     static func createInstance() -> NSViewController
     

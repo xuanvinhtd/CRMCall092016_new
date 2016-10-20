@@ -73,6 +73,10 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         }
     }
     
+    deinit {
+        deregisterNotification()
+    }
+    
     override func viewDidAppear() {
         super.viewDidAppear()
         self.view.window?.title = "Call Setting"

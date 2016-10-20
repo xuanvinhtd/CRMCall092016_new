@@ -80,13 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func showSignInPage(sender: AnyObject) {
         
-        if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] {
-            loginWindowController.showWindow(nil)
-        } else {
-            let loginWindowController = LoginWindowController.createInstance()
-            loginWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = loginWindowController
-        }
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.LoginWindowController)
     }
     
     @IBAction func showSignOutPage(sender: AnyObject) {
@@ -109,13 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
         
-        if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
-            staffAvailibilityWindowController.showWindow(nil)
-        } else {
-            let staffAvailibilityWindowController = StaffAvailabilityWindowController.createInstance()
-            staffAvailibilityWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] = staffAvailibilityWindowController
-        }
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
     }
     
     @IBAction func showMissedCalls(sender: AnyObject) {

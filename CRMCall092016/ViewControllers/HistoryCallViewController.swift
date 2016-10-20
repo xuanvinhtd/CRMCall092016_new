@@ -39,8 +39,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var panelDetail: NSView!
     @IBOutlet weak var durationsTextField: NSTextField!
     
-    private var purposeID = "purposeID"
-    private var subjectID = "SubjectID"
+    private var purposeViewControllerID = "purposeViewControllerID"
+    private var productViewControllerID = "productViewControllerID"
     
     private var addressDict = ["":""]
     private var priorityDict = ["":""]
@@ -224,7 +224,6 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                         }
                     }
                     
-                    
                     ///-------------- SEARCH API CUSTOMER IN CALL HISTORY-------------// // GET DATA FOR TABLE
                     let types = [CRMCallHelpers.TypeApi.Call.rawValue,
                         CRMCallHelpers.TypeApi.Meeting.rawValue,
@@ -295,6 +294,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         configItems()
     }
     
+    deinit {
+        deregisterNotification()
+    }
+    
     override func viewDidDisappear() {
         super.viewDidDisappear()
         
@@ -304,12 +307,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     }
     
     private func closeWindown() {
-        dispatch_async(dispatch_get_main_queue()) { 
-            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
-                historyWindowController.close()
-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.HistoryCallWindowController)
-            }
-        }
+        CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
     }
     
     // MARK: - Notification
@@ -397,11 +395,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             println("Not found data customer from Customer List")
             self.closeWindown()
         }
-        
-        //self.getUploadCallHistory()
     }
     
     @IBAction func actionAddTask(sender: AnyObject) {
+        
     }
     
     @IBAction func actionCreateTicket(sender: AnyObject) {
@@ -416,13 +413,14 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         let viewController = popover.contentViewController as! PopUpViewController
         viewController.dataDict = purposeDict
-        viewController.identifier = purposeID
+        viewController.identifier = purposeViewControllerID
+        viewController.delegate = self
         viewController.reloadTable()
         
         popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
     }
     
-    @IBAction func actionShowSubject(sender: AnyObject) {
+    @IBAction func actionShowProduct(sender: AnyObject) {
         
         popover.appearance = NSAppearance(named: NSAppearanceNameAqua)!
         
@@ -433,7 +431,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         let viewController = popover.contentViewController as! PopUpViewController
         
         viewController.dataDict = self.setSelectedForDict(withData: productDict, values: self.productCodeOfCustomer)
-        viewController.identifier = subjectID
+        viewController.identifier = productViewControllerID
+        viewController.delegate = self
         viewController.reloadTable()
         
         popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
@@ -456,6 +455,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             
             customersViewController.showWindow(nil)
             customerView.searchCustomer()
+            
             CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] = customersViewController
         }
     }
@@ -819,7 +819,7 @@ extension HistoryCallViewController: NSTableViewDelegate, NSTableViewDataSource 
 
 // MARK: - Popover Delegate
 
-extension HistoryCallViewController: NSPopoverDelegate {
+extension HistoryCallViewController: NSPopoverDelegate, PopUpDelegate {
     
     func popoverShouldDetach(popover: NSPopover) -> Bool {
         return true
@@ -833,16 +833,16 @@ extension HistoryCallViewController: NSPopoverDelegate {
         let closeReason = notification.userInfo![NSPopoverCloseReasonKey] as! String
         if (closeReason == NSPopoverCloseReasonStandard) {
             println("click close")
-            let viewController = self.popover.contentViewController as! PopUpViewController
-            println("value --> \(viewController.dataDict)")
-            
-            if viewController.identifier == purposeID {
-                self.purposeDict = viewController.dataDict
-                self.purposeTextField.stringValue = self.getStringValueInDict(withValues: self.purposeDict)
-            } else {
-                self.productDict = viewController.dataDict
-                self.productTextField.stringValue = self.getStringValueInDict(withValues: self.productDict)
-            }
+        }
+    }
+    
+    func clickChooseItem(withData data: [NSMutableDictionary], identifier: String) {
+        if identifier == purposeViewControllerID {
+            self.purposeDict = data
+            self.purposeTextField.stringValue = self.getStringValueInDict(withValues: self.purposeDict)
+        } else {
+            self.productDict = data
+            self.productTextField.stringValue = self.getStringValueInDict(withValues: self.productDict)
         }
     }
 }

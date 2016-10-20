@@ -82,17 +82,11 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
         println("Init Screen RingIngViewController")
         
         initData()
-        
-        registerNotification()
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
         self.view.window?.title = "Call"
-    }
-    
-    override func viewDidDisappear() {
-        deregisterNotification()
     }
     
     // MARK: - Notification
@@ -101,19 +95,4 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
         static let RingBusy = "RingBusy"
         static let Show = "Show"
     }
-    
-    func registerNotification() {
-        handlerNotificationRingCancel = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.RingCancel, object: nil, queue: nil, usingBlock: { notification in
-            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            
-            if let userInfo = notification.userInfo {
-               //self.statusCall.stringValue = userInfo["STATUS"] as! String
-            }
-        })
-    }
-    
-    func deregisterNotification() {
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRingCancel)
-    }
-    
 }

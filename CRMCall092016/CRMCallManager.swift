@@ -32,8 +32,6 @@ final class CRMCallManager {
     
     var domain = ""
     
-    //var
-    
     // MARK: Initialzation
     
     init () {
@@ -59,6 +57,56 @@ final class CRMCallManager {
         session_key = ""
         isUserLoginSuccess = false
         isSocketLoginSuccess = false
+    }
+    
+    // MARK: - Manager Screen
+    
+    func showWindow(withNameScreen name: String) {
+        dispatch_async(dispatch_get_main_queue(), {
+            if let windowController = CRMCallManager.shareInstance.screenManager[name] {
+                windowController.showWindow(nil)
+            } else {
+                var windowController = NSWindowController()
+                
+                switch name {
+                    
+                case CRMCallHelpers.NameScreen.CustomerListViewController:
+                        windowController = CustomerListWindowController.createInstance()
+                    break
+                    
+                case CRMCallHelpers.NameScreen.HistoryCallWindowController:
+                    windowController = HistoryCallWindowController.createInstance()
+                    break
+                    
+                case CRMCallHelpers.NameScreen.LoginWindowController:
+                    windowController = LoginWindowController.createInstance()
+                    break
+                    
+                case CRMCallHelpers.NameScreen.RingIngWindowController:
+                    windowController = RingIngWindowController.createInstance()
+                    break
+                    
+                case CRMCallHelpers.NameScreen.StaffAvailabilityWindowController:
+                    windowController = StaffAvailabilityWindowController.createInstance()
+                    break
+                default:
+                    break
+                }
+                
+                windowController.showWindow(nil)
+                CRMCallManager.shareInstance.screenManager[name] = windowController
+            }
+            
+        })
+    }
+    
+    func closeWindow(withNameScreen name: String) {
+        dispatch_async(dispatch_get_main_queue()) {
+            if let windowController = CRMCallManager.shareInstance.screenManager[name] {
+                windowController.close()
+                CRMCallManager.shareInstance.screenManager.removeValueForKey(name)
+            }
+        }
     }
     
 }

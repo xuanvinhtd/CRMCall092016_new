@@ -99,16 +99,8 @@ class StaffAvailabilityViewController: NSViewController, ViewControllerProtocol 
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        closeWindown()
-    }
-    
-    private func closeWindown() {
-        dispatch_async(dispatch_get_main_queue()) {
-            if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
-                staffAvailibilityWindowController.close()
-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
-            }
-        }
+        
+        CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
     }
     
     // MARK: - Handling event
@@ -202,6 +194,7 @@ extension StaffAvailabilityViewController: NSOutlineViewDataSource {
 
 // MARK: - Outline View Data Delegate
 extension StaffAvailabilityViewController: NSOutlineViewDelegate {
+    
     func outlineView(outlineView: NSOutlineView, viewForTableColumn: NSTableColumn?, item: AnyObject) -> NSView? {
         
         // Ensure that the passed item is valid and can be used to create a table cell

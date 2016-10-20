@@ -8,10 +8,16 @@
 
 import AppKit
 
+protocol PopUpDelegate: class {
+    func clickChooseItem(withData data: [NSMutableDictionary], identifier: String)
+}
+
 @objc(PopUpViewController) class PopUpViewController: NSViewController {
     
     // MARK: Properties
     @IBOutlet weak var dataTableView: NSTableView!
+    
+    weak var delegate: PopUpDelegate?
     
     var dataDict = [NSMutableDictionary]()
     
@@ -45,6 +51,8 @@ extension PopUpViewController: NSTableViewDelegate, NSTableViewDataSource {
     
     func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int) {
         dataDict[row].setObject(object!, forKey: (tableColumn?.identifier)!)
+        
+        delegate?.clickChooseItem(withData: dataDict, identifier: self.identifier!)
     }
     
 }

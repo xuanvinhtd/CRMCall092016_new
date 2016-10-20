@@ -78,20 +78,12 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        closeWindown()
+        
+        CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.CustomerListViewController)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewBoundsDidChangeNotification, object: nil)
-    }
-    
-    private func closeWindown() {
-        dispatch_async(dispatch_get_main_queue()) {
-            if let customersWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
-                customersWindowController.close()
-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
-            }
-        }
     }
     
     // MARK: - Handing event
@@ -104,27 +96,14 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     @IBAction func actionUnregisters(sender: AnyObject) {
         delegate?.chooseCustomer(withDict: nil)
         
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
-                lcustomerListWindowController.close()
-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
-            }
-        })
-
+        self.actionCannel("")
     }
     
     @IBAction func actionOK(sender: AnyObject) {
         
         if isCustomerListReviews {
             
-            dispatch_async(dispatch_get_main_queue(), {
-                
-                if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
-                    lcustomerListWindowController.close()
-                    CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
-                }
-            })
+            self.actionCannel("")
             return
         }
         
@@ -139,23 +118,13 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         
         delegate?.chooseCustomer(withDict: itemSelect)
         
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
-                lcustomerListWindowController.close()
-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
-            }
-        })
-
+        self.actionCannel("")
     }
     
     @IBAction func actionCannel(sender: AnyObject) {
         dispatch_async(dispatch_get_main_queue(), {
             
-            if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
-                lcustomerListWindowController.close()
-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
-            }
+            CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.CustomerListViewController)
         })
     }
     
@@ -231,8 +200,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
                             
                             var itemConfig = item
                             itemConfig["phone"] = phoneItem
-                            
-                            //self.dataDict.append(itemConfig)
+
                         }
                     }
                     
