@@ -16,6 +16,8 @@ final class CRMCallManager {
     var screenManager: [String: NSWindowController] = [:]
     
     var crmCallSocket: CRMCallSocket?
+    var port: UInt16 = 0
+    var host: String = ""
     
     var myCurrentStatus: CRMCallHelpers.UserStatus = CRMCallHelpers.UserStatus.None
     var myCurrentDirection: CRMCallHelpers.Direction = CRMCallHelpers.Direction.None
@@ -30,12 +32,19 @@ final class CRMCallManager {
     var isShowLoginPage = false
     var isShowMainPage = false
     
+    var isInternetConnect = true
+    
     var domain = ""
+    
+    private var handlerNotificationReConnetSocket: AnyObject!
+    private var handlerNotificationSocketDidConnected: AnyObject!
+    private var handlerNotificationNotConnectInternet: AnyObject!
     
     // MARK: Initialzation
     
     init () {
         self.crmCallSocket = CRMCallSocket()
+        self.registerNotification()
     }
     
     func initSocket() {
@@ -43,6 +52,11 @@ final class CRMCallManager {
         } else {
             self.crmCallSocket = CRMCallSocket()
         }
+    }
+    
+    deinit {
+        deRegisterNotification()
+        deinitSocket()
     }
     
     func deinitSocket() {
@@ -53,10 +67,52 @@ final class CRMCallManager {
             crmCallSocket = nil
         }
         
-        session_gw = ""
-        session_key = ""
         isUserLoginSuccess = false
         isSocketLoginSuccess = false
+    }
+    
+    // MARK: - Notification
+    func registerNotification() {
+        handlerNotificationReConnetSocket = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.ReConnectSocket, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            CRMCallManager.shareInstance.deinitSocket()
+            
+            println("----------------xxxx---RECONNET SOCKET TO SERVER---xxxx------------")
+            CRMCallHelpers.reconnectToSocket()
+            
+            
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket  {
+                if CRMCallManager.shareInstance.host != "" && CRMCallManager.shareInstance.port != 0 {
+                    crmCallSocket.connect(withPort: CRMCallManager.shareInstance.port, host: CRMCallManager.shareInstance.host)
+                }
+            }
+        })
+        
+        handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            if CRMCallManager.shareInstance.isShowMainPage {
+                CRMCallHelpers.reconnectToSocket()
+            }
+        })
+        
+        handlerNotificationNotConnectInternet = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.NotConnetInternet, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            if !CRMCallManager.shareInstance.isInternetConnect {
+                CRMCallAlert.showNSAlert(with: NSAlertStyle.WarningAlertStyle, title: "Notification", messageText: "Please check connect internet", dismissText: "Cancel", completion: { (data) in })
+            }
+        })
+    }
+    
+    func deRegisterNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationReConnetSocket)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDidConnected)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationNotConnectInternet)
     }
     
     // MARK: - Manager Screen

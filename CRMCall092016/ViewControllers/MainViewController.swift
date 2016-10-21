@@ -124,10 +124,13 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     deinit {
         deregisterNotification()
     }
-    
+
     // MARK: - Notification
     struct Notification {
         static let ShowPageSigin = "ShowPageSigin"
+        static let LoginSuccess = "LoginSuccessNotification"
+        static let LoginFaile = "LoginFaileNotification"
+        static let LogoutSuccess = "LogoutSuccessNotification"
     }
     
     func registerNotification() {
@@ -136,18 +139,12 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             println("----------------xxxxx--DISCONNECT SOCKET TO SERVER--xxxxx--------------------")
-            if CRMCallManager.shareInstance.isUserLoginSuccess {
-                CRMCallManager.shareInstance.isSocketLoginSuccess = false
-                CRMCallManager.shareInstance.deinitSocket()
-                CRMCallHelpers.reconnectToSocket()  // RECONNECT SOCKET
-            } else {
-                if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-                    crmCallSocket.logoutRequest()
-                    crmCallSocket.stopLiveTimer()
-                } else {
-                    println("CRMCallManager.shareInstance.crmCallSocket = nil")
-                }
-            }
+//            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+//                CRMCallManager.shareInstance.deinitSocket()
+//                crmCallSocket.stopLiveTimer()
+//            } else {
+//                println("CRMCallManager.shareInstance.crmCallSocket = nil")
+//            }
         })
         
         handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
@@ -177,15 +174,14 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             self.view.window?.contentViewController = loginViewController
         })
         
-        handlerNotificationSocketLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(ViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
+        handlerNotificationSocketLogoutSuccess = NSNotificationCenter.defaultCenter().addObserverForName(MainViewController.Notification.LogoutSuccess, object: nil, queue: nil, usingBlock: { notification in
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            CRMCallManager.shareInstance.isSocketLoginSuccess = false
             CRMCallManager.shareInstance.deinitSocket()
             
-            println("----------------xxxx---RECONNET SOCKET TO SERVER---xxxx------------")
-            CRMCallHelpers.reconnectToSocket()
+            //println("----------------xxxx---RECONNET SOCKET TO SERVER---xxxx------------")
+            //CRMCallHelpers.reconnectToSocket()
         })
         
         handlerNotificationInviteEvent = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.InviteEvent, object: nil, queue: nil, usingBlock: { notification in
@@ -292,7 +288,9 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     
     @IBAction func acctionSearch(sender: AnyObject) {
         
-        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDisConnected, object: nil, userInfo: nil)
+        CRMCallManager.shareInstance.deinitSocket()
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
         
         //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
         

@@ -60,12 +60,16 @@ final class CRMCallConfig {
         
         static let LiveServer = "CRMCallConfig.Notification.LiveServer"
         
+        static let ReConnectSocket = "CRMCallConfig.Notification.ReConnectSocket"
+        
         static let RingIng = "CRMCallConfig.Notification.RingIng"
         static let InviteEvent = "CRMCallConfig.Notification.InviteEvent"
         static let InviteResultEvent = "CRMCallConfig.Notification.InviteResultEvent"
         static let CancelEvent = "CRMCallConfig.Notification.CancelEvent"
         static let BusyEvent = "CRMCallConfig.Notification.BusyEvent"
         static let ByeEvent = "CRMCallConfig.Notification.ByeEvent"
+        
+        static let NotConnetInternet = "CRMCallConfig.Notification.NotConnetInternet"
     }
     
     // MARK: API

@@ -1395,7 +1395,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CUa-ig-mb3">
+                            <textField verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="CUa-ig-mb3">
                                 <rect key="frame" x="20" y="147" width="440" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="ID" drawsBackground="YES" id="jDx-zv-NVM">
                                     <font key="font" metaFont="system"/>
@@ -1403,17 +1403,20 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xnS-Y4-FV8">
+                            <button verticalHuggingPriority="750" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="xnS-Y4-FV8">
                                 <rect key="frame" x="392" y="66" width="74" height="32"/>
                                 <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ann-NJ-9XW">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="actionLogin:" target="h5H-Ex-vAe" id="nU7-lK-XMr"/>
                                 </connections>
                             </button>
-                            <secureTextField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-Ar-xgj">
+                            <secureTextField verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="7VN-Ar-xgj">
                                 <rect key="frame" x="20" y="109" width="440" height="22"/>
                                 <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" usesSingleLineMode="YES" id="p68-WT-cwT">
                                     <font key="font" metaFont="system"/>
@@ -1623,9 +1626,6 @@
                                 <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1vG-jS-RKL">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="actionOK:" target="lma-nu-tEE" id="PRP-IG-FVl"/>

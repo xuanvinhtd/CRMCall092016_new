@@ -26,6 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func settingAppCall() {
+        
+        AlamofireManager.startNetworkReachabilityObserver()
         // Config Realm
         Cache.shareInstance
         // Init Sigleton App

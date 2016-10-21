@@ -357,6 +357,11 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
     @IBAction func actionSave(sender: AnyObject) {
         
+        if !CRMCallManager.shareInstance.isInternetConnect {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet", dismissText: "Cancel", completion: { result in })
+            return
+        }
+        
         if self.phoneTextField.stringValue == "" {
             CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please input phone number", dismissText: "Cancel", completion: { result in })
             return

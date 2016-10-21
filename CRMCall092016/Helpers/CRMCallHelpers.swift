@@ -102,10 +102,11 @@ final class CRMCallHelpers {
     
     static func reconnectToSocket() {
         //GET SETTING INFO
-        let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-        let hostSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-        let idSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-        let pwdSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let phoneSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+        let hostSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
+        let idSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
+        let pwdSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
         
         guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
             println("Not found info setting")

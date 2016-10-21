@@ -1,0 +1,1749 @@
+diff --git a/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/UserInterfaceState.xcuserstate b/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/UserInterfaceState.xcuserstate
+index 1fed2ab..d004ffa 100644
+Binary files a/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/UserInterfaceState.xcuserstate and b/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/UserInterfaceState.xcuserstate differ
+diff --git a/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist b/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+index e6f5b22..b096972 100644
+--- a/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
++++ b/CRMCall092016.xcworkspace/xcuserdata/hanbiro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+@@ -31,8 +31,8 @@
+             endingColumnNumber = "9223372036854775807"
+             startingLineNumber = "210"
+             endingLineNumber = "210"
+-            landmarkName = "testConnectServer(_:)"
+-            landmarkType = "5">
++            landmarkName = "SettingViewController"
++            landmarkType = "3">
+          </BreakpointContent>
+       </BreakpointProxy>
+       <BreakpointProxy
+@@ -265,30 +265,14 @@
+             shouldBeEnabled = "No"
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+-            filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
+-            timestampString = "498016884.225684"
+-            startingColumnNumber = "9223372036854775807"
+-            endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "203"
+-            endingLineNumber = "203"
+-            landmarkName = "createDictionaryEmployee(withData:phoneNumber:)"
+-            landmarkType = "5">
+-         </BreakpointContent>
+-      </BreakpointProxy>
+-      <BreakpointProxy
+-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+-         <BreakpointContent
+-            shouldBeEnabled = "No"
+-            ignoreCount = "0"
+-            continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "519"
+-            endingLineNumber = "519"
+-            landmarkName = "buildDictionaryProductCN(withValue:)"
+-            landmarkType = "5">
++            startingLineNumber = "514"
++            endingLineNumber = "514"
++            landmarkName = "HistoryCallViewController"
++            landmarkType = "3">
+          </BreakpointContent>
+       </BreakpointProxy>
+       <BreakpointProxy
+@@ -298,12 +282,12 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "518"
+-            endingLineNumber = "518"
+-            landmarkName = "buildDictionaryProductCN(withValue:)"
++            startingLineNumber = "513"
++            endingLineNumber = "513"
++            landmarkName = "buildDictionaryPurpose(withValue:)"
+             landmarkType = "5">
+          </BreakpointContent>
+       </BreakpointProxy>
+@@ -314,11 +298,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "520"
+-            endingLineNumber = "520"
++            startingLineNumber = "515"
++            endingLineNumber = "515"
+             landmarkName = "buildDictionaryProductCN(withValue:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -330,11 +314,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "523"
+-            endingLineNumber = "523"
++            startingLineNumber = "518"
++            endingLineNumber = "518"
+             landmarkName = "buildDictionaryProductCN(withValue:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -346,11 +330,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "525"
+-            endingLineNumber = "525"
++            startingLineNumber = "520"
++            endingLineNumber = "520"
+             landmarkName = "buildDictionaryProductCN(withValue:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -362,27 +346,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
+-            startingColumnNumber = "9223372036854775807"
+-            endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "371"
+-            endingLineNumber = "371"
+-            landmarkName = "actionSave(_:)"
+-            landmarkType = "5">
+-         </BreakpointContent>
+-      </BreakpointProxy>
+-      <BreakpointProxy
+-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+-         <BreakpointContent
+-            shouldBeEnabled = "No"
+-            ignoreCount = "0"
+-            continueAfterRunningActions = "No"
+-            filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "495"
+-            endingLineNumber = "495"
++            startingLineNumber = "490"
++            endingLineNumber = "490"
+             landmarkName = "getPurpose()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -393,28 +361,12 @@
+             shouldBeEnabled = "No"
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+-            filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
+-            startingColumnNumber = "9223372036854775807"
+-            endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "367"
+-            endingLineNumber = "367"
+-            landmarkName = "actionSave(_:)"
+-            landmarkType = "5">
+-         </BreakpointContent>
+-      </BreakpointProxy>
+-      <BreakpointProxy
+-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+-         <BreakpointContent
+-            shouldBeEnabled = "No"
+-            ignoreCount = "0"
+-            continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498545759.663651"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "200"
+-            endingLineNumber = "200"
++            startingLineNumber = "169"
++            endingLineNumber = "169"
+             landmarkName = "searchCustomer()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -426,11 +378,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498545759.663651"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "208"
+-            endingLineNumber = "208"
++            startingLineNumber = "177"
++            endingLineNumber = "177"
+             landmarkName = "searchCustomer()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -442,11 +394,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498545759.663651"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "239"
+-            endingLineNumber = "239"
++            startingLineNumber = "207"
++            endingLineNumber = "207"
+             landmarkName = "searchCustomer()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -458,11 +410,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "167"
+-            endingLineNumber = "167"
++            startingLineNumber = "159"
++            endingLineNumber = "159"
+             landmarkName = "outlineView(_:isItemExpandable:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -506,11 +458,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498649151.059646"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "204"
+-            endingLineNumber = "204"
++            startingLineNumber = "196"
++            endingLineNumber = "196"
+             landmarkName = "StaffAvailabilityViewController"
+             landmarkType = "3">
+          </BreakpointContent>
+@@ -522,11 +474,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498649151.059646"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "208"
+-            endingLineNumber = "208"
++            startingLineNumber = "201"
++            endingLineNumber = "201"
+             landmarkName = "outlineView(_:viewForTableColumn:item:)"
+             landmarkType = "5">
+             <Locations>
+@@ -570,11 +522,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "177"
+-            endingLineNumber = "177"
++            startingLineNumber = "169"
++            endingLineNumber = "169"
+             landmarkName = "outlineView(_:isItemExpandable:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -586,11 +538,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "184"
+-            endingLineNumber = "184"
++            startingLineNumber = "176"
++            endingLineNumber = "176"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -602,11 +554,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498649151.059646"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "207"
+-            endingLineNumber = "207"
++            startingLineNumber = "200"
++            endingLineNumber = "200"
+             landmarkName = "outlineView(_:viewForTableColumn:item:)"
+             landmarkType = "5">
+             <Locations>
+@@ -650,11 +602,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "154"
+-            endingLineNumber = "154"
++            startingLineNumber = "146"
++            endingLineNumber = "146"
+             landmarkName = "outlineView(_:child:ofItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -666,11 +618,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "184"
+-            endingLineNumber = "184"
++            startingLineNumber = "176"
++            endingLineNumber = "176"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -682,11 +634,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "189"
+-            endingLineNumber = "189"
++            startingLineNumber = "181"
++            endingLineNumber = "181"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -698,11 +650,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "190"
+-            endingLineNumber = "190"
++            startingLineNumber = "182"
++            endingLineNumber = "182"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -714,11 +666,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "192"
+-            endingLineNumber = "192"
++            startingLineNumber = "184"
++            endingLineNumber = "184"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -730,11 +682,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "193"
+-            endingLineNumber = "193"
++            startingLineNumber = "185"
++            endingLineNumber = "185"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -762,11 +714,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498649151.059646"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "213"
+-            endingLineNumber = "213"
++            startingLineNumber = "206"
++            endingLineNumber = "206"
+             landmarkName = "outlineView(_:viewForTableColumn:item:)"
+             landmarkType = "5">
+             <Locations>
+@@ -970,11 +922,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "185"
+-            endingLineNumber = "185"
++            startingLineNumber = "177"
++            endingLineNumber = "177"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -986,11 +938,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "145"
+-            endingLineNumber = "145"
++            startingLineNumber = "137"
++            endingLineNumber = "137"
+             landmarkName = "outlineView(_:child:ofItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1002,11 +954,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "150"
+-            endingLineNumber = "150"
++            startingLineNumber = "142"
++            endingLineNumber = "142"
+             landmarkName = "outlineView(_:child:ofItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1018,11 +970,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "173"
+-            endingLineNumber = "173"
++            startingLineNumber = "165"
++            endingLineNumber = "165"
+             landmarkName = "outlineView(_:isItemExpandable:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1034,11 +986,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "171"
+-            endingLineNumber = "171"
++            startingLineNumber = "163"
++            endingLineNumber = "163"
+             landmarkName = "outlineView(_:isItemExpandable:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1050,11 +1002,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift"
+-            timestampString = "498552448.338527"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "194"
+-            endingLineNumber = "194"
++            startingLineNumber = "186"
++            endingLineNumber = "186"
+             landmarkName = "outlineView(_:numberOfChildrenOfItem:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1114,28 +1066,12 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498530735.522775"
+-            startingColumnNumber = "9223372036854775807"
+-            endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "150"
+-            endingLineNumber = "150"
+-            landmarkName = "initData()"
+-            landmarkType = "5">
+-         </BreakpointContent>
+-      </BreakpointProxy>
+-      <BreakpointProxy
+-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+-         <BreakpointContent
+-            shouldBeEnabled = "No"
+-            ignoreCount = "0"
+-            continueAfterRunningActions = "No"
+-            filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "500"
+-            endingLineNumber = "500"
+-            landmarkName = "buildDictionaryPurpose(withValue:)"
++            startingLineNumber = "495"
++            endingLineNumber = "495"
++            landmarkName = "getPurpose()"
+             landmarkType = "5">
+          </BreakpointContent>
+       </BreakpointProxy>
+@@ -1146,11 +1082,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "512"
+-            endingLineNumber = "512"
++            startingLineNumber = "507"
++            endingLineNumber = "507"
+             landmarkName = "buildDictionaryPurpose(withValue:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1162,11 +1098,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498541934.268924"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "534"
+-            endingLineNumber = "534"
++            startingLineNumber = "529"
++            endingLineNumber = "529"
+             landmarkName = "buildDictionaryProductCN(withValue:)"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1290,11 +1226,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498559046.213831"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "213"
+-            endingLineNumber = "213"
++            startingLineNumber = "182"
++            endingLineNumber = "182"
+             landmarkName = "searchCustomer()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1306,11 +1242,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498559047.404762"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "215"
+-            endingLineNumber = "215"
++            startingLineNumber = "184"
++            endingLineNumber = "184"
+             landmarkName = "searchCustomer()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1322,11 +1258,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498559171.510733"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "217"
+-            endingLineNumber = "217"
++            startingLineNumber = "186"
++            endingLineNumber = "186"
+             landmarkName = "searchCustomer()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1338,11 +1274,11 @@
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+             filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498559173.966705"
++            timestampString = "498647544.397184"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "222"
+-            endingLineNumber = "222"
++            startingLineNumber = "191"
++            endingLineNumber = "191"
+             landmarkName = "searchCustomer()"
+             landmarkType = "5">
+          </BreakpointContent>
+@@ -1353,13 +1289,13 @@
+             shouldBeEnabled = "No"
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+-            filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498559309.392125"
++            filePath = "CRMCall092016/CRMCallManager.swift"
++            timestampString = "498649151.059646"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "132"
+-            endingLineNumber = "132"
+-            landmarkName = "actionOK(_:)"
++            startingLineNumber = "95"
++            endingLineNumber = "95"
++            landmarkName = "showWindow(withNameScreen:)"
+             landmarkType = "5">
+          </BreakpointContent>
+       </BreakpointProxy>
+@@ -1369,13 +1305,13 @@
+             shouldBeEnabled = "No"
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+-            filePath = "CRMCall092016/ViewControllers/CustomerListViewController.swift"
+-            timestampString = "498559310.164048"
++            filePath = "CRMCall092016/CRMCallManager.swift"
++            timestampString = "498649151.059646"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "133"
+-            endingLineNumber = "133"
+-            landmarkName = "actionOK(_:)"
++            startingLineNumber = "96"
++            endingLineNumber = "96"
++            landmarkName = "showWindow(withNameScreen:)"
+             landmarkType = "5">
+          </BreakpointContent>
+       </BreakpointProxy>
+@@ -1385,14 +1321,46 @@
+             shouldBeEnabled = "No"
+             ignoreCount = "0"
+             continueAfterRunningActions = "No"
+-            filePath = "CRMCall092016/ViewControllers/HistoryCallViewController.swift"
+-            timestampString = "498559599.141805"
++            filePath = "CRMCall092016/CRMCallManager.swift"
++            timestampString = "498649151.059646"
+             startingColumnNumber = "9223372036854775807"
+             endingColumnNumber = "9223372036854775807"
+-            startingLineNumber = "369"
+-            endingLineNumber = "369"
+-            landmarkName = "actionSave(_:)"
++            startingLineNumber = "104"
++            endingLineNumber = "104"
++            landmarkName = "closeWindow(withNameScreen:)"
+             landmarkType = "5">
++            <Locations>
++               <Location
++                  shouldBeEnabled = "No"
++                  ignoreCount = "0"
++                  continueAfterRunningActions = "No"
++                  symbolName = "CRMCall092016.CRMCallManager.closeWindow (withNameScreen : Swift.String) -&gt; ()"
++                  moduleName = "CRMCall092016"
++                  usesParentBreakpointCondition = "Yes"
++                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/CRMCallManager.swift"
++                  timestampString = "498628151.075567"
++                  startingColumnNumber = "9223372036854775807"
++                  endingColumnNumber = "9223372036854775807"
++                  startingLineNumber = "106"
++                  endingLineNumber = "106"
++                  offsetFromSymbolStart = "27">
++               </Location>
++               <Location
++                  shouldBeEnabled = "No"
++                  ignoreCount = "0"
++                  continueAfterRunningActions = "No"
++                  symbolName = "CRMCall092016.CRMCallManager.(closeWindow (withNameScreen : Swift.String) -&gt; ()).(closure #1)"
++                  moduleName = "CRMCall092016"
++                  usesParentBreakpointCondition = "Yes"
++                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/CRMCallManager.swift"
++                  timestampString = "498628151.07583"
++                  startingColumnNumber = "9223372036854775807"
++                  endingColumnNumber = "9223372036854775807"
++                  startingLineNumber = "107"
++                  endingLineNumber = "107"
++                  offsetFromSymbolStart = "23">
++               </Location>
++            </Locations>
+          </BreakpointContent>
+       </BreakpointProxy>
+    </Breakpoints>
+diff --git a/CRMCall092016/AppDelegate.swift b/CRMCall092016/AppDelegate.swift
+index a3ae502..f32e6b8 100644
+--- a/CRMCall092016/AppDelegate.swift
++++ b/CRMCall092016/AppDelegate.swift
+@@ -80,13 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
+ 
+     @IBAction func showSignInPage(sender: AnyObject) {
+         
+-        if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] {
+-            loginWindowController.showWindow(nil)
+-        } else {
+-            let loginWindowController = LoginWindowController.createInstance()
+-            loginWindowController.showWindow(nil)
+-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = loginWindowController
+-        }
++        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.LoginWindowController)
+     }
+     
+     @IBAction func showSignOutPage(sender: AnyObject) {
+@@ -109,13 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
+             return
+         }
+         
+-        if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
+-            staffAvailibilityWindowController.showWindow(nil)
+-        } else {
+-            let staffAvailibilityWindowController = StaffAvailabilityWindowController.createInstance()
+-            staffAvailibilityWindowController.showWindow(nil)
+-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] = staffAvailibilityWindowController
+-        }
++        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
+     }
+     
+     @IBAction func showMissedCalls(sender: AnyObject) {
+diff --git a/CRMCall092016/Base.lproj/Main.storyboard b/CRMCall092016/Base.lproj/Main.storyboard
+index 2dd169b..13911c2 100644
+--- a/CRMCall092016/Base.lproj/Main.storyboard
++++ b/CRMCall092016/Base.lproj/Main.storyboard
+@@ -902,7 +902,7 @@
+                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yDO-BV-uyf">
++                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="yDO-BV-uyf">
+                                         <rect key="frame" x="77" y="42" width="155" height="22"/>
+                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2hk-nC-6ro">
+                                             <font key="font" metaFont="system"/>
+@@ -918,8 +918,11 @@
+                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9xK-oW-5aj">
++                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9xK-oW-5aj">
+                                         <rect key="frame" x="234" y="36" width="126" height="32"/>
++                                        <constraints>
++                                            <constraint firstAttribute="width" constant="114" id="gKh-aN-rfq"/>
++                                        </constraints>
+                                         <buttonCell key="cell" type="push" title="Customer" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O7V-DN-IWo">
+                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                             <font key="font" metaFont="system"/>
+@@ -1065,16 +1068,16 @@
+                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uI7-2e-die">
+-                                        <rect key="frame" x="6" y="325" width="32" height="17"/>
++                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uI7-2e-die">
++                                        <rect key="frame" x="6" y="325" width="33" height="17"/>
+                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Date" id="2n9-op-IbY">
+                                             <font key="font" metaFont="system"/>
+                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="154-Qx-Wpc">
+-                                        <rect key="frame" x="6" y="229" width="51" height="17"/>
++                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="154-Qx-Wpc">
++                                        <rect key="frame" x="6" y="229" width="59" height="17"/>
+                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Products" id="Svs-lS-t4l">
+                                             <font key="font" metaFont="system"/>
+                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+@@ -1089,16 +1092,16 @@
+                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5XK-3i-UMx">
+-                                        <rect key="frame" x="227" y="325" width="48" height="17"/>
++                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5XK-3i-UMx">
++                                        <rect key="frame" x="228" y="325" width="48" height="17"/>
+                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Priority" id="fl4-3S-Jdk">
+                                             <font key="font" metaFont="system"/>
+                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k00-Wp-pxo">
+-                                        <rect key="frame" x="71" y="293" width="366" height="17"/>
++                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k00-Wp-pxo">
++                                        <rect key="frame" x="72" y="293" width="366" height="17"/>
+                                         <constraints>
+                                             <constraint firstAttribute="width" constant="362" id="Yah-T8-5p8"/>
+                                         </constraints>
+@@ -1108,8 +1111,8 @@
+                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0g9-KB-gKS">
+-                                        <rect key="frame" x="279" y="318" width="125" height="26"/>
++                                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0g9-KB-gKS">
++                                        <rect key="frame" x="280" y="318" width="125" height="26"/>
+                                         <constraints>
+                                             <constraint firstAttribute="width" constant="120" id="G9s-E2-xja"/>
+                                         </constraints>
+@@ -1119,16 +1122,16 @@
+                                             <menu key="menu" id="tHI-Vz-ftu"/>
+                                         </popUpButtonCell>
+                                     </popUpButton>
+-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rcm-gc-7je">
+-                                        <rect key="frame" x="73" y="224" width="332" height="22"/>
++                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Rcm-gc-7je">
++                                        <rect key="frame" x="74" y="224" width="331" height="22"/>
+                                         <textFieldCell key="cell" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="2r3-YR-sP5">
+                                             <font key="font" metaFont="system"/>
+                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                         </textFieldCell>
+                                     </textField>
+-                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LrN-zi-Z3n">
+-                                        <rect key="frame" x="73" y="256" width="332" height="22"/>
++                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="LrN-zi-Z3n">
++                                        <rect key="frame" x="74" y="256" width="331" height="22"/>
+                                         <textFieldCell key="cell" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="SyK-Ek-OL8">
+                                             <font key="font" metaFont="system"/>
+                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+@@ -1146,7 +1149,7 @@
+                                             <font key="font" metaFont="system"/>
+                                         </buttonCell>
+                                         <connections>
+-                                            <action selector="actionShowSubject:" target="jsm-7x-mRW" id="Nfg-tQ-G8Z"/>
++                                            <action selector="actionShowProduct:" target="jsm-7x-mRW" id="l2p-ZJ-toG"/>
+                                         </connections>
+                                     </button>
+                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RbH-ZE-OAu">
+@@ -1187,8 +1190,8 @@
+                                             <action selector="actionShowPurpose:" target="jsm-7x-mRW" id="QkA-YD-mWU"/>
+                                         </connections>
+                                     </button>
+-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L1y-O9-A5k">
+-                                        <rect key="frame" x="71" y="325" width="130" height="17"/>
++                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L1y-O9-A5k">
++                                        <rect key="frame" x="72" y="325" width="130" height="17"/>
+                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2016.09.20 20.00.59" id="rmM-WT-s1F">
+                                             <font key="font" metaFont="system"/>
+                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+@@ -1571,7 +1574,7 @@
+                         <autoresizingMask key="autoresizingMask"/>
+                         <subviews>
+                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UbM-Je-DdG">
+-                                <rect key="frame" x="18" y="336" width="135" height="26"/>
++                                <rect key="frame" x="18" y="335" width="135" height="26"/>
+                                 <constraints>
+                                     <constraint firstAttribute="width" constant="130" id="kRm-oA-LLN"/>
+                                 </constraints>
+@@ -1582,7 +1585,7 @@
+                                 </popUpButtonCell>
+                             </popUpButton>
+                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WPO-Ne-15P">
+-                                <rect key="frame" x="158" y="338" width="329" height="22"/>
++                                <rect key="frame" x="158" y="337" width="329" height="22"/>
+                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Name or Phone Number" drawsBackground="YES" id="Idw-yJ-KXD">
+                                     <font key="font" metaFont="system"/>
+                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+@@ -1590,7 +1593,7 @@
+                                 </textFieldCell>
+                             </textField>
+                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bnO-SJ-Gky">
+-                                <rect key="frame" x="489" y="332" width="83" height="32"/>
++                                <rect key="frame" x="489" y="331" width="83" height="32"/>
+                                 <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v1Q-lC-EnB">
+                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                     <font key="font" metaFont="system"/>
+@@ -1600,7 +1603,7 @@
+                                 </connections>
+                             </button>
+                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-ku-zp8">
+-                                <rect key="frame" x="14" y="4" width="92" height="32"/>
++                                <rect key="frame" x="14" y="3" width="92" height="32"/>
+                                 <constraints>
+                                     <constraint firstAttribute="width" constant="80" id="Anc-Ug-6DZ"/>
+                                 </constraints>
+@@ -1613,7 +1616,7 @@
+                                 </connections>
+                             </button>
+                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6On-oo-OcJ">
+-                                <rect key="frame" x="392" y="4" width="92" height="32"/>
++                                <rect key="frame" x="392" y="3" width="92" height="32"/>
+                                 <constraints>
+                                     <constraint firstAttribute="width" constant="80" id="x77-ZL-b5l"/>
+                                 </constraints>
+@@ -1629,7 +1632,7 @@ DQ
+                                 </connections>
+                             </button>
+                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9b-zf-DTG">
+-                                <rect key="frame" x="20" y="40" width="546" height="290"/>
++                                <rect key="frame" x="20" y="39" width="546" height="290"/>
+                                 <clipView key="contentView" id="noh-9T-QmA">
+                                     <rect key="frame" x="1" y="0.0" width="544" height="289"/>
+                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+@@ -1705,7 +1708,7 @@ DQ
+                                 <constraints>
+                                     <constraint firstAttribute="height" constant="290" id="9j9-d5-VsF"/>
+                                 </constraints>
+-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="DMc-5Q-BvP">
++                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.19093758460482216" horizontal="YES" id="DMc-5Q-BvP">
+                                     <rect key="frame" x="1" y="273" width="544" height="16"/>
+                                     <autoresizingMask key="autoresizingMask"/>
+                                 </scroller>
+@@ -1719,7 +1722,7 @@ DQ
+                                 </tableHeaderView>
+                             </scrollView>
+                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YgD-4X-arJ">
+-                                <rect key="frame" x="480" y="4" width="92" height="32"/>
++                                <rect key="frame" x="480" y="3" width="92" height="32"/>
+                                 <constraints>
+                                     <constraint firstAttribute="width" constant="80" id="XPZ-eV-ZTG"/>
+                                 </constraints>
+@@ -1929,7 +1932,7 @@ Gw
+                 </windowController>
+                 <customObject id="D6D-qN-u9e" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+             </objects>
+-            <point key="canvasLocation" x="688" y="2018"/>
++            <point key="canvasLocation" x="1247" y="-1140"/>
+         </scene>
+         <!--Staff Availability View Controller-->
+         <scene sceneID="kKj-Fd-exS">
+@@ -1946,7 +1949,7 @@ Gw
+                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                     <subviews>
+                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="gRH-mZ-gKD" id="eKR-Fw-dby">
+-                                            <rect key="frame" x="0.0" y="0.0" width="438" height="394"/>
++                                            <rect key="frame" x="0.0" y="0.0" width="438" height="0.0"/>
+                                             <autoresizingMask key="autoresizingMask"/>
+                                             <size key="intercellSpacing" width="3" height="2"/>
+                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
+@@ -2015,7 +2018,7 @@ Gw
+                                     </subviews>
+                                     <nil key="backgroundColor"/>
+                                 </clipView>
+-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="GIj-uX-cj5">
++                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.76375033841942996" horizontal="YES" id="GIj-uX-cj5">
+                                     <rect key="frame" x="1" y="379" width="438" height="16"/>
+                                     <autoresizingMask key="autoresizingMask"/>
+                                 </scroller>
+@@ -2109,7 +2112,7 @@ Gw
+                 </viewController>
+                 <customObject id="O4C-iu-X1T" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+             </objects>
+-            <point key="canvasLocation" x="688" y="2549.5"/>
++            <point key="canvasLocation" x="1825" y="-1147.5"/>
+         </scene>
+         <!--Setting Phone-->
+         <scene sceneID="hIz-AP-VOD">
+diff --git a/CRMCall092016/CRMCallManager.swift b/CRMCall092016/CRMCallManager.swift
+index c09e077..9828acc 100644
+--- a/CRMCall092016/CRMCallManager.swift
++++ b/CRMCall092016/CRMCallManager.swift
+@@ -32,8 +32,6 @@ final class CRMCallManager {
+     
+     var domain = ""
+     
+-    //var
+-    
+     // MARK: Initialzation
+     
+     init () {
+@@ -61,4 +59,54 @@ final class CRMCallManager {
+         isSocketLoginSuccess = false
+     }
+     
++    // MARK: - Manager Screen
++    
++    func showWindow(withNameScreen name: String) {
++        dispatch_async(dispatch_get_main_queue(), {
++            if let windowController = CRMCallManager.shareInstance.screenManager[name] {
++                windowController.showWindow(nil)
++            } else {
++                var windowController = NSWindowController()
++                
++                switch name {
++                    
++                case CRMCallHelpers.NameScreen.CustomerListViewController:
++                        windowController = CustomerListWindowController.createInstance()
++                    break
++                    
++                case CRMCallHelpers.NameScreen.HistoryCallWindowController:
++                    windowController = HistoryCallWindowController.createInstance()
++                    break
++                    
++                case CRMCallHelpers.NameScreen.LoginWindowController:
++                    windowController = LoginWindowController.createInstance()
++                    break
++                    
++                case CRMCallHelpers.NameScreen.RingIngWindowController:
++                    windowController = RingIngWindowController.createInstance()
++                    break
++                    
++                case CRMCallHelpers.NameScreen.StaffAvailabilityWindowController:
++                    windowController = StaffAvailabilityWindowController.createInstance()
++                    break
++                default:
++                    break
++                }
++                
++                windowController.showWindow(nil)
++                CRMCallManager.shareInstance.screenManager[name] = windowController
++            }
++            
++        })
++    }
++    
++    func closeWindow(withNameScreen name: String) {
++        dispatch_async(dispatch_get_main_queue()) {
++            if let windowController = CRMCallManager.shareInstance.screenManager[name] {
++                windowController.close()
++                CRMCallManager.shareInstance.screenManager.removeValueForKey(name)
++            }
++        }
++    }
++    
+ }
+diff --git a/CRMCall092016/Models/ModelRealm.swift b/CRMCall092016/Models/ModelRealm.swift
+index eed8987..54f368e 100644
+--- a/CRMCall092016/Models/ModelRealm.swift
++++ b/CRMCall092016/Models/ModelRealm.swift
+@@ -211,9 +211,4 @@ class ChildTree: Object {
+     override static func primaryKey() -> String? {
+         return "idx"
+     }
+-}
+-
+-
+-
+-
+-
++}
+\ No newline at end of file
+diff --git a/CRMCall092016/ViewControllers/CustomerListViewController.swift b/CRMCall092016/ViewControllers/CustomerListViewController.swift
+index 0365d90..3f64496 100644
+--- a/CRMCall092016/ViewControllers/CustomerListViewController.swift
++++ b/CRMCall092016/ViewControllers/CustomerListViewController.swift
+@@ -78,22 +78,14 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
+     
+     override func viewDidDisappear() {
+         super.viewDidDisappear()
+-        closeWindown()
++        
++        CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.CustomerListViewController)
+     }
+     
+     deinit {
+         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewBoundsDidChangeNotification, object: nil)
+     }
+     
+-    private func closeWindown() {
+-        dispatch_async(dispatch_get_main_queue()) {
+-            if let customersWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+-                customersWindowController.close()
+-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
+-            }
+-        }
+-    }
+-    
+     // MARK: - Handing event
+     
+     @IBAction func actionSeach(sender: AnyObject) {
+@@ -104,27 +96,14 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
+     @IBAction func actionUnregisters(sender: AnyObject) {
+         delegate?.chooseCustomer(withDict: nil)
+         
+-        dispatch_async(dispatch_get_main_queue(), {
+-            
+-            if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+-                lcustomerListWindowController.close()
+-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
+-            }
+-        })
+-
++        self.actionCannel("")
+     }
+     
+     @IBAction func actionOK(sender: AnyObject) {
+         
+         if isCustomerListReviews {
+             
+-            dispatch_async(dispatch_get_main_queue(), {
+-                
+-                if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+-                    lcustomerListWindowController.close()
+-                    CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
+-                }
+-            })
++            self.actionCannel("")
+             return
+         }
+         
+@@ -139,23 +118,13 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
+         
+         delegate?.chooseCustomer(withDict: itemSelect)
+         
+-        dispatch_async(dispatch_get_main_queue(), {
+-            
+-            if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+-                lcustomerListWindowController.close()
+-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
+-            }
+-        })
+-
++        self.actionCannel("")
+     }
+     
+     @IBAction func actionCannel(sender: AnyObject) {
+         dispatch_async(dispatch_get_main_queue(), {
+             
+-            if let lcustomerListWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+-                lcustomerListWindowController.close()
+-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.CustomerListViewController)
+-            }
++            CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.CustomerListViewController)
+         })
+     }
+     
+@@ -231,8 +200,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
+                             
+                             var itemConfig = item
+                             itemConfig["phone"] = phoneItem
+-                            
+-                            //self.dataDict.append(itemConfig)
++
+                         }
+                     }
+                     
+diff --git a/CRMCall092016/ViewControllers/HistoryCallViewController.swift b/CRMCall092016/ViewControllers/HistoryCallViewController.swift
+index 2c8eebe..4a9a1ea 100644
+--- a/CRMCall092016/ViewControllers/HistoryCallViewController.swift
++++ b/CRMCall092016/ViewControllers/HistoryCallViewController.swift
+@@ -39,8 +39,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+     @IBOutlet weak var panelDetail: NSView!
+     @IBOutlet weak var durationsTextField: NSTextField!
+     
+-    private var purposeID = "purposeID"
+-    private var subjectID = "SubjectID"
++    private var purposeViewControllerID = "purposeViewControllerID"
++    private var productViewControllerID = "productViewControllerID"
+     
+     private var addressDict = ["":""]
+     private var priorityDict = ["":""]
+@@ -224,7 +224,6 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+                         }
+                     }
+                     
+-                    
+                     ///-------------- SEARCH API CUSTOMER IN CALL HISTORY-------------// // GET DATA FOR TABLE
+                     let types = [CRMCallHelpers.TypeApi.Call.rawValue,
+                         CRMCallHelpers.TypeApi.Meeting.rawValue,
+@@ -295,6 +294,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+         configItems()
+     }
+     
++    deinit {
++        deregisterNotification()
++    }
++    
+     override func viewDidDisappear() {
+         super.viewDidDisappear()
+         
+@@ -304,12 +307,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+     }
+     
+     private func closeWindown() {
+-        dispatch_async(dispatch_get_main_queue()) { 
+-            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+-                historyWindowController.close()
+-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.HistoryCallWindowController)
+-            }
+-        }
++        CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+     }
+     
+     // MARK: - Notification
+@@ -397,11 +395,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+             println("Not found data customer from Customer List")
+             self.closeWindown()
+         }
+-        
+-        //self.getUploadCallHistory()
+     }
+     
+     @IBAction func actionAddTask(sender: AnyObject) {
++        
+     }
+     
+     @IBAction func actionCreateTicket(sender: AnyObject) {
+@@ -416,13 +413,14 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+         
+         let viewController = popover.contentViewController as! PopUpViewController
+         viewController.dataDict = purposeDict
+-        viewController.identifier = purposeID
++        viewController.identifier = purposeViewControllerID
++        viewController.delegate = self
+         viewController.reloadTable()
+         
+         popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
+     }
+     
+-    @IBAction func actionShowSubject(sender: AnyObject) {
++    @IBAction func actionShowProduct(sender: AnyObject) {
+         
+         popover.appearance = NSAppearance(named: NSAppearanceNameAqua)!
+         
+@@ -433,7 +431,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+         let viewController = popover.contentViewController as! PopUpViewController
+         
+         viewController.dataDict = self.setSelectedForDict(withData: productDict, values: self.productCodeOfCustomer)
+-        viewController.identifier = subjectID
++        viewController.identifier = productViewControllerID
++        viewController.delegate = self
+         viewController.reloadTable()
+         
+         popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
+@@ -456,6 +455,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
+             
+             customersViewController.showWindow(nil)
+             customerView.searchCustomer()
++            
+             CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] = customersViewController
+         }
+     }
+@@ -819,7 +819,7 @@ extension HistoryCallViewController: NSTableViewDelegate, NSTableViewDataSource
+ 
+ // MARK: - Popover Delegate
+ 
+-extension HistoryCallViewController: NSPopoverDelegate {
++extension HistoryCallViewController: NSPopoverDelegate, PopUpDelegate {
+     
+     func popoverShouldDetach(popover: NSPopover) -> Bool {
+         return true
+@@ -833,16 +833,16 @@ extension HistoryCallViewController: NSPopoverDelegate {
+         let closeReason = notification.userInfo![NSPopoverCloseReasonKey] as! String
+         if (closeReason == NSPopoverCloseReasonStandard) {
+             println("click close")
+-            let viewController = self.popover.contentViewController as! PopUpViewController
+-            println("value --> \(viewController.dataDict)")
+-            
+-            if viewController.identifier == purposeID {
+-                self.purposeDict = viewController.dataDict
+-                self.purposeTextField.stringValue = self.getStringValueInDict(withValues: self.purposeDict)
+-            } else {
+-                self.productDict = viewController.dataDict
+-                self.productTextField.stringValue = self.getStringValueInDict(withValues: self.productDict)
+-            }
++        }
++    }
++    
++    func clickChooseItem(withData data: [NSMutableDictionary], identifier: String) {
++        if identifier == purposeViewControllerID {
++            self.purposeDict = data
++            self.purposeTextField.stringValue = self.getStringValueInDict(withValues: self.purposeDict)
++        } else {
++            self.productDict = data
++            self.productTextField.stringValue = self.getStringValueInDict(withValues: self.productDict)
+         }
+     }
+ }
+diff --git a/CRMCall092016/ViewControllers/MainViewController.swift b/CRMCall092016/ViewControllers/MainViewController.swift
+index 9012ddf..3ab50dc 100644
+--- a/CRMCall092016/ViewControllers/MainViewController.swift
++++ b/CRMCall092016/ViewControllers/MainViewController.swift
+@@ -54,7 +54,6 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+         initData()
+         
+         cachesData()
+-        //testAPI()
+     }
+     
+     private func cachesData() {
+@@ -112,175 +111,6 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+ 
+     }
+     
+-    func testAPI() {
+-        
+-        ///////////------Search customer---------------/////////////
+-        let types = [CRMCallHelpers.TypeApi.Company.rawValue
+-            // CRMCallHelpers.TypeApi.Contact.rawValue,
+-            //CRMCallHelpers.TypeApi.Employee.rawValue
+-        ]
+-        let pages  = ["1", "10"]
+-        let url = CRMCallConfig.API.searchCustomer(withCompany: "102", types: types, pages: pages, keyword: "", sort: CRMCallHelpers.Sort.Name.rawValue, order: CRMCallHelpers.Order.Desc.rawValue)
+-        
+-        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+-            if success {
+-                println("-----------> SEARCH CUSTOMER DATA CALL RESPONCE: \(datas)")
+-                
+-                if let data = datas["rows"] as? [String: AnyObject] {
+-                    println("SEARCH CUSTOMER DATA CALL GET FROM SERVER ----> \(data)")
+-                } else {
+-                    println("Not found SEARCH CUSTOMER from server")
+-                }
+-                
+-                
+-            } else {
+-                println("---XXXXX---->>> GET DATA SEARCH CUSTOMER FAIL WITH MESSAGE: \(datas)")
+-            }
+-        }
+-        
+-        
+-        //        //////////////-----------Register employee-----------/////////////
+-        //        let info = CRMCallHelpers.createDictionaryEmployee(withData: ["vinh label"], phoneNumber: ["01667289026"])
+-        //        let parameter1 = RequestBuilder.registerEmployee(withName: "VINH KILLER", info: info)
+-        //
+-        //        let url1 = CRMCallConfig.API.registerEmployee(withCompany: "102", companyCode: "ACCT-6484-00014")
+-        //
+-        //        AlamofireManager.requestUrlByPOST(withURL: url1, parameter: parameter1) { (datas, success) in
+-        //            if success {
+-        //                println("-----------> Register employee data responce: \(datas)")
+-        //
+-        ////                guard let data = datas["rows"] as? [String: AnyObject] else {
+-        ////                    println("Cannot get data after register employee success")
+-        ////                    return
+-        ////                }
+-        //            } else {
+-        //                println("---XXXXX---->>> Register employee data fail with message: \(datas)")
+-        //            }
+-        //        }
+-        
+-        
+-        //        ///-------------- REGISTER NEW PHONE OF COMPANY-------------//
+-        //        let parameter2 = CRMCallHelpers.createDictionaryTelephoneOfSomeOne(withData: "1", phoneNumber: "1111111", cateID: "400", cn: "102")
+-        //
+-        //        let url2 = CRMCallConfig.API.registerTelephoneOfCompany(withCompany: "102", companyCode: "ACCT-6484-00014")
+-        //
+-        //        AlamofireManager.requestUrlByPUT(withURL: url2, parameter: parameter2) { (datas, success) in
+-        //            if success {
+-        //                println("-----------> Register telephone of company data responce: \(datas)")
+-        //
+-        //                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+-        //                //                    println("Cannot get data after register employee success")
+-        //                //                    return
+-        //                //                }
+-        //            } else {
+-        //                println("---XXXXX---->>> Register telephone of company data fail with message: \(datas)")
+-        //            }
+-        //        }
+-        
+-        
+-        
+-        
+-        //        ///-------------- REGISTER NEW PHONE OF EMPLOYEE-------------//
+-        //        let parameter3 = CRMCallHelpers.createDictionaryTelephoneOfSomeOne(withData: "2", phoneNumber: "01667289000", cateID: "400", cn: "102")
+-        //
+-        //        let url3 = CRMCallConfig.API.registerTelephoneForEmployee(withCompany: "102", employeeCode: "CONT-6484-00039")
+-        //
+-        //        AlamofireManager.requestUrlByPUT(withURL: url3, parameter: parameter3) { (datas, success) in
+-        //            if success {
+-        //                println("-----------> Register telephone of company data responce: \(datas)")
+-        //
+-        //                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+-        //                //                    println("Cannot get data after register employee success")
+-        //                //                    return
+-        //                //                }
+-        //            } else {
+-        //                println("---XXXXX---->>> Register telephone of company data fail with message: \(datas)")
+-        //            }
+-        //        }
+-        
+-        
+-        ///-------------- REGISTER LABEL -------------//
+-        //        let parameter4 = CRMCallHelpers.createDictionaryRegisterManually(withData: "1", labelValue: "vinh cute 123", phoneNumber: "01667289999", cateID: "400", cn: "102")
+-        //        let url4 = CRMCallConfig.API.registerWithLabel(withCompany: "1", companyCode: "ACCT-6484-00014")
+-        //
+-        //        AlamofireManager.requestUrlByPUT(withURL: url4, parameter: parameter4) { (datas, success) in
+-        //            if success {
+-        //                println("-----------> Register label data responce: \(datas)")
+-        //
+-        //                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+-        //                //                    println("Cannot get data after register employee success")
+-        //                //                    return
+-        //                //                }
+-        //            } else {
+-        //                println("---XXXXX---->>> Register label data fail with message: \(datas)")
+-        //            }
+-        //        }
+-        
+-        
+-        ///-------------- SEARCH API -------------//
+-        //        let url5 = CRMCallConfig.API.searchHistoryCall(withCompany: "102", limit: 25, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, since: "2015-09-28T00:00:00+9", until: "2016-10-28T00:00:00+9", dateRange: CRMCallHelpers.Sort.DateTime.rawValue, type: CRMCallHelpers.TypeApi.Call.rawValue)
+-        //
+-        //        AlamofireManager.requestUrlByGET(withURL: url5, parameter: nil) { (datas, success) in
+-        //            if success {
+-        //                println("-----------> Search history Call data responce: \(datas)")
+-        //
+-        //                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+-        //                //                    println("Cannot get data after register employee success")
+-        //                //                    return
+-        //                //                }
+-        //            } else {
+-        //                println("---XXXXX---->>> Get Search history Call data fail with message: \(datas)")
+-        //            }
+-        //        }
+-        
+-        
+-        ///-------------- SEARCH API CUSTOMER IN CALL HISTORY-------------//
+-        let types6 = [CRMCallHelpers.TypeApi.Call.rawValue,
+-                      CRMCallHelpers.TypeApi.Meeting.rawValue,
+-                      CRMCallHelpers.TypeApi.Fax.rawValue,
+-                      CRMCallHelpers.TypeApi.Post.rawValue,
+-                      CRMCallHelpers.TypeApi.Appointment.rawValue,
+-                      CRMCallHelpers.TypeApi.Task.rawValue,
+-                      CRMCallHelpers.TypeApi.Sms.rawValue,
+-                      CRMCallHelpers.TypeApi.Email.rawValue
+-        ]
+-        let url6 = CRMCallConfig.API.searchHistoryCallOfCustomer(withCompany: "102", customerCode: "CONT-6484-00013", limit: 21, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types6)
+-        
+-        AlamofireManager.requestUrlByGET(withURL: url6, parameter: nil) { (datas, success) in
+-            if success {
+-                println("-----------> Search history Call of customer data responce: \(datas)")
+-                
+-                guard let data = datas["rows"] as? [String: AnyObject] else {
+-                    println("Cannot get data after register employee success")
+-                    return
+-                }
+-                
+-            } else {
+-                println("---XXXXX---->>> Get Search history Call of customer data fail with message: \(datas)")
+-            }
+-        }
+-        
+-        ///-------------- GET ALL STAFF -------------//
+-        
+-        let url7 = CRMCallConfig.API.getAllStaffs()
+-        
+-        AlamofireManager.requestUrlByGET(withURL: url7, parameter: nil) { (datas, success) in
+-            if success {
+-                println("-----------> Get All Staff data responce: \(datas)")
+-                
+-                //                guard let data = datas["rows"] as? [String: AnyObject] else {
+-                //                    println("Cannot get data after register employee success")
+-                //                    return
+-                //                }
+-            } else {
+-                println("---XXXXX---->>> Get all staff data fail with message: \(datas)")
+-            }
+-        }
+-        
+-        
+-        
+-    }
+-    
+     override func viewDidAppear() {
+         super.viewDidAppear()
+         self.view.window?.title = "CRMCAll"
+@@ -304,12 +134,19 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+         handlerNotificationSocketDisConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDisConnected, object: nil, queue: nil, usingBlock: { notification in
+             
+             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
++            
+             println("----------------xxxxx--DISCONNECT SOCKET TO SERVER--xxxxx--------------------")
+-            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+-                crmCallSocket.logoutRequest()
+-                crmCallSocket.stopLiveTimer()
++            if CRMCallManager.shareInstance.isUserLoginSuccess {
++                CRMCallManager.shareInstance.isSocketLoginSuccess = false
++                CRMCallManager.shareInstance.deinitSocket()
++                CRMCallHelpers.reconnectToSocket()  // RECONNECT SOCKET
+             } else {
+-                println("CRMCallManager.shareInstance.crmCallSocket = nil")
++                if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
++                    crmCallSocket.logoutRequest()
++                    crmCallSocket.stopLiveTimer()
++                } else {
++                    println("CRMCallManager.shareInstance.crmCallSocket = nil")
++                }
+             }
+         })
+         
+@@ -317,27 +154,14 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+             
+             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+             
+-            
+             dispatch_async(dispatch_get_main_queue(), {
+                 
+                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                     
+-                    if let ringWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+-                        ringWindowController.showWindow(nil)
+-                    } else {
+-                        let ringWindowController = RingIngWindowController.createInstance()
+-                        ringWindowController.showWindow(nil)
+-                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] = ringWindowController
+-                    }
++                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                     
+-                    if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+-                        historyWindowController.showWindow(nil)
+-                    } else {
+-                        let historyWindowController = HistoryCallWindowController.createInstance()
+-                        historyWindowController.showWindow(nil)
+-                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+-                    }
++                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+                 }
+             })
+         })
+@@ -389,18 +213,9 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+             dispatch_async(dispatch_get_main_queue(), {
+                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                     
+-                    if let ringWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+-                        ringWindowController.close()
+-                        CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+-                    }
++                    CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+                     
+-                    if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+-                        historyWindowController.showWindow(nil)
+-                    } else {
+-                        let historyWindowController = HistoryCallWindowController.createInstance()
+-                        historyWindowController.showWindow(nil)
+-                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+-                    }
++                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+                     
+                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                     
+@@ -415,10 +230,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+             dispatch_async(dispatch_get_main_queue(), {
+                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                     
+-                    if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+-                        loginWindowController.close()
+-                        CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+-                    }
++                    CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+                     
+                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                     
+@@ -438,10 +250,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+             dispatch_async(dispatch_get_main_queue(), {
+                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                     
+-                    if let loginWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+-                        loginWindowController.close()
+-                        CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+-                    }
++                    CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+                     
+                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                     
+@@ -457,10 +266,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+             
+             if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                 
+-                if let ringWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+-                    ringWindowController.close()
+-                    CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.RingIngWindowController)
+-                }
++                CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+                 
+             } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                 
+@@ -485,21 +291,21 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
+     // MARK: - Handling event
+     
+     @IBAction func acctionSearch(sender: AnyObject) {
+-        //        dispatch_async(dispatch_get_main_queue(), {
+-        //            let ringViewController = RingIngViewController.createInstance()
+-        //            self.presentViewControllerAsModalWindow(ringViewController)
+-        //        })
+         
+-         dispatch_async(dispatch_get_main_queue(), {
+-        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+-            historyWindowController.showWindow(nil)
+-        } else {
+-            let historyWindowController = HistoryCallWindowController.createInstance()
+-            historyWindowController.showWindow(nil)
+-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+-        }
++        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDisConnected, object: nil, userInfo: nil)
++        
++        //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+         
+-           })
++//         dispatch_async(dispatch_get_main_queue(), {
++//        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
++//            historyWindowController.showWindow(nil)
++//        } else {
++//            let historyWindowController = HistoryCallWindowController.createInstance()
++//            historyWindowController.showWindow(nil)
++//            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
++//        }
++//        
++//           })
+         
+ //                if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
+ //                    staffAvailibilityWindowController.showWindow(nil)
+diff --git a/CRMCall092016/ViewControllers/PopUpViewController.swift b/CRMCall092016/ViewControllers/PopUpViewController.swift
+index 10bbe8f..7b17ff5 100644
+--- a/CRMCall092016/ViewControllers/PopUpViewController.swift
++++ b/CRMCall092016/ViewControllers/PopUpViewController.swift
+@@ -8,11 +8,17 @@
+ 
+ import AppKit
+ 
++protocol PopUpDelegate: class {
++    func clickChooseItem(withData data: [NSMutableDictionary], identifier: String)
++}
++
+ @objc(PopUpViewController) class PopUpViewController: NSViewController {
+     
+     // MARK: Properties
+     @IBOutlet weak var dataTableView: NSTableView!
+     
++    weak var delegate: PopUpDelegate?
++    
+     var dataDict = [NSMutableDictionary]()
+     
+     override func awakeFromNib() {
+@@ -45,6 +51,8 @@ extension PopUpViewController: NSTableViewDelegate, NSTableViewDataSource {
+     
+     func tableView(tableView: NSTableView, setObjectValue object: AnyObject?, forTableColumn tableColumn: NSTableColumn?, row: Int) {
+         dataDict[row].setObject(object!, forKey: (tableColumn?.identifier)!)
++        
++        delegate?.clickChooseItem(withData: dataDict, identifier: self.identifier!)
+     }
+     
+ }
+\ No newline at end of file
+diff --git a/CRMCall092016/ViewControllers/RingIngViewController.swift b/CRMCall092016/ViewControllers/RingIngViewController.swift
+index ac8aae2..0cef974 100644
+--- a/CRMCall092016/ViewControllers/RingIngViewController.swift
++++ b/CRMCall092016/ViewControllers/RingIngViewController.swift
+@@ -82,8 +82,6 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
+         println("Init Screen RingIngViewController")
+         
+         initData()
+-        
+-        registerNotification()
+     }
+     
+     override func viewDidAppear() {
+@@ -91,29 +89,10 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
+         self.view.window?.title = "Call"
+     }
+     
+-    override func viewDidDisappear() {
+-        deregisterNotification()
+-    }
+-    
+     // MARK: - Notification
+     struct Notification {
+         static let RingCancel = "RingCancel"
+         static let RingBusy = "RingBusy"
+         static let Show = "Show"
+     }
+-    
+-    func registerNotification() {
+-        handlerNotificationRingCancel = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.RingCancel, object: nil, queue: nil, usingBlock: { notification in
+-            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+-            
+-            if let userInfo = notification.userInfo {
+-               //self.statusCall.stringValue = userInfo["STATUS"] as! String
+-            }
+-        })
+-    }
+-    
+-    func deregisterNotification() {
+-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRingCancel)
+-    }
+-    
+ }
+\ No newline at end of file
+diff --git a/CRMCall092016/ViewControllers/SettingViewController.swift b/CRMCall092016/ViewControllers/SettingViewController.swift
+index 2e51688..996231b 100644
+--- a/CRMCall092016/ViewControllers/SettingViewController.swift
++++ b/CRMCall092016/ViewControllers/SettingViewController.swift
+@@ -73,6 +73,10 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
+         }
+     }
+     
++    deinit {
++        deregisterNotification()
++    }
++    
+     override func viewDidAppear() {
+         super.viewDidAppear()
+         self.view.window?.title = "Call Setting"
+diff --git a/CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift b/CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift
+index ac4d12a..4adf572 100644
+--- a/CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift
++++ b/CRMCall092016/ViewControllers/StaffAvailabilityViewController.swift
+@@ -99,16 +99,8 @@ class StaffAvailabilityViewController: NSViewController, ViewControllerProtocol
+     
+     override func viewDidDisappear() {
+         super.viewDidDisappear()
+-        closeWindown()
+-    }
+-    
+-    private func closeWindown() {
+-        dispatch_async(dispatch_get_main_queue()) {
+-            if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
+-                staffAvailibilityWindowController.close()
+-                CRMCallManager.shareInstance.screenManager.removeValueForKey(CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
+-            }
+-        }
++        
++        CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
+     }
+     
+     // MARK: - Handling event
+@@ -202,6 +194,7 @@ extension StaffAvailabilityViewController: NSOutlineViewDataSource {
+ 
+ // MARK: - Outline View Data Delegate
+ extension StaffAvailabilityViewController: NSOutlineViewDelegate {
++    
+     func outlineView(outlineView: NSOutlineView, viewForTableColumn: NSTableColumn?, item: AnyObject) -> NSView? {
+         
+         // Ensure that the passed item is valid and can be used to create a table cell
+diff --git a/CRMCall092016/ViewControllers/ViewControllerProtocol.swift b/CRMCall092016/ViewControllers/ViewControllerProtocol.swift
+index d876369..7e339aa 100644
+--- a/CRMCall092016/ViewControllers/ViewControllerProtocol.swift
++++ b/CRMCall092016/ViewControllers/ViewControllerProtocol.swift
+@@ -9,7 +9,7 @@
+ import Foundation
+ import Cocoa
+ 
+-@objc protocol ViewControllerProtocol {
++@objc protocol ViewControllerProtocol : class {
+     
+     static func createInstance() -> NSViewController
+     

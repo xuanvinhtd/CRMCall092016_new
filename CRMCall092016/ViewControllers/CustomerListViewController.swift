@@ -258,20 +258,4 @@ extension CustomerListViewController: NSTableViewDelegate, NSTableViewDataSource
         }
         return NSRange()
     }
-    
-//    func tableView(tableView: NSTableView, willDisplayCell cell: AnyObject, forTableColumn tableColumn: NSTableColumn?, row: Int) {
-//       // println("\(row)")
-//        
-//        let range = getVisibleRow()
-//        let local = range.location + range.length
-//        println("loacal \(range.location) late row \(range.length)")
-//        
-//        if isReplaceSearch && local == (dataDict.count - 5) {
-//            
-//            isReplaceSearch = false
-//            indexStart += (offset + 1)
-//            
-//            searchCustomer()
-//        }
-//    }
 }

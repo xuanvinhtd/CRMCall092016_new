@@ -19,6 +19,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>KeychainAccess.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>Pods-CRMCall092016.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -97,6 +102,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>838A2C6DA366DE138E5FDF1AF19D94C0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>858154DE27788DE3F2D9316F3196A36C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9A1A088A814206B99346C15F88870371</key>
 		<dict>
 			<key>primary</key>
@@ -108,6 +123,11 @@
 			<true/>
 		</dict>
 		<key>B37E19CA872A7535725D1E1946E5C271</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B7ACFD5BF27261191C8DE6E92CB44C8E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

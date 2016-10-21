@@ -11,6 +11,8 @@ import Alamofire
 
 final class AlamofireManager {
     
+    static let reachabilityManager = Alamofire.NetworkReachabilityManager(host: "www.google.com")
+    
     static func getData(withURL url: String, withCompletion completion: ((withData: NSData?) ->Void)?) {
         
         Alamofire.request(.GET, url)
@@ -211,5 +213,47 @@ final class AlamofireManager {
                     completion(data: rs, success:  true)
                 }
         }
+    }
+    
+    static func startNetworkReachabilityObserver() {
+        
+        reachabilityManager?.listener = { status in
+            
+            switch status {
+                
+            case .NotReachable:
+                print("The network is not reachable")
+                CRMCallManager.shareInstance.deinitSocket()
+                CRMCallManager.shareInstance.isInternetConnect = false
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.NotConnetInternet, object: nil, userInfo: nil)
+                
+                break
+            case .Unknown :
+                print("It is unknown whether the network is reachable")
+                break
+                
+            case .Reachable(.EthernetOrWiFi):
+                print("The network is reachable over the WiFi connection")
+                if !CRMCallManager.shareInstance.isInternetConnect {
+                    NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
+                }
+                CRMCallManager.shareInstance.isInternetConnect = true
+                break
+                
+                
+            case .Reachable(.WWAN):
+                print("The network is reachable over the WWAN connection")
+                if !CRMCallManager.shareInstance.isInternetConnect {
+                    NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
+                }
+                CRMCallManager.shareInstance.isInternetConnect = true
+                break
+                
+            }
+        }
+        
+        // start listening
+        reachabilityManager?.startListening()
     }
 }

@@ -39,7 +39,7 @@ class BaseSocket: NSObject {
         super.init()
         
         self.asynSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.socketQueue)
-        
+
         getIdAndHost()
     }
     
@@ -50,11 +50,15 @@ class BaseSocket: NSObject {
     // MARK: - Socket handling
     
     func connect() {
+        connect(withPort: self.port, host: self.host)
+    }
+    
+    func connect(withPort port: UInt16, host: String) {
         
         dispatch_async(socketQueue) {
             do {
-                if self.host != "" && self.port != 0 {
-                    try self.asynSocket.connectToHost(self.host, onPort: self.port)
+                if host != "" && port != 0 {
+                    try self.asynSocket.connectToHost(host, onPort: port)
                 } else {
                     println("Not enought info host and port")
                 }
@@ -113,6 +117,9 @@ class BaseSocket: NSObject {
                     if let port = result["PORT"], host = result["IP"] {
                         self.port = UInt16(port)!
                         self.host = host
+                        
+                        CRMCallManager.shareInstance.host = self.host
+                        CRMCallManager.shareInstance.port = self.port
                         
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, userInfo: nil)
                     } else {
@@ -193,8 +200,11 @@ extension BaseSocket: GCDAsyncSocketDelegate {
         println("Error DidDisconnect: \(err)")
         
         self.isConnectedToHost = false
-        
-        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDisConnected, object: nil, userInfo: nil)
+        if CRMCallManager.shareInstance.isUserLoginSuccess {
+            NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
+        } else {
+            NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDisConnected, object: nil, userInfo: nil)
+        }
     }
     
     // MARK: - Cache data get from server

@@ -20,14 +20,13 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var btnLogin: NSButton!
     @IBOutlet weak var progressLogin: NSProgressIndicator!
     
-    
-    
     private var handlerNotificationSocketDisConnected: AnyObject!
     private var handlerNotificationSocketDidConnected: AnyObject!
     private var handlerNotificationSocketLoginSuccess: AnyObject!
     private var handlerNotificationSocketLoginFail: AnyObject!
     private var handlerNotificationSocketLogoutSuccess: AnyObject!
     private var handlerNotificationRevicedServerInfor: AnyObject!
+    private var handlerNotificationNotConnectInternet: AnyObject!
     
     var flatDisconnect = false
     private var flatRegisterNotification = false
@@ -45,8 +44,8 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         if let isSaveID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SaveID) as? Int {
             if isSaveID == 1 {
                 
-                let domain = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.Domain) as? String
-                let userID = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.UserID) as? String
+                let domain = defaults.objectForKey(CRMCallConfig.UserDefaultKey.Domain) as? String
+                let userID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.UserID) as? String
                 
                 self.domainTextField.stringValue = domain ?? ""
                 self.userIDTextField.stringValue = userID ?? ""
@@ -68,7 +67,6 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
                 self.userIDTextField.stringValue = user ?? ""
                 
                 actionLogin("")
-                showAndStartProgress(true)
             }
             isAutoLoginCheckBox.state = isAutoLogin
         } else {
@@ -130,7 +128,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-                crmCallSocket.logoutRequest()
+                CRMCallManager.shareInstance.deinitSocket()
                 crmCallSocket.stopLiveTimer()
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
@@ -153,10 +151,11 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             }
             
             // GET SETTING INFO
-            let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-            let hostSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-            let idSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-            let pwdSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let phoneSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+            let hostSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
+            let idSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
+            let pwdSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
             
             guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
                 println("Please, call setting and again. \nGo to Preferences...")
@@ -210,6 +209,14 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             }
         })
         
+        handlerNotificationNotConnectInternet = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.NotConnetInternet, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+           self.showAndStartProgress(false)
+        })
+
+        
         flatRegisterNotification = true
     }
     
@@ -221,6 +228,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLoginFail)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationNotConnectInternet)
         
         flatRegisterNotification = false
     }
@@ -228,13 +236,19 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     // MARK: - Handling event
     @IBAction func actionLogin(sender: AnyObject) {
 
+        if !CRMCallManager.shareInstance.isInternetConnect {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet", dismissText: "Cancel", completion: { result in })
+            return
+        }
+        
         showAndStartProgress(true)
         
         //GET SETTING INFO
-        let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-        let hostSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-        let idSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-        let pwdSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let phoneSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+        let hostSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
+        let idSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
+        let pwdSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
         
         guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
             self.showMessageSetting()

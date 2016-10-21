@@ -118,6 +118,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                CRMCallManager.shareInstance.deinitSocket()
                 crmCallSocket.logoutRequest()
             } else {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
