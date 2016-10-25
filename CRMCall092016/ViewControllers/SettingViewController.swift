@@ -90,8 +90,8 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     }
     
     override func viewDidDisappear() {
-        // SAVE Info Setting
         
+        // SAVE Info Setting
         let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
         
         keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting] = phoneNumberTextField.stringValue

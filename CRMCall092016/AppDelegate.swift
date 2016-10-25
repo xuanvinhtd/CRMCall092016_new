@@ -30,8 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         AlamofireManager.startNetworkReachabilityObserver()
         // Config Realm
         Cache.shareInstance
-        // Init Sigleton App
-        CRMCallManager.shareInstance
         
         for window in NSApp.windows{
             if let w = window.windowController  {
@@ -67,12 +65,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         
-        if !flag{
-            
-            for window in sender.windows{
-                if let w = window as NSWindow? {
-                    w.makeKeyAndOrderFront(self)
-                }
+        for window in sender.windows{
+            if let w = window as NSWindow? {
+                w.makeKeyAndOrderFront(self)
             }
         }
         return true
@@ -151,13 +146,51 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func actionAddSound(sender: AnyObject) {
+        
+        
+        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentsDirectory: AnyObject = paths[0]
+        let dataPath = documentsDirectory.stringByAppendingPathComponent("Sound")
+        let fileManager = NSFileManager.defaultManager()
+        
+        if !fileManager.fileExistsAtPath(dataPath) {
+            do {
+                try fileManager.createDirectoryAtPath(dataPath, withIntermediateDirectories: false, attributes: nil)
+            } catch let error as NSError {
+                print(error.localizedDescription);
+            }
+        }
+        
         let openPanel = NSOpenPanel()
         openPanel.title = "Choose a file sound"
         openPanel.allowedFileTypes = ["mp3", "wav","mp4"]
         openPanel.beginWithCompletionHandler { (result) in
             if result == NSFileHandlingPanelOKButton {
+                
+                let nameFile = "ring.wav"
+                let toUrl = NSURL(fileURLWithPath: dataPath + "/" + nameFile)
+                
                 let fileUrl = openPanel.URL!
-                println(fileUrl)
+                
+                println("url = \(fileUrl) to url = \(toUrl)")
+                
+                NSUserDefaults.standardUserDefaults().setObject("Sound/\(nameFile)", forKey: CRMCallConfig.UserDefaultKey.PathLocalSound)
+
+                if fileManager.fileExistsAtPath(toUrl.absoluteString) {
+                    do {
+                        try fileManager.replaceItemAtURL(fileUrl, withItemAtURL: toUrl, backupItemName: nameFile, options: NSFileManagerItemReplacementOptions.WithoutDeletingBackupItem, resultingItemURL: nil)
+                    } catch let error as NSError {
+                        
+                        do {
+                            try fileManager.copyItemAtURL(fileUrl, toURL: toUrl)
+                        } catch let error as NSError {
+                            println("Cannot move file: \(nameFile) to url = \(toUrl), Error: \(error)")
+                        }
+                        
+                        println("Cannot replace file at url: \(toUrl.absoluteString) with error: \(error)")
+                    }
+                }
+                
             }
         }
     }

@@ -261,16 +261,25 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             return
         }
         
+//        
+//        // Get port and host
+//        if let hostName = keyChain[CRMCallConfig.KeyChainKey.HostSetting], crmSocket = CRMCallManager.shareInstance.crmCallSocket {
+//            crmSocket.getIdAndHost(withHostName: host)
+//        }
+//        
         if CRMCallManager.shareInstance.isSocketLoginSuccess == false {
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {  // SIPLOGIN
                 
-                if crmCallSocket.isConnectedToHost == true {
-                    crmCallSocket.loginRequest(withUserID: id, passwold: pwd, phone: phone, domain: host)
-                    
-                } else {
-                    println("Connect to server again.....")
-                    crmCallSocket.connect()
-                }
+                // Get port and host
+                crmCallSocket.getIdAndHost(withHostName: host)
+//                
+//                if crmCallSocket.isConnectedToHost == true {
+//                    crmCallSocket.loginRequest(withUserID: id, passwold: pwd, phone: phone, domain: host)
+//                    
+//                } else {
+//                    println("Connect to server again.....")
+//                    crmCallSocket.connect()
+//                }
             } else {
                 CRMCallManager.shareInstance.initSocket()
             }
@@ -318,7 +327,11 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
                 
                 self.showAndStartProgress(false)
                 
-                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: datas["msg"] as! String, dismissText: "Cancel", completion: { result in })
+                var msg = "Error login"
+                if let message = datas["msg"] as? String {
+                    msg = message
+                }
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: msg, dismissText: "Cancel", completion: { result in })
             }
         }
     }

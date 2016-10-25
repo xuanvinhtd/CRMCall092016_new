@@ -296,18 +296,29 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
 //        
 //        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
         
-        //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {
+//                historyWindowController.showWindow(nil)
+//            } else {
+//                let historyWindowController = HistoryCallWindowController.createInstance()
+//                historyWindowController.showWindow(nil)
+//                CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+//            }
+//            
+//        })
         
-         dispatch_async(dispatch_get_main_queue(), {
-        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
-            historyWindowController.showWindow(nil)
-        } else {
-            let historyWindowController = HistoryCallWindowController.createInstance()
-            historyWindowController.showWindow(nil)
-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
-        }
-        
-           })
+//         dispatch_async(dispatch_get_main_queue(), {
+//        if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] {
+//            historyWindowController.showWindow(nil)
+//        } else {
+//            let historyWindowController = HistoryCallWindowController.createInstance()
+//            historyWindowController.showWindow(nil)
+//            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.HistoryCallWindowController] = historyWindowController
+//        }
+//        
+//           })
         
 //                if let staffAvailibilityWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.StaffAvailabilityWindowController] {
 //                    staffAvailibilityWindowController.showWindow(nil)

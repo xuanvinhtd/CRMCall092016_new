@@ -63,7 +63,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
 
     private var indexTypePhone = 0
     
-    lazy var popover: NSPopover = {
+    lazy var popover: NSPopover? = {
         let popover = NSPopover()
         popover.behavior = .Semitransient
         var popUpViewController = PopUpViewController(nibName: "PopUpViewController", bundle: nil)
@@ -185,6 +185,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                         return
                     }
                     
+                    println("---> User info Caller: \(_info.last)")
+                    
                     if userInfo.phone == "0" { // User not register
                         
                         if let infoRing = _info.last {
@@ -305,7 +307,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         deregisterNotification()
         
-        popover.contentViewController = nil
+        popover?.contentViewController = nil
+        popover?.delegate = nil
+        popover = nil
+        
         self.closeWindown()
     }
     
@@ -416,37 +421,38 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     }
     
     @IBAction func actionShowPurpose(sender: AnyObject) {
-        popover.appearance = NSAppearance(named: NSAppearanceNameAqua)!
+        
+        popover?.appearance = NSAppearance(named: NSAppearanceNameAqua)!
         
         let positioningView = sender
         let positioningRect = NSZeroRect
         let preferredEdge = NSRectEdge.MaxX
         
-        let viewController = popover.contentViewController as! PopUpViewController
+        let viewController = popover?.contentViewController as! PopUpViewController
         viewController.dataDict = purposeDict
         viewController.identifier = purposeViewControllerID
         viewController.delegate = self
         viewController.reloadTable()
         
-        popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
+        popover?.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
     }
     
     @IBAction func actionShowProduct(sender: AnyObject) {
         
-        popover.appearance = NSAppearance(named: NSAppearanceNameAqua)!
+        popover?.appearance = NSAppearance(named: NSAppearanceNameAqua)!
         
         let positioningView = sender
         let positioningRect = NSZeroRect
         let preferredEdge = NSRectEdge.MaxX
         
-        let viewController = popover.contentViewController as! PopUpViewController
+        let viewController = popover?.contentViewController as! PopUpViewController
         
         viewController.dataDict = self.setSelectedForDict(withData: productDict, values: self.productCodeOfCustomer)
         viewController.identifier = productViewControllerID
         viewController.delegate = self
         viewController.reloadTable()
         
-        popover.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
+        popover?.showRelativeToRect(positioningRect, ofView: positioningView as! NSButton, preferredEdge: preferredEdge)
     }
     
     @IBAction func actionCustomerListShow(sender: AnyObject) {

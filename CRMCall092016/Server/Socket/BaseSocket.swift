@@ -23,8 +23,8 @@ class BaseSocket: NSObject {
     
     private var socketQueue: dispatch_queue_t
     
-    private var port: UInt16
-    private var host: String
+    var port: UInt16
+    var host: String
     
     // MARK: - Initialize
     
@@ -40,7 +40,7 @@ class BaseSocket: NSObject {
         
         self.asynSocket = GCDAsyncSocket(delegate: self, delegateQueue: self.socketQueue)
 
-        getIdAndHost()
+        //getIdAndHost()
     }
     
     deinit {
@@ -96,12 +96,12 @@ class BaseSocket: NSObject {
         
     }
     
-    private func getIdAndHost() {
+    func getIdAndHost(withHostName hostName: String) {
         
-        AlamofireManager.getData(withURL: CRMCallConfig.API.GetPortAndHostURL) { response in
+        AlamofireManager.getData(withURL: CRMCallConfig.API.GetPortAndHostURL(withHostName: hostName)) { response in
             
             guard let _response = response else {
-                println("Cannot get port and host to hostName: \(CRMCallConfig.HostName)")
+                println("Cannot get port and host to hostName: \(hostName)")
                 return
             }
             
@@ -118,12 +118,9 @@ class BaseSocket: NSObject {
                         self.port = UInt16(port)!
                         self.host = host
                         
-                        CRMCallManager.shareInstance.host = self.host
-                        CRMCallManager.shareInstance.port = self.port
-                        
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, userInfo: nil)
                     } else {
-                        println("Cannot parse port and host: \(CRMCallConfig.HostName)")
+                        println("Cannot parse port and host: \(hostName)")
                     }
                 }
             })

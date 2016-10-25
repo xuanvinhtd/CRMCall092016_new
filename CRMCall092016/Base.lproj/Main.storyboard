@@ -2002,7 +2002,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="Ahz-Bv-fwR" id="abe-hV-ifv">
-                                            <rect key="frame" x="0.0" y="0.0" width="618" height="206"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="617" height="206"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2060,7 +2060,7 @@ Gw
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="DateID" width="199" minWidth="40" maxWidth="1000" id="3nQ-yq-C4z" userLabel="Date">
+                                                <tableColumn identifier="DateID" width="198" minWidth="40" maxWidth="1000" id="3nQ-yq-C4z" userLabel="Date">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Date">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2078,7 +2078,7 @@ Gw
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="9Oj-V8-mQf">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="9Oj-V8-mQf">
                                     <rect key="frame" x="1" y="213" width="617" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>

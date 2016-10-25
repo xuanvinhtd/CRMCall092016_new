@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import KeychainAccess
 
 final class CRMCallManager {
     // MARK: Properties
@@ -16,8 +17,8 @@ final class CRMCallManager {
     var screenManager: [String: NSWindowController] = [:]
     
     var crmCallSocket: CRMCallSocket?
-    var port: UInt16 = 0
-    var host: String = ""
+//    var port: UInt16 = 0
+//    var host: String = ""
     
     var myCurrentStatus: CRMCallHelpers.UserStatus = CRMCallHelpers.UserStatus.None
     var myCurrentDirection: CRMCallHelpers.Direction = CRMCallHelpers.Direction.None
@@ -42,7 +43,12 @@ final class CRMCallManager {
     
     // MARK: Initialzation
     
-    init () {
+    private init () {
+        
+//        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+//        let domain = keyChain[CRMCallConfig.KeyChainKey.Domain]
+//        CRMCallConfig.HostName = domain ?? ""
+        
         self.crmCallSocket = CRMCallSocket()
         self.registerNotification()
     }
@@ -83,8 +89,8 @@ final class CRMCallManager {
             
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket  {
-                if CRMCallManager.shareInstance.host != "" && CRMCallManager.shareInstance.port != 0 {
-                    crmCallSocket.connect(withPort: CRMCallManager.shareInstance.port, host: CRMCallManager.shareInstance.host)
+                if crmCallSocket.host != "" && crmCallSocket.port != 0 {
+                    crmCallSocket.connect(withPort: crmCallSocket.port, host: crmCallSocket.host)
                 }
             }
         })

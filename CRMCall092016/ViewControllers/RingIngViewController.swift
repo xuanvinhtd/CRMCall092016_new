@@ -20,7 +20,7 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var productsTextField: NSTextField!
     @IBOutlet weak var assignedTextField: NSTextField!
     
-    var audioPlayer:AVAudioPlayer!
+    var audioPlayer:AVAudioPlayer?
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -78,18 +78,24 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
             })
         
         // Play Sound
-        if let audioFilePath = NSBundle.mainBundle().pathForResource("RingSound", ofType: "wav") {
-            let audioFileUrl = NSURL.fileURLWithPath(audioFilePath)
+        if let path = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PathLocalSound) as? String {
             
-            self.audioPlayer = try? AVAudioPlayer(contentsOfURL: audioFileUrl)
+            let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+            let documentsDirectory: AnyObject = paths[0]
+            let dataPath = documentsDirectory.stringByAppendingPathComponent(path)
             
-            self.audioPlayer.numberOfLoops = -1
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.play()
+            let filePathUrl = NSURL.fileURLWithPath(dataPath)
+            
+            self.playSound(withUrl: filePathUrl)
         } else {
-            println("Audio file is not found")
+    
+            if let audioFilePath = NSBundle.mainBundle().pathForResource("RingSound", ofType: "wav") {
+                let audioUrl = NSURL.fileURLWithPath(audioFilePath)
+                self.playSound(withUrl: audioUrl)
+            } else {
+                println("Audio file is not found")
+            }
         }
-
     }
     
     // MARK: - Initialzation
@@ -108,7 +114,10 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
     
     override func viewDidDisappear() {
         super.viewDidDisappear()
-        self.audioPlayer.stop()
+        
+        if let audio = self.audioPlayer {
+            audio.stop()
+        }
     }
     
     // MARK: - Notification
@@ -116,5 +125,18 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
         static let RingCancel = "RingCancel"
         static let RingBusy = "RingBusy"
         static let Show = "Show"
+    }
+    
+    // MARK: - Sound
+    
+    private func playSound(withUrl url: NSURL) {
+        do {
+            self.audioPlayer? = try AVAudioPlayer(contentsOfURL: url)
+            self.audioPlayer?.numberOfLoops = -1
+            self.audioPlayer?.prepareToPlay()
+            self.audioPlayer?.play()
+        } catch let error as NSError {
+            println("Cannot play sound error: \(error)")
+        }
     }
 }

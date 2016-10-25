@@ -18,7 +18,7 @@ final class CRMCallConfig {
     
     static let AppGroupID = "com.xuanvintd.CRMCall092016"
     
-    static let HostName = "global3.hanbiro.com"
+    //static let HostName = "global3.hanbiro.com"
     
     static let TimerInterval = 10.0
     
@@ -32,6 +32,8 @@ final class CRMCallConfig {
         
         static let AutoLogin = "CRMCallAutoLogin"
         static let SaveID = "CRMCallSaveID"
+        
+        static let PathLocalSound = "PathLocalSound"
     }
     
     struct KeyChainKey {
@@ -140,7 +142,9 @@ final class CRMCallConfig {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/account/crm_user/user_tree"
         }
         
-        static let GetPortAndHostURL = "http://\(CRMCallConfig.HostName)/winapp/hcsong/crmcall/\(CRMCallConfig.HostName)/server.xml"
+        static func GetPortAndHostURL(withHostName name: String) -> String {
+            return "http://\(name)/winapp/hcsong/crmcall/\(name)/server.xml"
+        }
     }
     
 }
