@@ -8,6 +8,7 @@
 
 import Foundation
 import Cocoa
+import KeychainAccess
 
 final class LoginViewController: NSViewController, ViewControllerProtocol {
     
@@ -41,11 +42,13 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         CRMCallManager.shareInstance.isShowLoginPage = true
         
         let defaults = NSUserDefaults.standardUserDefaults()
+        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        
         if let isSaveID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SaveID) as? Int {
             if isSaveID == 1 {
                 
-                let domain = defaults.objectForKey(CRMCallConfig.UserDefaultKey.Domain) as? String
-                let userID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.UserID) as? String
+                let domain = keyChain[CRMCallConfig.KeyChainKey.Domain]
+                let userID = keyChain[CRMCallConfig.KeyChainKey.UserID]
                 
                 self.domainTextField.stringValue = domain ?? ""
                 self.userIDTextField.stringValue = userID ?? ""
@@ -58,9 +61,9 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         if let isAutoLogin = defaults.objectForKey(CRMCallConfig.UserDefaultKey.AutoLogin) as? Int {
             if isAutoLogin == 1 {
                 
-                let domain = defaults.objectForKey(CRMCallConfig.UserDefaultKey.Domain) as? String
-                let user = defaults.objectForKey(CRMCallConfig.UserDefaultKey.UserID) as? String
-                let password = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordUser) as? String
+                let domain = keyChain[CRMCallConfig.KeyChainKey.Domain]
+                let user = keyChain[CRMCallConfig.KeyChainKey.UserID]
+                let password = keyChain[CRMCallConfig.KeyChainKey.PasswordUser]
                 
                 self.passwordTextField.stringValue = password ?? ""
                 self.domainTextField.stringValue = domain ?? ""
@@ -103,11 +106,12 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(isSaveIDCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.SaveID)
         defaults.setObject(isAutoLoginCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
-        
-        defaults.setObject(domainTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.Domain)
-        defaults.setObject(userIDTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.UserID)
-        defaults.setObject(passwordTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PasswordUser)
         defaults.synchronize()
+        
+        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        keyChain[CRMCallConfig.KeyChainKey.Domain] = domainTextField.stringValue
+        keyChain[CRMCallConfig.KeyChainKey.UserID] = userIDTextField.stringValue
+        keyChain[CRMCallConfig.KeyChainKey.PasswordUser] = passwordTextField.stringValue
     }
     
     deinit {
@@ -151,11 +155,12 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             }
             
             // GET SETTING INFO
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let phoneSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-            let hostSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-            let idSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-            let pwdSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+            let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+            
+            let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
+            let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
+            let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
+            let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
             
             guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
                 println("Please, call setting and again. \nGo to Preferences...")
@@ -244,11 +249,12 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         showAndStartProgress(true)
         
         //GET SETTING INFO
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let phoneSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-        let hostSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-        let idSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-        let pwdSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        
+        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
+        let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
+        let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
+        let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
         
         guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
             self.showMessageSetting()
@@ -318,7 +324,9 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     }
     
     private func showMessageSetting() {
-        CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please, call setting and again. \nGo to Preferences...", dismissText: "Cancel", completion: { result in })
+        showAndStartProgress(false)
+        CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please, call setting and again. \nGo to Preferences...", dismissText: "Cancel", completion: { (result) in
+        })
     }
     
     private func showAndStartProgress(state: Bool) {

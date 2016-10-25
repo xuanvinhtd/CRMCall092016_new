@@ -9,6 +9,7 @@
 import Cocoa
 import Chronos
 import RealmSwift
+import KeychainAccess
 
 class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
@@ -214,7 +215,8 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                         }
                         self.assignedTextFeild.stringValue = staffNameList.joinWithSeparator(",")
                         
-                        let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
+                        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+                        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
                         
                         self.staffDict = CRMCallHelpers.createDictionaryStaff(withData: userInfo.staffs, phoneNumber: phoneSetting ?? "0")
                         
@@ -303,6 +305,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         
         deregisterNotification()
         
+        popover.contentViewController = nil
         self.closeWindown()
     }
     
@@ -326,7 +329,10 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
                    
                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
-                   self.timer.start(true)
+                    
+                    if CRMCallManager.shareInstance.myCurrentStatus != .Busy {
+                        self.timer.start(true)
+                    }
                 }
             })
         })

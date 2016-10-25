@@ -67,7 +67,6 @@ final class CRMCallManager {
             crmCallSocket = nil
         }
         
-        isUserLoginSuccess = false
         isSocketLoginSuccess = false
     }
     
@@ -154,6 +153,14 @@ final class CRMCallManager {
             }
             
         })
+    }
+    
+    func isExistWindow(withName name: String) -> Bool {
+        if let _ = CRMCallManager.shareInstance.screenManager[name] {
+            return true
+        } else {
+            return false
+        }
     }
     
     func closeWindow(withNameScreen name: String) {

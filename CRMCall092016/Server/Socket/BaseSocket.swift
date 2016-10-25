@@ -197,9 +197,10 @@ extension BaseSocket: GCDAsyncSocketDelegate {
     
     func socketDidDisconnect(sock: GCDAsyncSocket, withError err: NSError?) {
         
-        println("Error DidDisconnect: \(err)")
+        println("Error Disconnect: \(err)")
         
         self.isConnectedToHost = false
+        
         if CRMCallManager.shareInstance.isUserLoginSuccess {
             NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
         } else {

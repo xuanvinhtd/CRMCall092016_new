@@ -9,6 +9,7 @@
 import Foundation
 import Cocoa
 import RealmSwift
+import KeychainAccess
 
 final class CRMCallHelpers {
     
@@ -102,11 +103,12 @@ final class CRMCallHelpers {
     
     static func reconnectToSocket() {
         //GET SETTING INFO
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let phoneSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-        let hostSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-        let idSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-        let pwdSetting = defaults.objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        
+        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
+        let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
+        let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
+        let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
         
         guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
             println("Not found info setting")

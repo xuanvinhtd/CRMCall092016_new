@@ -90,6 +90,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         CRMCallManager.shareInstance.deinitSocket()
         
         CRMCallManager.shareInstance.isShowMainPage = false
+        CRMCallManager.shareInstance.isUserLoginSuccess = false
+        
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(0, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
         
@@ -148,6 +150,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
     }
     
+    @IBAction func actionAddSound(sender: AnyObject) {
+        let openPanel = NSOpenPanel()
+        openPanel.title = "Choose a file sound"
+        openPanel.allowedFileTypes = ["mp3", "wav","mp4"]
+        openPanel.beginWithCompletionHandler { (result) in
+            if result == NSFileHandlingPanelOKButton {
+                let fileUrl = openPanel.URL!
+                println(fileUrl)
+            }
+        }
+    }
     
     @IBAction func showCRMCall(sender: AnyObject) {
         for window in NSApp.windows{

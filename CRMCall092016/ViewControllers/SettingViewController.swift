@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import KeychainAccess
 
 class SettingViewController: NSViewController, ViewControllerProtocol {
 
@@ -39,10 +40,12 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     func initData() {
         
         // GET SETTING INFO
-        let phoneSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PhoneNumberSetting) as? String
-        let hostSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.HostSetting) as? String
-        let idSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.IDSetting) as? String
-        let pwdSetting = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PasswordSetting) as? String
+        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        
+        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
+        let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
+        let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
+        let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
         
         guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
             println("Please, call setting and again. \nGo to Preferences...")
@@ -88,13 +91,14 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     
     override func viewDidDisappear() {
         // SAVE Info Setting
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(hostTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.HostSetting)
-        defaults.setObject(idTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.IDSetting)
-        defaults.setObject(passworldTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PasswordSetting)
-        defaults.setObject(phoneNumberTextField.stringValue, forKey: CRMCallConfig.UserDefaultKey.PhoneNumberSetting)
-        defaults.synchronize()
         
+        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        
+        keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting] = phoneNumberTextField.stringValue
+        keyChain[CRMCallConfig.KeyChainKey.HostSetting] = hostTextField.stringValue
+        keyChain[CRMCallConfig.KeyChainKey.IDSetting] =  idTextField.stringValue
+        keyChain[CRMCallConfig.KeyChainKey.PasswordSetting] = passworldTextField.stringValue
+
         deregisterNotification()
         self.liveTimer = nil
     }

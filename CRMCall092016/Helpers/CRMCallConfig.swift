@@ -32,7 +32,11 @@ final class CRMCallConfig {
         
         static let AutoLogin = "CRMCallAutoLogin"
         static let SaveID = "CRMCallSaveID"
+    }
+    
+    struct KeyChainKey {
         
+        static let ServiceName = "com.hanbiro.CRMCall2016"
         static let HostSetting = "HostSetting"
         static let IDSetting = "IDSetting"
         static let PasswordSetting = "PasswordSetting"

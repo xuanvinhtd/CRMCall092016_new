@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AVFoundation
 
 class RingIngViewController: NSViewController, ViewControllerProtocol {
     
@@ -18,6 +19,8 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
     
     @IBOutlet weak var productsTextField: NSTextField!
     @IBOutlet weak var assignedTextField: NSTextField!
+    
+    var audioPlayer:AVAudioPlayer!
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -73,6 +76,20 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
                 
                 println("======> RingIng Info:\n \(_info.last)")
             })
+        
+        // Play Sound
+        if let audioFilePath = NSBundle.mainBundle().pathForResource("RingSound", ofType: "wav") {
+            let audioFileUrl = NSURL.fileURLWithPath(audioFilePath)
+            
+            self.audioPlayer = try? AVAudioPlayer(contentsOfURL: audioFileUrl)
+            
+            self.audioPlayer.numberOfLoops = -1
+            self.audioPlayer.prepareToPlay()
+            self.audioPlayer.play()
+        } else {
+            println("Audio file is not found")
+        }
+
     }
     
     // MARK: - Initialzation
@@ -87,6 +104,11 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
     override func viewDidAppear() {
         super.viewDidAppear()
         self.view.window?.title = "Call"
+    }
+    
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        self.audioPlayer.stop()
     }
     
     // MARK: - Notification

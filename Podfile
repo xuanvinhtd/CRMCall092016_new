@@ -10,5 +10,6 @@ pod 'CocoaAsyncSocket'
 pod 'Alamofire'
 pod 'SWXMLHash'
 pod 'Chronos-Swift'
+pod 'KeychainAccess'
 
 end
