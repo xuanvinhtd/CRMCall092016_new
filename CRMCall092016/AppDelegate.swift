@@ -33,7 +33,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         for window in NSApp.windows{
             if let w = window.windowController  {
-            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = w
+                
+                if let vc = w.contentViewController {
+                    if vc.isKindOfClass(LoginViewController) {
+                        CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = w
+                    }
+                }
             }
         }
         
@@ -65,11 +70,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         
-        for window in sender.windows{
-            if let w = window as NSWindow? {
-                w.makeKeyAndOrderFront(self)
+        //if !CRMCallManager.shareInstance.isShowSettingPage  {
+            for window in sender.windows{
+                if let w = window as NSWindow? {
+                    w.makeKeyAndOrderFront(self)
+                    
+                    if let viewControl = w.windowController  {
+                        if let vc = viewControl.contentViewController {
+                            if vc.isKindOfClass(LoginViewController) {
+                                CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = viewControl
+                            }
+                        }
+                    }
+                }
             }
-        }
+       // }
         return true
     }
     
@@ -195,10 +210,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    
+    @IBAction func showSettingCall(sender: AnyObject) {
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+    }
+    
     @IBAction func showCRMCall(sender: AnyObject) {
         for window in NSApp.windows{
             if let w = window as NSWindow? {
                 w.makeKeyAndOrderFront(self)
+                
+                if let viewControl = w.windowController  {
+                    if let vc = viewControl.contentViewController {
+                        if vc.isKindOfClass(LoginViewController) {
+                            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = viewControl
+                        }
+                    }
+                }
             }
         }
     }

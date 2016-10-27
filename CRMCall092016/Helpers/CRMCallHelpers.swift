@@ -87,6 +87,7 @@ final class CRMCallHelpers {
         static let HistoryCallWindowController = "HistoryCallWindowController"
         static let RingIngWindowController = "RingIngWindowController"
         static let CustomerListViewController = "CustomerListViewController"
+        static let SettingViewController = "SettingViewController"
     }
     
     static func getUUID() -> String {
@@ -101,7 +102,7 @@ final class CRMCallHelpers {
         }
     }
     
-    static func reconnectToSocket() {
+    static func reGetIdAndHost() {
         //GET SETTING INFO
         let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
         
@@ -110,7 +111,7 @@ final class CRMCallHelpers {
         let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
         let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
         
-        guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
+        guard let _ = phoneSetting, host = hostSetting, _ = idSetting, _ = pwdSetting else {
             println("Not found info setting")
             return
         }
@@ -118,16 +119,38 @@ final class CRMCallHelpers {
         if CRMCallManager.shareInstance.isSocketLoginSuccess == false {
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {  // SIPLOGIN
                 
-                if crmCallSocket.isConnectedToHost == true {
-                    crmCallSocket.loginRequest(withUserID: id, passwold: pwd, phone: phone, domain: host)
+                crmCallSocket.getIdAndHost(withHostName: host, Result: { (result) in
                     
-                } else {
-                    println("Connect to server again.....")
-                    crmCallSocket.connect()
-                }
+                })
             } else {
                 CRMCallManager.shareInstance.initSocket()
+                if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                    crmCallSocket.getIdAndHost(withHostName: host, Result: { (result) in
+                        
+                    })
+                }
             }
+        }
+    }
+    
+    static func reLoginSocket() {
+        // GET SETTING INFO
+        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        
+        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
+        let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
+        let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
+        let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
+        
+        guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
+            println("Please, call setting and again. \nGo to Preferences...")
+            return
+        }
+        
+        if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+            crmCallSocket.loginRequest(withUserID: id, passwold: pwd, phone: phone, domain: host)
+        } else {
+            println("CRMCallManager.shareInstance.crmCallSocket = nil")
         }
     }
     

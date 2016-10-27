@@ -11,11 +11,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="CRMCall092016" id="1Xt-HY-uBw">
+                            <menuItem title="CRM Call" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="CRMCall092016" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="CRM Call" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About CRMCall092016" id="5kV-Vb-QxS">
+                                        <menuItem title="About CRM Call" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -24,7 +24,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
-                                                <segue destination="Vsp-GR-UGn" kind="show" id="AJr-Vt-3mQ"/>
+                                                <action selector="showSettingCall:" target="Voe-Tx-rLC" id="aFE-WO-wzq"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -51,7 +51,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit CRMCall092016" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit CRM Call" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -59,9 +59,9 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="File" id="dMs-cI-mzQ">
+                            <menuItem title="Sign" id="dMs-cI-mzQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="File" id="bib-Uj-vzu">
+                                <menu key="submenu" title="Sign" id="bib-Uj-vzu">
                                     <items>
                                         <menuItem title="Sign In" keyEquivalent="i" id="DVo-aG-piG">
                                             <connections>
@@ -661,7 +661,7 @@
         <!--Window Controller-->
         <scene sceneID="kNc-DH-9iK">
             <objects>
-                <windowController showSeguePresentationStyle="single" id="Vsp-GR-UGn" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="SettingCallWindowControllerID" showSeguePresentationStyle="single" id="Vsp-GR-UGn" customClass="SettingCallWindowController" customModule="CRMCall092016" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" identifier="SettingViewControllerID" title="References" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="scB-hy-1XS">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -674,7 +674,7 @@
                 </windowController>
                 <customObject id="MoE-qL-7ae" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="646" y="153"/>
+            <point key="canvasLocation" x="656" y="286"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="gi2-Jv-wpe">
@@ -1714,7 +1714,7 @@ DQ
                                 <constraints>
                                     <constraint firstAttribute="height" constant="290" id="9j9-d5-VsF"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.19093758460482216" horizontal="YES" id="DMc-5Q-BvP">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.14174450821012324" horizontal="YES" id="DMc-5Q-BvP">
                                     <rect key="frame" x="1" y="273" width="544" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -2078,7 +2078,7 @@ Gw
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="9Oj-V8-mQf">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.11339560656810783" horizontal="YES" id="9Oj-V8-mQf">
                                     <rect key="frame" x="1" y="213" width="617" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -2087,7 +2087,7 @@ Gw
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="Ahz-Bv-fwR">
-                                    <rect key="frame" x="0.0" y="0.0" width="618" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="617" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
@@ -2166,7 +2166,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="gRH-mZ-gKD" id="eKR-Fw-dby">
-                                            <rect key="frame" x="0.0" y="0.0" width="438" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="438" height="394"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2235,7 +2235,7 @@ DQ
                                     </subviews>
                                     <nil key="backgroundColor"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.76375033841942996" horizontal="YES" id="GIj-uX-cj5">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.56697803284043802" horizontal="YES" id="GIj-uX-cj5">
                                     <rect key="frame" x="1" y="379" width="438" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>

@@ -36,6 +36,7 @@
 		92C261AB1D8BCD9D00413F54 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A01D8B85DF00413F54 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92C261AC1D8BCD9D00413F54 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; };
 		92C261AD1D8BCD9D00413F54 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92C261A11D8B85DF00413F54 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		92E0B56E1DC085DC00FF0FF6 /* SettingCallWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E0B56C1DC085DC00FF0FF6 /* SettingCallWindowController.swift */; };
 		92E2341A1D812899006C988E /* ModelRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E234191D812899006C988E /* ModelRealm.swift */; };
 		92E2341D1D81443F006C988E /* AlamofireManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2341C1D81443F006C988E /* AlamofireManager.swift */; };
 		92E2341F1D81447D006C988E /* SWXMLHashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E2341E1D81447D006C988E /* SWXMLHashManager.swift */; };
@@ -100,6 +101,7 @@
 		92B2EC951D926F1800E487C9 /* CRMCallManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRMCallManager.swift; sourceTree = "<group>"; };
 		92C261A01D8B85DF00413F54 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		92C261A11D8B85DF00413F54 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		92E0B56C1DC085DC00FF0FF6 /* SettingCallWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCallWindowController.swift; sourceTree = "<group>"; };
 		92E234191D812899006C988E /* ModelRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelRealm.swift; sourceTree = "<group>"; };
 		92E2341C1D81443F006C988E /* AlamofireManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireManager.swift; sourceTree = "<group>"; };
 		92E2341E1D81447D006C988E /* SWXMLHashManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHashManager.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				92ECC3411DACA74D00A093EA /* CustomerListWindowController.swift */,
 				928B48901DB0DE2E00DBAAE3 /* StaffAvailabilityWindowController.swift */,
 				922E88071DBDCC62007D82EB /* MissCallWindowController.swift */,
+				92E0B56C1DC085DC00FF0FF6 /* SettingCallWindowController.swift */,
 			);
 			path = WindowController;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				925981C21D9E692C0006BE89 /* HistoryCallWindowController.swift in Sources */,
 				9245B9881D90ECF00017D8EB /* CRMCallAlert.swift in Sources */,
 				9261758E1DB46A4000C085C0 /* ModelTree.swift in Sources */,
+				92E0B56E1DC085DC00FF0FF6 /* SettingCallWindowController.swift in Sources */,
 				92E3E3331D800C8B008033ED /* BaseSocket.swift in Sources */,
 				92E3E3351D8011FC008033ED /* CRMCallLog.swift in Sources */,
 				9266A7601DA5DFD70031082A /* NSDate+InternetDateTime.swift in Sources */,

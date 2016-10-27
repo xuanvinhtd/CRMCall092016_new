@@ -25,28 +25,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/SettingViewController.swift"
-            timestampString = "499080864.733901"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
-            landmarkName = "SettingViewController"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499166884.413618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
             <Locations>
@@ -90,27 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499166884.413618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "viewDidAppear()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "registerNotification()"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,43 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499166884.413618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "registerNotification()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "registerNotification()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "registerNotification()"
             landmarkType = "5">
          </BreakpointContent>
@@ -410,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "buildTreeStaff(withData:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -426,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "buildTreeStaff(withData:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -682,11 +618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "SearchTreeStaff(withkeySearch:result:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -842,11 +778,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "SearchTreeStaff(withkeySearch:result:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -954,11 +890,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "SearchTreeStaff(withkeySearch:result:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -970,11 +906,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "SearchTreeStaff(withkeySearch:result:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -986,11 +922,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "SearchTreeStaff(withkeySearch:result:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1226,11 +1162,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/MainViewController.swift"
-            timestampString = "498969248.880131"
+            timestampString = "499164162.687276"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "registerNotification()"
             landmarkType = "5">
             <Locations>
@@ -1274,11 +1210,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499166884.413618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1290,11 +1226,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499164162.687276"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "createInstance()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1306,11 +1242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499166884.413618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "registerNotification()"
             landmarkType = "5">
             <Locations>
@@ -1354,12 +1290,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Server/Socket/BaseSocket.swift"
-            timestampString = "499080864.733901"
+            timestampString = "499144488.1476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "getIdAndHost(withHostName:)"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "getIdAndHost(withHostName:Result:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1370,11 +1306,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Server/Socket/BaseSocket.swift"
-            timestampString = "499080864.733901"
+            timestampString = "499144488.1476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "socket(_:didConnectToHost:port:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1386,11 +1322,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Server/Socket/BaseSocket.swift"
-            timestampString = "499080864.733901"
+            timestampString = "499144488.1476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "socket(_:didConnectToHost:port:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1402,11 +1338,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Server/Socket/BaseSocket.swift"
-            timestampString = "499080864.733901"
+            timestampString = "499144488.1476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "socket(_:didConnectToHost:port:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1418,11 +1354,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499166884.413618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "registerNotification()"
             landmarkType = "5">
             <Locations>
@@ -1466,12 +1402,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "reconnectToSocket()"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "reGetIdAndHost()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1482,76 +1418,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "reconnectToSocket()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static CRMCall092016.CRMCallHelpers.reconnectToSocket () -&gt; ()"
-                  moduleName = "CRMCall092016"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Helpers/CRMCallHelpers.swift"
-                  timestampString = "498717570.721391"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "3727">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static CRMCall092016.CRMCallHelpers.(reconnectToSocket () -&gt; ()).(implicit closure #2)"
-                  moduleName = "CRMCall092016"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Helpers/CRMCallHelpers.swift"
-                  timestampString = "498717570.721577"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "37">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "reconnectToSocket()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
-            timestampString = "498973309.262865"
+            timestampString = "499156597.449892"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
             endingLineNumber = "126"
-            landmarkName = "reconnectToSocket()"
+            landmarkName = "reGetIdAndHost()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1562,11 +1434,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Library/AlamofireManager.swift"
-            timestampString = "498724940.137021"
+            timestampString = "499142296.791184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "startNetworkReachabilityObserver()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1578,43 +1450,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/Library/AlamofireManager.swift"
-            timestampString = "498718063.609111"
+            timestampString = "499142296.791184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "startNetworkReachabilityObserver()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/Library/AlamofireManager.swift"
-            timestampString = "498724940.137021"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "startNetworkReachabilityObserver()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/Library/AlamofireManager.swift"
-            timestampString = "498724940.137021"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "startNetworkReachabilityObserver()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1632,22 +1472,6 @@
             startingLineNumber = "20"
             endingLineNumber = "20"
             landmarkName = "applicationDidFinishLaunching(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/AppDelegate.swift"
-            timestampString = "498718816.475826"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "settingAppCall()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1690,11 +1514,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/AppDelegate.swift"
-            timestampString = "499078117.317653"
+            timestampString = "499161919.318468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "actionAddSound(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1738,7 +1562,7 @@
                   moduleName = "CRMCall092016"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/ViewControllers/RingIngViewController.swift"
-                  timestampString = "499081103.629625"
+                  timestampString = "499169498.122444"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "139"
@@ -1753,7 +1577,7 @@
                   moduleName = "CRMCall092016"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/ViewControllers/RingIngViewController.swift"
-                  timestampString = "499081103.629826"
+                  timestampString = "499169498.122701"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "139"
@@ -1770,107 +1594,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "499075292.778796"
+            timestampString = "499166884.413618"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "initData()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/AppDelegate.swift"
-            timestampString = "499078117.317653"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "settingAppCall()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/AppDelegate.swift"
-            timestampString = "499078117.317653"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "settingAppCall()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "499076510.180632"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "viewDidAppear()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "499076511.18718"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "viewDidAppear()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "499076511.929164"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "viewDidAppear()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "499076723.027954"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "viewDidAppear()"
             landmarkType = "5">
          </BreakpointContent>
@@ -1897,13 +1625,363 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "499077613.228557"
+            filePath = "CRMCall092016/Library/AlamofireManager.swift"
+            timestampString = "499142296.791184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
+            landmarkName = "startNetworkReachabilityObserver()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/Helpers/CRMCallHelpers.swift"
+            timestampString = "499156597.449892"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "reGetIdAndHost()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static CRMCall092016.CRMCallHelpers.reconnectToSocket () -&gt; ()"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Helpers/CRMCallHelpers.swift"
+                  timestampString = "499139192.202157"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "828">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static CRMCall092016.CRMCallHelpers.reconnectToSocket () -&gt; ()"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Helpers/CRMCallHelpers.swift"
+                  timestampString = "499139192.202375"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "895">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/Server/Socket/BaseSocket.swift"
+            timestampString = "499144488.1476"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "getIdAndHost(withHostName:Result:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/Server/Socket/BaseSocket.swift"
+            timestampString = "499144488.1476"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "getIdAndHost(withHostName:Result:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.BaseSocket.(getIdAndHost (withHostName : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Server/Socket/BaseSocket.swift"
+                  timestampString = "499140722.086415"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "508">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.BaseSocket.(getIdAndHost (withHostName : Swift.String) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Server/Socket/BaseSocket.swift"
+                  timestampString = "499140722.086618"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "45">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/MainViewController.swift"
+            timestampString = "499164162.687276"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
+            landmarkName = "registerNotification()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/MainViewController.swift"
+            timestampString = "499164162.687276"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
+            landmarkName = "registerNotification()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/Library/AlamofireManager.swift"
+            timestampString = "499142296.791184"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "startNetworkReachabilityObserver()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/Library/AlamofireManager.swift"
+            timestampString = "499142296.791184"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "startNetworkReachabilityObserver()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static CRMCall092016.AlamofireManager.startNetworkReachabilityObserver () -&gt; ()"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Library/AlamofireManager.swift"
+                  timestampString = "499142297.72245"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "223"
+                  endingLineNumber = "223"
+                  offsetFromSymbolStart = "147">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static CRMCall092016.AlamofireManager.(startNetworkReachabilityObserver () -&gt; ()).(closure #1)"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/Library/AlamofireManager.swift"
+                  timestampString = "499142297.72265"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "227"
+                  endingLineNumber = "227"
+                  offsetFromSymbolStart = "17">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
+            timestampString = "499147307.956986"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "LoginViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.LoginViewController.passwordTextField.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSSecureTextField&gt;"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/ViewControllers/LoginViewController.swift"
+                  timestampString = "499146111.678983"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.LoginViewController.passwordTextField.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.NSSecureTextField&gt;"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/ViewControllers/LoginViewController.swift"
+                  timestampString = "499146111.679197"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.LoginViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; Swift.Optional&lt;CRMCall092016.LoginViewController&gt;"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/ViewControllers/LoginViewController.swift"
+                  timestampString = "499146111.679396"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "233">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.LoginViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;CRMCall092016.LoginViewController&gt;"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/ViewControllers/LoginViewController.swift"
+                  timestampString = "499146111.679581"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "159">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
+            timestampString = "499166884.413618"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "initData()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
+            timestampString = "499166884.413618"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "viewDidDisappear()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
+            timestampString = "499167572.944693"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "crmServerLogin()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
+            timestampString = "499167572.944693"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
+            landmarkName = "actionLogin(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1913,13 +1991,189 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
-            timestampString = "499080983.4486"
+            filePath = "CRMCall092016/AppDelegate.swift"
+            timestampString = "499161919.318468"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
-            landmarkName = "actionLogin(_:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "AppDelegate"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/ViewControllers/LoginViewController.swift"
+            timestampString = "499166884.413618"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "viewDidDisappear()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/AppDelegate.swift"
+            timestampString = "499161919.318468"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "applicationShouldHandleReopen(_:hasVisibleWindows:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/AppDelegate.swift"
+            timestampString = "499161919.318468"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "applicationShouldHandleReopen(_:hasVisibleWindows:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/CRMCallManager.swift"
+            timestampString = "499169096.320717"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "registerNotification()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/CRMCallManager.swift"
+            timestampString = "499169209.286888"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "registerNotification()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.CRMCallManager.(registerNotification () -&gt; ()).(closure #1)"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/CRMCallManager.swift"
+                  timestampString = "499169498.125974"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.CRMCallManager.(registerNotification () -&gt; ()).(closure #1).(implicit closure #1)"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/CRMCallManager.swift"
+                  timestampString = "499169498.126161"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "34">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/CRMCallManager.swift"
+            timestampString = "499169227.752741"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "registerNotification()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.CRMCallManager.registerNotification () -&gt; ()"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/CRMCallManager.swift"
+                  timestampString = "499169498.127446"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CRMCall092016.CRMCallManager.(registerNotification () -&gt; ()).(closure #1)"
+                  moduleName = "CRMCall092016"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hanbiro/Desktop/PG/CRM_CALL/CRMCall092016/CRMCall092016/CRMCallManager.swift"
+                  timestampString = "499169498.127632"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CRMCall092016/CRMCallManager.swift"
+            timestampString = "499169249.100363"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "deRegisterNotification()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

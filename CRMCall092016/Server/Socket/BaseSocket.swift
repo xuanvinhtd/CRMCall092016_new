@@ -96,17 +96,19 @@ class BaseSocket: NSObject {
         
     }
     
-    func getIdAndHost(withHostName hostName: String) {
+    func getIdAndHost(withHostName hostName: String, Result: ((Bool) -> Void)) {
         
         AlamofireManager.getData(withURL: CRMCallConfig.API.GetPortAndHostURL(withHostName: hostName)) { response in
             
             guard let _response = response else {
                 println("Cannot get port and host to hostName: \(hostName)")
+                Result(false)
                 return
             }
             
             guard let xml = NSString(data: _response, encoding: NSUTF8StringEncoding) as? String else {
                 println("Not found data to server")
+                Result(false)
                 return
             }
             
@@ -119,8 +121,11 @@ class BaseSocket: NSObject {
                         self.host = host
                         
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, userInfo: nil)
+                        
+                        Result(true)
                     } else {
                         println("Cannot parse port and host: \(hostName)")
+                        Result(false)
                     }
                 }
             })
@@ -197,12 +202,12 @@ extension BaseSocket: GCDAsyncSocketDelegate {
         println("Error Disconnect: \(err)")
         
         self.isConnectedToHost = false
-        
-        if CRMCallManager.shareInstance.isUserLoginSuccess {
-            NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
-        } else {
+//        
+//        if CRMCallManager.shareInstance.isUserLoginSuccess {
+//            NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
+//        } else {
             NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.SocketDisConnected, object: nil, userInfo: nil)
-        }
+        //}
     }
     
     // MARK: - Cache data get from server

@@ -217,7 +217,10 @@ final class AlamofireManager {
     
     static func startNetworkReachabilityObserver() {
         
-        reachabilityManager?.listener = { status in
+        // start listening
+        reachabilityManager!.startListening()
+        
+        reachabilityManager!.listener = { status in
             
             switch status {
                 
@@ -235,25 +238,22 @@ final class AlamofireManager {
                 
             case .Reachable(.EthernetOrWiFi):
                 print("The network is reachable over the WiFi connection")
-                if !CRMCallManager.shareInstance.isInternetConnect {
+                //if !CRMCallManager.shareInstance.isInternetConnect {
                     NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
-                }
+             //   }
                 CRMCallManager.shareInstance.isInternetConnect = true
                 break
                 
                 
             case .Reachable(.WWAN):
                 print("The network is reachable over the WWAN connection")
-                if !CRMCallManager.shareInstance.isInternetConnect {
+                //if !CRMCallManager.shareInstance.isInternetConnect {
                     NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
-                }
+               // }
                 CRMCallManager.shareInstance.isInternetConnect = true
                 break
                 
             }
         }
-        
-        // start listening
-        reachabilityManager?.startListening()
     }
 }

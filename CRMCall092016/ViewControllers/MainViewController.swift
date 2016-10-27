@@ -23,6 +23,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     private var handlerNotificationShowPageSigIn: AnyObject!
     private var handlerNotificationSocketDisConnected: AnyObject!
     private var handlerNotificationSocketLogoutSuccess: AnyObject!
+    private var handlerNotificationRevicedServerInfor: AnyObject!
     
     
     @IBOutlet weak var lastPhoneCombobox: NSPopUpButtonCell!
@@ -119,6 +120,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     override func viewDidDisappear() {
         super.viewDidDisappear()
         
+        CRMCallManager.shareInstance.isShowLoginPage = false
     }
     
     deinit {
@@ -175,6 +177,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             
             let loginViewController = LoginViewController.createInstance() as! LoginViewController
             loginViewController.flatDisconnect = true
+            loginViewController.flatShowSettingPage = false
             self.view.window?.contentViewController = loginViewController
         })
         
@@ -273,6 +276,16 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             }
         })
         
+        handlerNotificationRevicedServerInfor = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.RecivedServerInfor, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                crmCallSocket.connect()
+            } else {
+                println("CRMCallManager.shareInstance.crmCallSocket = nil")
+            }
+        })
     }
     
     func deregisterNotification() {
@@ -280,6 +293,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageRingIng)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageSigIn)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
         
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationInviteEvent)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationInviteResultEvent)

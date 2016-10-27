@@ -32,6 +32,7 @@ final class CRMCallManager {
     
     var isShowLoginPage = false
     var isShowMainPage = false
+    var isShowSettingPage = false
     
     var isInternetConnect = true
     
@@ -80,19 +81,16 @@ final class CRMCallManager {
     func registerNotification() {
         handlerNotificationReConnetSocket = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.ReConnectSocket, object: nil, queue: nil, usingBlock: { notification in
             
+//            if CRMCallManager.shareInstance.isShowLoginPage {
+//                return
+//            }
+            
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             CRMCallManager.shareInstance.deinitSocket()
             
             println("----------------xxxx---RECONNET SOCKET TO SERVER---xxxx------------")
-            CRMCallHelpers.reconnectToSocket()
-            
-            
-            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket  {
-                if crmCallSocket.host != "" && crmCallSocket.port != 0 {
-                    crmCallSocket.connect(withPort: crmCallSocket.port, host: crmCallSocket.host)
-                }
-            }
+            CRMCallHelpers.reGetIdAndHost()
         })
         
         handlerNotificationSocketDidConnected = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.SocketDidConnected, object: nil, queue: nil, usingBlock: { notification in
@@ -100,7 +98,8 @@ final class CRMCallManager {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if CRMCallManager.shareInstance.isShowMainPage {
-                CRMCallHelpers.reconnectToSocket()
+                
+                CRMCallHelpers.reLoginSocket()
             }
         })
         
@@ -149,6 +148,10 @@ final class CRMCallManager {
                     
                 case CRMCallHelpers.NameScreen.StaffAvailabilityWindowController:
                     windowController = StaffAvailabilityWindowController.createInstance()
+                    break
+                
+                case CRMCallHelpers.NameScreen.SettingViewController:
+                    windowController = SettingCallWindowController.createInstance()
                     break
                 default:
                     break
