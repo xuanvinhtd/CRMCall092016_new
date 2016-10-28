@@ -281,15 +281,30 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     }
     
     func deregisterNotification() {
-        
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDisConnected)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDidConnected)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLoginSuccess)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLoginFail)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationNotConnectInternet)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRelogin)
+        if let notification = handlerNotificationSocketDisConnected {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        if let notification = handlerNotificationSocketDidConnected {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        if let notification = handlerNotificationSocketLoginSuccess {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        if let notification = handlerNotificationSocketLoginFail {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        if let notification = handlerNotificationRevicedServerInfor {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        if let notification = handlerNotificationNotConnectInternet {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        if let notification = handlerNotificationRelogin {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
+        if let notification = handlerNotificationSocketLogoutSuccess {
+            NSNotificationCenter.defaultCenter().removeObserver(notification)
+        }
         
         flatRegisterNotification = false
     }

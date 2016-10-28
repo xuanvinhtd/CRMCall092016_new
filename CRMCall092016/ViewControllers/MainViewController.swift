@@ -110,6 +110,23 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                 println("---XXXXX---->>> get product data fail with messgae: \(datas)")
             }
         }
+        
+        // GET TYPE PHONE
+        url = CRMCallConfig.API.phoneType()
+        AlamofireManager.requestUrlByGET(withURL: url, parameter: nil) { (datas, success) in
+            if success {
+                println("----------->Type phone data responce: \(datas)")
+                
+                if let address = datas["address"] as? [String: String] {
+                    Cache.shareInstance.typePhone(with: address)
+                } else {
+                    println("Not found address from server")
+                }
+                
+            } else {
+                println("---XXXXX---->>> Get data type phone fail with message: \(datas)")
+            }
+        }
 
     }
     
@@ -150,7 +167,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             }
             
             // Reconnect socket
-            if CRMCallManager.shareInstance.isUserLoginSuccess {
+            if CRMCallManager.shareInstance.isUserLoginSuccess && CRMCallManager.shareInstance.isInternetConnect {
                 NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
             }
         })
@@ -316,7 +333,9 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
 //        
 //        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
         
-        //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+        CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
+        
+        //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
 //        
 //        dispatch_async(dispatch_get_main_queue(), {
 //            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {

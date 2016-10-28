@@ -185,7 +185,9 @@ final class CRMCallManager {
     
     func closeWindowHistoryCallDialog(withName name: String) {
         closeWindow(withNameScreen: name)
-        countCurrentHistoryCallDialog -= 1
+        if countCurrentHistoryCallDialog > 0 {
+            countCurrentHistoryCallDialog -= 1
+        }
     }
     
     func closeWindow(withNameScreen name: String) {

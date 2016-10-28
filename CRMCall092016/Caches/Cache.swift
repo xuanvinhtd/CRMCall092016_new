@@ -707,4 +707,48 @@ class Cache {
             }
         }
     }
+    
+    // MARK: - PHONE TYPE
+    func typePhone(with info: [String: String]) {
+        
+        for (key, value) in info {
+            let typePhone = TypePhone()
+            typePhone.idx = key
+            typePhone.value = value
+            
+            dispatch_async(realmQueue) {
+                do {
+                    let realm = try Realm()
+                    
+                    if !realm.refresh() {
+                        do {
+                            let _ = try realm.write {
+                                realm.add(typePhone, update: true)
+                            }
+                        } catch let e {
+                            println("Insert typePhone with Error: \(e)")
+                        }
+                    }
+                } catch let error {
+                    println("Cannot init Realm with error: \(error)")
+                }
+            }
+        }
+    }
+    
+    func getPhoneType(Result: ((Results<TypePhone>?)->Void)) {
+        var realm: Realm?
+        
+        dispatch_async(realmQueue) {
+            do {
+                realm = try Realm()
+                
+                let data = realm!.objects(TypePhone.self)
+                Result(data)
+            } catch let error {
+                println("Cannot init Realm with error: \(error)")
+            }
+        }
+    }
+    
 }

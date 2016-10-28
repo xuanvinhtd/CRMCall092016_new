@@ -81,6 +81,8 @@ final class CRMCallConfig {
     // MARK: API
     struct API {
         
+        static let cateID = "400"
+        
         static func login(with domain: String) -> String {
             return "https://\(domain)/ngw/sign/sso"
         }
@@ -110,7 +112,7 @@ final class CRMCallConfig {
         }
         
         static func registerEmployee(withCompany cn: String, companyCode: String) -> String {
-            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/employee/add/\(cn)/\(companyCode)/400"
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/employee/add/\(cn)/\(companyCode)/\(CRMCallConfig.API.cateID)"
         }
         
         static func registerWithLabel(withCompany cn: String, companyCode: String) -> String {

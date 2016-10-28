@@ -212,3 +212,12 @@ class ChildTree: Object {
         return "idx"
     }
 }
+
+class TypePhone: Object {
+    dynamic var idx = "0"
+    dynamic var value = ""
+    
+    override static func primaryKey() -> String? {
+        return "idx"
+    }
+}

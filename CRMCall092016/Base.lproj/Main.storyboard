@@ -1336,10 +1336,14 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="GRv-hf-Wzx">
+                                <rect key="frame" x="826" y="20" width="32" height="32"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstItem="TKG-ZS-xDq" firstAttribute="top" secondItem="ylf-3N-NH4" secondAttribute="top" constant="20" id="4cG-Ib-XCE"/>
                             <constraint firstItem="bvA-6M-VQj" firstAttribute="leading" secondItem="ylf-3N-NH4" secondAttribute="leading" constant="20" id="5kH-UJ-Qtp"/>
+                            <constraint firstAttribute="trailing" secondItem="GRv-hf-Wzx" secondAttribute="trailing" constant="20" id="9wF-zg-3Pc"/>
                             <constraint firstItem="bvA-6M-VQj" firstAttribute="top" secondItem="Lv2-81-ExK" secondAttribute="bottom" constant="20" id="HcZ-t4-Gbx"/>
                             <constraint firstItem="TKG-ZS-xDq" firstAttribute="leading" secondItem="ylf-3N-NH4" secondAttribute="leading" constant="20" id="JxR-H2-ERX"/>
                             <constraint firstItem="5m0-4g-tgA" firstAttribute="leading" secondItem="ylf-3N-NH4" secondAttribute="leading" constant="20" id="NeL-iO-TzA"/>
@@ -1351,6 +1355,7 @@
                             <constraint firstAttribute="trailing" secondItem="IQS-rZ-70q" secondAttribute="trailing" constant="20" id="i8N-Mp-PVk"/>
                             <constraint firstItem="Lv2-81-ExK" firstAttribute="top" secondItem="ylf-3N-NH4" secondAttribute="top" constant="53" id="iXu-qX-dj5"/>
                             <constraint firstItem="8sg-1O-Odv" firstAttribute="top" secondItem="5m0-4g-tgA" secondAttribute="top" id="jL8-6A-eL4"/>
+                            <constraint firstAttribute="bottom" secondItem="GRv-hf-Wzx" secondAttribute="bottom" constant="20" id="jWe-KK-YMk"/>
                             <constraint firstItem="vzc-22-yV9" firstAttribute="top" secondItem="IQS-rZ-70q" secondAttribute="bottom" constant="12" id="kk7-3Q-BIh"/>
                             <constraint firstItem="cjp-hG-iMY" firstAttribute="leading" secondItem="5m0-4g-tgA" secondAttribute="trailing" constant="20" id="nxG-64-ePx"/>
                             <constraint firstItem="5m0-4g-tgA" firstAttribute="top" secondItem="bvA-6M-VQj" secondAttribute="bottom" constant="20" id="wbY-Ve-jR1"/>
@@ -1363,6 +1368,7 @@
                         <outlet property="assignedTextFeild" destination="k00-Wp-pxo" id="dzL-dN-XJP"/>
                         <outlet property="companyTextField" destination="3RZ-tE-Csv" id="p5H-lR-tPK"/>
                         <outlet property="createTicketButton" destination="8sg-1O-Odv" id="aen-Xg-baK"/>
+                        <outlet property="customerButton" destination="9xK-oW-5aj" id="Dis-mW-To9"/>
                         <outlet property="dateTextField" destination="L1y-O9-A5k" id="ipf-Yx-k8E"/>
                         <outlet property="durationsTextField" destination="uTb-Go-8uR" id="GpF-rF-Z5b"/>
                         <outlet property="historyButton" destination="IQS-rZ-70q" id="xKW-Hz-cVi"/>
@@ -1374,7 +1380,10 @@
                         <outlet property="phoneTextField" destination="kE1-FD-CgK" id="xev-97-F97"/>
                         <outlet property="phoneTypePopUpBtn" destination="Wfl-v8-ONJ" id="tgb-ex-1Ze"/>
                         <outlet property="priorityPopUpBtn" destination="0g9-KB-gKS" id="7XG-SH-tf7"/>
+                        <outlet property="productButton" destination="hgz-fg-ODe" id="Ry9-0E-Izh"/>
                         <outlet property="productTextField" destination="Rcm-gc-7je" id="Jhr-xp-ofd"/>
+                        <outlet property="progressIndicator" destination="GRv-hf-Wzx" id="6yU-aL-Add"/>
+                        <outlet property="purposeButton" destination="HHO-UQ-qZI" id="0xB-c0-Tsn"/>
                         <outlet property="purposeTextField" destination="LrN-zi-Z3n" id="RPD-TC-ZZT"/>
                         <outlet property="saveButton" destination="5m0-4g-tgA" id="Yvf-lW-GSa"/>
                         <outlet property="subjectTextField" destination="Xub-GR-roG" id="s1b-lb-hJI"/>
@@ -1743,6 +1752,9 @@ Gw
                                     <action selector="actionCannel:" target="lma-nu-tEE" id="fRk-cJ-aps"/>
                                 </connections>
                             </button>
+                            <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="VvH-2y-Ca5">
+                                <rect key="frame" x="369" y="12" width="16" height="16"/>
+                            </progressIndicator>
                         </subviews>
                         <constraints>
                             <constraint firstItem="a8e-ku-zp8" firstAttribute="leading" secondItem="dTJ-Qd-5YK" secondAttribute="leading" constant="20" id="17l-JI-RcZ"/>
@@ -1757,15 +1769,18 @@ Gw
                             <constraint firstItem="bnO-SJ-Gky" firstAttribute="leading" secondItem="WPO-Ne-15P" secondAttribute="trailing" constant="8" id="ahT-cw-gw7"/>
                             <constraint firstAttribute="trailing" secondItem="V9b-zf-DTG" secondAttribute="trailing" constant="20" id="bfy-5x-7Vg"/>
                             <constraint firstItem="bnO-SJ-Gky" firstAttribute="top" secondItem="dTJ-Qd-5YK" secondAttribute="top" constant="20" id="e42-qB-1f1"/>
+                            <constraint firstItem="VvH-2y-Ca5" firstAttribute="top" secondItem="V9b-zf-DTG" secondAttribute="bottom" constant="11" id="e5s-q5-ePb"/>
                             <constraint firstItem="a8e-ku-zp8" firstAttribute="top" secondItem="V9b-zf-DTG" secondAttribute="bottom" constant="8" id="fta-XI-ZSS"/>
                             <constraint firstItem="WPO-Ne-15P" firstAttribute="top" secondItem="dTJ-Qd-5YK" secondAttribute="top" constant="20" id="mOq-48-yxx"/>
                             <constraint firstItem="YgD-4X-arJ" firstAttribute="leading" secondItem="6On-oo-OcJ" secondAttribute="trailing" constant="8" id="odE-XY-3CQ"/>
                             <constraint firstItem="UbM-Je-DdG" firstAttribute="leading" secondItem="dTJ-Qd-5YK" secondAttribute="leading" constant="20" id="sZG-yJ-90U"/>
+                            <constraint firstItem="6On-oo-OcJ" firstAttribute="leading" secondItem="VvH-2y-Ca5" secondAttribute="trailing" constant="13" id="ven-5B-mz2"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="TypesPopUpbutton" destination="UbM-Je-DdG" id="XcP-cD-04y"/>
                         <outlet property="keySearchTextFeild" destination="WPO-Ne-15P" id="dbL-UY-ItD"/>
+                        <outlet property="progressIndicator" destination="VvH-2y-Ca5" id="m14-AH-ixv"/>
                         <outlet property="searchButton" destination="bnO-SJ-Gky" id="SMh-LY-YF3"/>
                         <outlet property="tableViewCustomers" destination="YSG-sT-LSl" id="bDo-V5-pqE"/>
                         <outlet property="unregisterButton" destination="a8e-ku-zp8" id="Ty4-h5-Nxw"/>

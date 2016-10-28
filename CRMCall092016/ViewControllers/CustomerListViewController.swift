@@ -23,6 +23,8 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var tableViewCustomers: NSTableView!
     @IBOutlet weak var unregisterButton: NSButton!
     
+    @IBOutlet weak var progressIndicator: NSProgressIndicator!
+    
     private var dataDict = [[String: AnyObject]]()
     private var indexStart = 0
     private var offset = 30
@@ -33,6 +35,8 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     var keySearchInit = ""
     var isCustomerListReviews = false
+    
+    private var handlerNotificationNotConnectInternet: AnyObject!
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -63,6 +67,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerNotification()
         configItems()
         initData()
     }
@@ -79,6 +84,8 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         
+        deregisterNotification()
+        
         CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.CustomerListViewController)
     }
     
@@ -86,10 +93,30 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSViewBoundsDidChangeNotification, object: nil)
     }
     
+    // MARK: - Notification
+    func registerNotification() {
+        handlerNotificationNotConnectInternet = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.NotConnetInternet, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            if !CRMCallManager.shareInstance.isInternetConnect {
+                self.enableControl(true)
+            }
+        })
+    }
+    
+    func deregisterNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationNotConnectInternet)
+    }
+    
     // MARK: - Handing event
     
     @IBAction func actionSeach(sender: AnyObject) {
         isReplaceSearch = true
+        indexStart = 0
+        offset = 30
+        indexScroll = 0
+        
         searchCustomer()
     }
     
@@ -123,8 +150,11 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     @IBAction func actionCannel(sender: AnyObject) {
         dispatch_async(dispatch_get_main_queue(), {
-            
-            CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.CustomerListViewController)
+            if let _ = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.CustomerListViewController] {
+               CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.CustomerListViewController)
+            } else {
+                self.dismissViewController(self)
+            }
         })
     }
     
@@ -132,7 +162,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         let range = getVisibleRow()
         let local = range.location + range.length
 
-        if isReplaceSearch && local == (dataDict.count - 2) && indexScroll < local {
+        if isReplaceSearch && local == dataDict.count && indexScroll < local {
             
             indexScroll = local
             isReplaceSearch = false
@@ -141,9 +171,29 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
             searchCustomer()
         }
     }
+    
+    // MARK: - Func other
+    private func enableControl(state: Bool) {
+        searchButton.enabled = state
+        if state {
+            progressIndicator.stopAnimation(state)
+            progressIndicator.hidden = state
+        } else {
+            progressIndicator.startAnimation(!state)
+            progressIndicator.hidden = state
+        }
+    }
 
     // MARK: - SearchCustomer
     func searchCustomer() {
+        
+        if !CRMCallManager.shareInstance.isInternetConnect {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet.", dismissText: "Cancel", completion: { result in })
+            return
+        }
+        
+        enableControl(false)
+        
         var types = [""]
         
         if TypesPopUpbutton.titleOfSelectedItem == CRMCallHelpers.CustomerType.ALL.rawValue {
@@ -206,11 +256,14 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
                     
                     self.tableViewCustomers.reloadData()
                     self.isReplaceSearch = true
+                    self.enableControl(true)
                 } else {
                     println("Not found SEARCH CUSTOMER from server")
+                    self.enableControl(true)
                 }
             } else {
                 println("---XXXXX---->>> GET DATA SEARCH CUSTOMER FAIL WITH MESSAGE: \(datas)")
+                self.enableControl(true)
             }
         }
     }
