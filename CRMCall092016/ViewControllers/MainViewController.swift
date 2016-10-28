@@ -59,6 +59,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     
     private func cachesData() {
         
+        println("///-------------- CACHES ALL DATA -------------///")
         ///-------------- GET AND CACHES ALL STAFF -------------//
         var url = CRMCallConfig.API.getAllStaffs()
         
@@ -114,7 +115,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        self.view.window?.title = "CRMCAll"
+        self.view.window?.title = "CRM Call"
     }
     
     override func viewDidDisappear() {
@@ -141,12 +142,17 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             println("----------------xxxxx--DISCONNECT SOCKET TO SERVER--xxxxx--------------------")
-//            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
-//                CRMCallManager.shareInstance.deinitSocket()
-//                crmCallSocket.stopLiveTimer()
-//            } else {
-//                println("CRMCallManager.shareInstance.crmCallSocket = nil")
-//            }
+            if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
+                CRMCallManager.shareInstance.deinitSocket()
+                crmCallSocket.stopLiveTimer()
+            } else {
+                println("CRMCallManager.shareInstance.crmCallSocket = nil")
+            }
+            
+            // Reconnect socket
+            if CRMCallManager.shareInstance.isUserLoginSuccess {
+                NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
+            }
         })
         
         handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
@@ -155,16 +161,16 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             
             dispatch_async(dispatch_get_main_queue(), {
                 
-                if CRMCallManager.shareInstance.isExistWindow(withName: CRMCallHelpers.NameScreen.HistoryCallWindowController) {
-                    CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
-                }
+//                if CRMCallManager.shareInstance.isExistWindow(withName: CRMCallHelpers.NameScreen.HistoryCallWindowController) {
+//                    CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+//                }
                 
                 if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
                     
                     CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
                     
-                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+                    CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
                 }
             })
         })
@@ -218,7 +224,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
                     
                     CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController) 
                     
-                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+                    CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
                     
                 } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
                     
@@ -310,7 +316,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
 //        
 //        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
         
-        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
+        //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
 //        
 //        dispatch_async(dispatch_get_main_queue(), {
 //            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {

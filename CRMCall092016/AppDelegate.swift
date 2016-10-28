@@ -27,6 +27,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func settingAppCall() {
         
+        // Cache result SIPLogin
+        //let defaults = NSUserDefaults.standardUserDefaults()
+        //defaults.setObject("3", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
+        
         AlamofireManager.startNetworkReachabilityObserver()
         // Config Realm
         Cache.shareInstance
@@ -70,11 +74,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         
-        //if !CRMCallManager.shareInstance.isShowSettingPage  {
+        
             for window in sender.windows{
                 if let w = window as NSWindow? {
-                    w.makeKeyAndOrderFront(self)
-                    
+                   
                     if let viewControl = w.windowController  {
                         if let vc = viewControl.contentViewController {
                             if vc.isKindOfClass(LoginViewController) {
@@ -82,9 +85,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             }
                         }
                     }
+                    
+                    if let viewControl = w.windowController  {
+                        if let vc = viewControl.contentViewController {
+                            if vc.isKindOfClass(SettingViewController) {
+                                CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.SettingViewController] = viewControl
+                            }
+                        }
+                    }
+                    
+                    if !CRMCallManager.shareInstance.isShowSettingPage  {
+                        w.makeKeyAndOrderFront(self)
+                    }
                 }
-            }
-       // }
+        }
         return true
     }
     
@@ -209,16 +223,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
-    
+
     
     @IBAction func showSettingCall(sender: AnyObject) {
         CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
     }
     
     @IBAction func showCRMCall(sender: AnyObject) {
+        
         for window in NSApp.windows{
             if let w = window as NSWindow? {
-                w.makeKeyAndOrderFront(self)
                 
                 if let viewControl = w.windowController  {
                     if let vc = viewControl.contentViewController {
@@ -226,6 +240,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = viewControl
                         }
                     }
+                }
+                
+                if let viewControl = w.windowController  {
+                    if let vc = viewControl.contentViewController {
+                        if vc.isKindOfClass(SettingViewController) {
+                            CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.SettingViewController] = viewControl
+                        }
+                    }
+                }
+                if !CRMCallManager.shareInstance.isShowSettingPage  {
+                    w.makeKeyAndOrderFront(self)
                 }
             }
         }

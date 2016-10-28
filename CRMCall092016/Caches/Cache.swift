@@ -690,7 +690,7 @@ class Cache {
         }
     }
     
-    func getRingInfo(with predicate: NSPredicate) -> Results<RingIng>? {
+    func getRingInfo(with predicate: NSPredicate, Result: ((Results<RingIng>?) ->Void)) {
         
         var realm: Realm?
         var result: Results<RingIng>?
@@ -700,11 +700,11 @@ class Cache {
                 realm = try Realm()
                 
                 result = realm!.objects(RingIng.self).filter(predicate)
+                Result(result)
             } catch let error {
+                Result(nil)
                 println("Cannot init Realm with error: \(error)")
             }
         }
-        
-        return result
     }
 }

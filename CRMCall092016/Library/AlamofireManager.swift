@@ -215,6 +215,22 @@ final class AlamofireManager {
         }
     }
     
+    static func isConnetInternet() -> Bool {
+        // CHECK INTERNET
+        if let re = reachabilityManager {
+            if re.isReachable {
+                println("----> connect internet")
+                return true
+            } else {
+                println("--> not connet internet")
+                return false
+            }
+        } else {
+            println("--> not connet, init")
+            return false
+        }
+    }
+    
     static func startNetworkReachabilityObserver() {
         
         // start listening
@@ -238,21 +254,32 @@ final class AlamofireManager {
                 
             case .Reachable(.EthernetOrWiFi):
                 print("The network is reachable over the WiFi connection")
-                //if !CRMCallManager.shareInstance.isInternetConnect {
+                if !CRMCallManager.shareInstance.isInternetConnect {
                     NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
-             //   }
+                }
+                
+                if CRMCallManager.shareInstance.isShowLoginPage && !CRMCallManager.shareInstance.isInternetConnect {
+                    CRMCallManager.shareInstance.isInternetConnect = true
+                     NSNotificationCenter.defaultCenter().postNotificationName(LoginViewController.Notification.Relogin, object: nil, userInfo: nil)
+                }
+                
                 CRMCallManager.shareInstance.isInternetConnect = true
                 break
                 
                 
             case .Reachable(.WWAN):
                 print("The network is reachable over the WWAN connection")
-                //if !CRMCallManager.shareInstance.isInternetConnect {
+                if !CRMCallManager.shareInstance.isInternetConnect {
                     NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
-               // }
+                }
+                
+                if CRMCallManager.shareInstance.isShowLoginPage && !CRMCallManager.shareInstance.isInternetConnect {
+                    CRMCallManager.shareInstance.isInternetConnect = true
+                    NSNotificationCenter.defaultCenter().postNotificationName(LoginViewController.Notification.Relogin, object: nil, userInfo: nil)
+                }
+
                 CRMCallManager.shareInstance.isInternetConnect = true
                 break
-                
             }
         }
     }

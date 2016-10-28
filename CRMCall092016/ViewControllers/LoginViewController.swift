@@ -28,6 +28,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     private var handlerNotificationSocketLogoutSuccess: AnyObject!
     private var handlerNotificationRevicedServerInfor: AnyObject!
     private var handlerNotificationNotConnectInternet: AnyObject!
+    private var handlerNotificationRelogin: AnyObject!
     
     var flatDisconnect = true
     var flatShowSettingPage = true
@@ -103,6 +104,29 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         println("Init screen LoginViewController")
         
         registerNotification()
+        
+        // CHECK SETTING CALL
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let sip = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) as? String {
+            if sip != "1" {
+                showAndStartProgress(false)
+                CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please, setting and test phone number", dismissText: "Cancel", completion: { (result) in
+                    
+                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+                })
+                
+                return
+            }
+        } else {
+            showAndStartProgress(false)
+            CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please, setting and test phone number", dismissText: "Cancel", completion: { (result) in
+                
+                CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+            })
+            
+            return
+        }
+
         initData()
     }
     
@@ -110,7 +134,21 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         super.viewDidAppear()
         self.view.window?.title = "Login"
         
-        initData()
+        // Init again
+        if CRMCallManager.shareInstance.isShowLoginPage {
+            domainTextField.stringValue = ""
+            userIDTextField.stringValue = ""
+            passwordTextField.stringValue = ""
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            if let isSaveID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SaveID) as? Int {
+                isSaveIDCheckBox.state = isSaveID
+            }
+            
+            if let isAutoLogin = defaults.objectForKey(CRMCallConfig.UserDefaultKey.AutoLogin) as? Int {
+                isAutoLoginCheckBox.state = isAutoLogin
+            }
+        }
         
         if !flatRegisterNotification {
             flatDisconnect = true
@@ -150,6 +188,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         static let LoginSuccess = "LoginSuccessNotification"
         static let LoginFaile = "LoginFaileNotification"
         static let LogoutSuccess = "LogoutSuccessNotification"
+        static let Relogin = "ReloginNotification"
     }
     
     func registerNotification() {
@@ -230,7 +269,13 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             
            self.showAndStartProgress(false)
         })
-
+        
+        handlerNotificationRelogin = NSNotificationCenter.defaultCenter().addObserverForName(LoginViewController.Notification.Relogin, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            self.actionLogin("")
+        })
         
         flatRegisterNotification = true
     }
@@ -244,6 +289,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationNotConnectInternet)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRelogin)
         
         flatRegisterNotification = false
     }
@@ -364,7 +410,9 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     
     private func showMessageNotConnectInternet() {
         showAndStartProgress(false)
-        CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet", dismissText: "Cancel", completion: { result in })
+        if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please check connect internet", dismissText: "Cancel", completion: { result in })
+        }
     }
     
     private func showAndStartProgress(state: Bool) {

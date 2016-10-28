@@ -165,6 +165,9 @@ final class CRMCallHelpers {
         return nil
     }
     
+    // MARK: - Reachability 
+
+    
     // MARK: - CREATE DICTIONARY STAFF, PURPOSE, CUSTOMER
     
     static func createDictionaryStaff(withData data: List<Staff>, phoneNumber: String) -> [[String : AnyObject]]{

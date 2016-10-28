@@ -15,14 +15,16 @@ final class CRMCallManager {
     static let shareInstance = CRMCallManager()
     
     var screenManager: [String: NSWindowController] = [:]
+    var countCurrentHistoryCallDialog = 0
     
     var crmCallSocket: CRMCallSocket?
-//    var port: UInt16 = 0
-//    var host: String = ""
     
+    // Info call
     var myCurrentStatus: CRMCallHelpers.UserStatus = CRMCallHelpers.UserStatus.None
     var myCurrentDirection: CRMCallHelpers.Direction = CRMCallHelpers.Direction.None
+    var idCallCurrent = ""
     
+    // Info login
     var session_gw = ""
     var session_key = ""
     var cn = ""
@@ -46,9 +48,8 @@ final class CRMCallManager {
     
     private init () {
         
-//        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
-//        let domain = keyChain[CRMCallConfig.KeyChainKey.Domain]
-//        CRMCallConfig.HostName = domain ?? ""
+        // CHECK INTERNET
+        self.isInternetConnect = AlamofireManager.isConnetInternet()
         
         self.crmCallSocket = CRMCallSocket()
         self.registerNotification()
@@ -81,9 +82,9 @@ final class CRMCallManager {
     func registerNotification() {
         handlerNotificationReConnetSocket = NSNotificationCenter.defaultCenter().addObserverForName(CRMCallConfig.Notification.ReConnectSocket, object: nil, queue: nil, usingBlock: { notification in
             
-//            if CRMCallManager.shareInstance.isShowLoginPage {
-//                return
-//            }
+            if CRMCallManager.shareInstance.isShowLoginPage {
+                return
+            }
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
@@ -121,6 +122,12 @@ final class CRMCallManager {
     
     // MARK: - Manager Screen
     
+    func showNewWinwdowHistoryCall() {
+        let nameScreen = CRMCallHelpers.NameScreen.HistoryCallWindowController + String(countCurrentHistoryCallDialog)
+        showWindow(withNameScreen: nameScreen)
+        countCurrentHistoryCallDialog += 1
+    }
+    
     func showWindow(withNameScreen name: String) {
         dispatch_async(dispatch_get_main_queue(), {
             if let windowController = CRMCallManager.shareInstance.screenManager[name] {
@@ -154,6 +161,10 @@ final class CRMCallManager {
                     windowController = SettingCallWindowController.createInstance()
                     break
                 default:
+                    windowController = HistoryCallWindowController.createInstance()
+                    if let viewController = windowController.contentViewController as? HistoryCallViewController {
+                        viewController.historyCallDialogName = name
+                    }
                     break
                 }
                 
@@ -172,9 +183,15 @@ final class CRMCallManager {
         }
     }
     
+    func closeWindowHistoryCallDialog(withName name: String) {
+        closeWindow(withNameScreen: name)
+        countCurrentHistoryCallDialog -= 1
+    }
+    
     func closeWindow(withNameScreen name: String) {
         dispatch_async(dispatch_get_main_queue()) {
             if let windowController = CRMCallManager.shareInstance.screenManager[name] {
+                println("Close window name: \(name)")
                 windowController.close()
                 CRMCallManager.shareInstance.screenManager.removeValueForKey(name)
             }

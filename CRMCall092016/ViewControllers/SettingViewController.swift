@@ -88,19 +88,19 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         self.view.window?.title = "Call Setting"
         
         if CRMCallManager.shareInstance.isShowLoginPage || CRMCallManager.shareInstance.isShowMainPage {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Will Logout and close main or login windows", dismissText: "Cancel", completion: { result in
-                
-                CRMCallManager.shareInstance.isShowMainPage = false
-                NSNotificationCenter.defaultCenter().postNotificationName(MainViewController.Notification.ShowPageSigin, object: nil, userInfo: nil)
-                
-                CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.LoginWindowController)
-                
+//            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Will Logout and close main or login windows", dismissText: "Cancel", completion: { result in
+            
                 CRMCallManager.shareInstance.deinitSocket()
                 CRMCallManager.shareInstance.isUserLoginSuccess = false
                 
                 let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(0, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
-            })
+                
+                CRMCallManager.shareInstance.isShowMainPage = false
+                NSNotificationCenter.defaultCenter().postNotificationName(MainViewController.Notification.ShowPageSigin, object: nil, userInfo: nil)
+                
+                CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.LoginWindowController)
+            //})
         }
     }
     
@@ -111,6 +111,8 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         deregisterNotification()
         liveTimer = nil
         CRMCallManager.shareInstance.isShowSettingPage = false
+        
+        CRMCallManager.shareInstance.deinitSocket()
         
         CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
     }

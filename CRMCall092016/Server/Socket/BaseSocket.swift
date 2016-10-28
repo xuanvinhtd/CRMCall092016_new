@@ -98,7 +98,10 @@ class BaseSocket: NSObject {
     
     func getIdAndHost(withHostName hostName: String, Result: ((Bool) -> Void)) {
         
-        AlamofireManager.getData(withURL: CRMCallConfig.API.GetPortAndHostURL(withHostName: hostName)) { response in
+        let url = CRMCallConfig.API.GetPortAndHostURL(withHostName: hostName)
+        println("Get port vs host URL: \(url)")
+        
+        AlamofireManager.getData(withURL: url) { response in
             
             guard let _response = response else {
                 println("Cannot get port and host to hostName: \(hostName)")
@@ -252,13 +255,8 @@ extension BaseSocket: GCDAsyncSocketDelegate {
             
             if typeData == .UserInfo {
                 
-                println("---------> Customer Data: \n\(result)")
-                //CACHE
-//                if result["RESULT"] == "1" {
-//                    Cache.shareInstance.customerInfo(with: result, staffList: nil, productList: nil)
-//                } else {
-//                    
-//                }
+                println("-------------> UserInfo of Ring <-------------- \n \(result)")
+                //NOTE: CACHE in parseXMLToDictionary func
                 
                 NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.Show, object: nil, userInfo: nil)
             }
@@ -287,7 +285,20 @@ extension BaseSocket: GCDAsyncSocketDelegate {
             }
             
             if typeData == .RingIng {
-                println("DATA RingIng:-------------> \n \(result)")
+                println(" -------------> Ring Ring Ring Ring <------------- \n \(result)")
+                
+                // GET ID CALL
+                if let idCall = result["CALLID"] as String? {
+                    if CRMCallManager.shareInstance.idCallCurrent == "" {
+                        CRMCallManager.shareInstance.idCallCurrent = idCall
+                        println("-------------- NEW IDCALL [ \(idCall) ] --------------")
+                    } else {
+                        println("-------------- CURRENT IDCALL [ \(idCall) ] --------------")
+                    }
+                } else {
+                    CRMCallManager.shareInstance.idCallCurrent = ""
+                   println("-------------- IDCALL [ NOT FOUND ] --------------")
+                }
                 
                 Cache.shareInstance.ringInfo(with: result)
                 
@@ -318,6 +329,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.CancelEvent, object: nil, userInfo: result)
                         
                         CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.None
+                        CRMCallManager.shareInstance.idCallCurrent = ""
                     }
                     if  event == CRMCallHelpers.Event.Busy.rawValue {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.BusyEvent, object: nil, userInfo: result)
@@ -326,6 +338,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                         NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ByeEvent, object: nil, userInfo: result)
                         
                         CRMCallManager.shareInstance.myCurrentStatus = CRMCallHelpers.UserStatus.None
+                        CRMCallManager.shareInstance.idCallCurrent = ""
                     }
                 }
             }

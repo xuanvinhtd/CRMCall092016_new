@@ -29,65 +29,62 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
     
     func initData() {
         
-            Cache.shareInstance.getRingInfo({ info in
+        let idCall = CRMCallManager.shareInstance.idCallCurrent
+        
+        Cache.shareInstance.getRingInfo(with: NSPredicate(format: "callID = %@", idCall)) { (info) in
+            
+            guard let _info = info?.first else {
+                println("======> RingIng Dialog Info NULL <======")
+                self.phoneCaller.stringValue = "0"
+                return
+            }
+            
+            println("===============> RingIng Dialog Info <===============\n \(_info)")
+            
+            self.phoneCaller.stringValue = _info.from
+            
+            Cache.shareInstance.getCustomerInfo(with:  NSPredicate(format: "idx = %@", idCall), Result: { userInfo in
                 
-                guard let _info = info else {
-                    println("======> RingIng Info: NULL")
-                    self.phoneCaller.stringValue = "0"
+                guard let userInfo = userInfo?.first else {
+                    println("Not found Info CallID of \(_info.from) and CallID: \(idCall)")
+                    self.nameCaller.stringValue = ""
                     return
                 }
-                self.phoneCaller.stringValue = (_info.last?.from)!
                 
-                if let idCall = (_info.last?.callID) {
+                if userInfo.phone == "0" { // User not register
+                    self.phoneCaller.stringValue = _info.from
+                } else { // User regestered
+                    self.nameCaller.stringValue = userInfo.name
+                    self.phoneCaller.stringValue = userInfo.phone
                     
-                    Cache.shareInstance.getCustomerInfo(with:  NSPredicate(format: "idx = %@", idCall), Result: { userInfo in
-                        
-                        guard let userInfo = userInfo?.first else {
-                            println("Not found Info CallID of \(_info.last?.from) and CallID: \(idCall)")
-                            self.nameCaller.stringValue = ""
-                            return
-                        }
-                        
-                        if userInfo.phone == "0" { // User not register
-                            
-                            if let infoRing = _info.last {
-                                self.phoneCaller.stringValue = infoRing.from
-                            }
-                            
-                        } else { // User regestered
-                            self.nameCaller.stringValue = userInfo.name
-                            self.phoneCaller.stringValue = userInfo.phone
-                            
-                            var productNames = [String]()
-                            for product in userInfo.products {
-                                productNames.append(product.name)
-                            }
-                            self.productsTextField.stringValue = productNames.joinWithSeparator(",")
-                            
-                            
-                            var staffNameList = [String]()
-                            for staff in userInfo.staffs {
-                                staffNameList.append(staff.name)
-                            }
-                            self.assignedTextField.stringValue = staffNameList.joinWithSeparator(",")
-                        }
-                    })
+                    var productNames = [String]()
+                    for product in userInfo.products {
+                        productNames.append(product.name)
+                    }
+                    self.productsTextField.stringValue = productNames.joinWithSeparator(",")
+                    
+                    
+                    var staffNameList = [String]()
+                    for staff in userInfo.staffs {
+                        staffNameList.append(staff.name)
+                    }
+                    self.assignedTextField.stringValue = staffNameList.joinWithSeparator(",")
                 }
-                
-                println("======> RingIng Info:\n \(_info.last)")
             })
+            
+        }
         
         // Play Sound
-        if let path = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PathLocalSound) as? String {
-            
-            let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-            let documentsDirectory: AnyObject = paths[0]
-            let dataPath = documentsDirectory.stringByAppendingPathComponent(path)
-            
-            let filePathUrl = NSURL.fileURLWithPath(dataPath)
-            
-            self.playSound(withUrl: filePathUrl)
-        } else {
+//        if let path = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PathLocalSound) as? String {
+//            
+//            let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+//            let documentsDirectory: AnyObject = paths[0]
+//            let dataPath = documentsDirectory.stringByAppendingPathComponent(path)
+//            
+//            let filePathUrl = NSURL.fileURLWithPath(dataPath)
+//            
+//            self.playSound(withUrl: filePathUrl)
+//        } else {
     
             if let audioFilePath = NSBundle.mainBundle().pathForResource("RingSound", ofType: "wav") {
                 let audioUrl = NSURL.fileURLWithPath(audioFilePath)
@@ -95,7 +92,7 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
             } else {
                 println("Audio file is not found")
             }
-        }
+       // }
     }
     
     // MARK: - Initialzation
