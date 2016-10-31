@@ -347,6 +347,7 @@
 				F91FFDD284D29713427FBCD4 /* 📦 Embed Pods Frameworks */,
 				6979C8011D18149B559186BF /* 📦 Copy Pods Resources */,
 				92C261AE1D8BCD9E00413F54 /* Embed Frameworks */,
+				922F063C1DC73AA6002A7E7D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -440,6 +441,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CRMCall092016/Pods-CRMCall092016-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		922F063C1DC73AA6002A7E7D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1119f72da5b762470d847361c1d2cfbfc1d3824b d86d7030eb5a02d28f654b116a3f6c890c36f524f01d40deb3e8182a71a9d4bc";
 		};
 		F91FFDD284D29713427FBCD4 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

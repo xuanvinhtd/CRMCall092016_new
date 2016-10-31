@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import Fabric
+import Crashlytics
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -18,6 +20,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
         self.settingAppCall()
+        
+        Fabric.with([Crashlytics.self])
         
         // Register push notification
         let type: NSRemoteNotificationType = [NSRemoteNotificationType.Alert,NSRemoteNotificationType.Badge, NSRemoteNotificationType.Sound]
@@ -51,7 +55,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             let defaults = NSUserDefaults.standardUserDefaults()
             defaults.setObject("0", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
-            defaults.synchronize()
         }
     }
     
@@ -99,6 +102,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     }
                 }
         }
+        
+        println("Screen count: \(CRMCallManager.shareInstance.screenManager.count)")
+        
         return true
     }
     
@@ -254,6 +260,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+        
+        println("Screen count: \(CRMCallManager.shareInstance.screenManager.count)")
     }
     
 }

@@ -4,6 +4,9 @@ PODS:
   - CocoaAsyncSocket (7.5.0):
     - CocoaAsyncSocket/GCD (= 7.5.0)
   - CocoaAsyncSocket/GCD (7.5.0)
+  - Crashlytics (3.7.2):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.7)
   - KeychainAccess (2.3.6)
   - SWXMLHash (2.4.0)
 
@@ -11,6 +14,8 @@ DEPENDENCIES:
   - Alamofire
   - Chronos-Swift
   - CocoaAsyncSocket
+  - Crashlytics
+  - Fabric
   - KeychainAccess
   - SWXMLHash
 
@@ -18,9 +23,11 @@ SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Chronos-Swift: 68a4fff66a41a1b698b30353d66bea412c5bba73
   CocoaAsyncSocket: 3baeb1ddd969f81cf9fca81053ae49ef2d1cbbfa
+  Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   KeychainAccess: 7f10e2ef998ddf954a64d5d608be08677774684d
   SWXMLHash: 507397103325f140863d09040c04ae14a49a16cb
 
-PODFILE CHECKSUM: c63f3a1586316eb810c369996cec66bbaac447ec
+PODFILE CHECKSUM: 0d6823eebdc0248f0710e5462a1975395576389b
 
 COCOAPODS: 1.0.0

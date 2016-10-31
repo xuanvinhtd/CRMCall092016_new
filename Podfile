@@ -11,5 +11,6 @@ pod 'Alamofire'
 pod 'SWXMLHash'
 pod 'Chronos-Swift'
 pod 'KeychainAccess'
-
+pod 'Fabric'
+pod 'Crashlytics'
 end

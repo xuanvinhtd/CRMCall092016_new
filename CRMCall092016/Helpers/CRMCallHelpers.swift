@@ -97,7 +97,6 @@ final class CRMCallHelpers {
             let uuidObject = CFUUIDCreate(kCFAllocatorDefault)
             let uuid = CFUUIDCreateString(kCFAllocatorDefault, uuidObject)
             NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: CRMCallConfig.UUIDKey)
-            NSUserDefaults.standardUserDefaults().synchronize()
             return uuid as String
         }
     }

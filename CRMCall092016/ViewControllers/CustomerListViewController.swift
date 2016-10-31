@@ -139,7 +139,9 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         }
         
         if itemSelect.count == 0 {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please select customer", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please select customer", dismissText: "Ok", completion: { result in })
+            }
             return
         }
         
@@ -188,7 +190,9 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     func searchCustomer() {
         
         if !CRMCallManager.shareInstance.isInternetConnect {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet.", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please check connect internet.", dismissText: "Cancel", completion: { result in })
+            }
             return
         }
         

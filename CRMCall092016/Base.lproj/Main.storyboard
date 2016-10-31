@@ -1890,27 +1890,42 @@ DQ
                                 </connections>
                             </button>
                             <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="FuH-7U-gRD">
-                                <rect key="frame" x="268" y="38" width="32" height="32"/>
+                                <rect key="frame" x="20" y="20" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="GVF-9x-xCG"/>
                                     <constraint firstAttribute="width" constant="32" id="a8c-Mu-gQ0"/>
                                 </constraints>
                             </progressIndicator>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="W4H-zn-XXh">
+                                <rect key="frame" x="219" y="31" width="92" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="Lz5-Sb-lnB"/>
+                                    <constraint firstAttribute="height" constant="32" id="qBt-Jc-pnu"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Sign In" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FDI-eU-boK">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="actionShowSignIn:" target="J2E-ob-QLe" id="Plw-4b-m1g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="p7E-7C-IpM" firstAttribute="leading" secondItem="Di0-lj-QdY" secondAttribute="leading" id="0qQ-uA-c5W"/>
                             <constraint firstItem="qRe-5U-TBj" firstAttribute="leading" secondItem="Di0-lj-QdY" secondAttribute="trailing" constant="30" id="0x8-15-LvA"/>
                             <constraint firstItem="3ZF-gl-JVw" firstAttribute="leading" secondItem="efj-QS-inh" secondAttribute="leading" constant="8" id="5D2-SL-HKW"/>
-                            <constraint firstItem="FuH-7U-gRD" firstAttribute="top" secondItem="8BZ-hB-KIt" secondAttribute="bottom" constant="15" id="9gh-eq-bsl"/>
                             <constraint firstAttribute="trailing" secondItem="3ZF-gl-JVw" secondAttribute="trailing" constant="8" id="EV0-M6-q96"/>
                             <constraint firstItem="3ZF-gl-JVw" firstAttribute="top" secondItem="efj-QS-inh" secondAttribute="top" constant="8" id="FgV-ak-hov"/>
                             <constraint firstItem="Di0-lj-QdY" firstAttribute="leading" secondItem="efj-QS-inh" secondAttribute="leading" constant="75" id="Fra-4f-SWD"/>
                             <constraint firstItem="WaU-2o-RV7" firstAttribute="leading" secondItem="Ys2-HF-96T" secondAttribute="leading" id="HlR-l0-FMf"/>
                             <constraint firstItem="qRe-5U-TBj" firstAttribute="top" secondItem="Di0-lj-QdY" secondAttribute="top" id="JEL-EP-irN"/>
+                            <constraint firstItem="LEn-DR-qeI" firstAttribute="leading" secondItem="W4H-zn-XXh" secondAttribute="trailing" constant="25" id="JQp-iw-cWG"/>
                             <constraint firstItem="x55-Pi-JTr" firstAttribute="leading" secondItem="Di0-lj-QdY" secondAttribute="leading" id="Kft-Yh-UIa"/>
                             <constraint firstAttribute="trailing" secondItem="8BZ-hB-KIt" secondAttribute="trailing" constant="70" id="LkP-4c-0Om"/>
                             <constraint firstItem="xJb-tL-up3" firstAttribute="top" secondItem="p7E-7C-IpM" secondAttribute="bottom" constant="22" id="OiD-FC-KvT"/>
                             <constraint firstItem="8BZ-hB-KIt" firstAttribute="top" secondItem="xJb-tL-up3" secondAttribute="top" id="SZ9-Hu-Gvg"/>
+                            <constraint firstAttribute="bottom" secondItem="FuH-7U-gRD" secondAttribute="bottom" constant="20" id="U0u-yy-QRh"/>
                             <constraint firstItem="Di0-lj-QdY" firstAttribute="top" secondItem="3ZF-gl-JVw" secondAttribute="bottom" constant="50" id="Y7J-xX-jzb"/>
                             <constraint firstAttribute="trailing" secondItem="WaU-2o-RV7" secondAttribute="trailing" constant="70" id="Y80-Rk-9xI"/>
                             <constraint firstItem="Ys2-HF-96T" firstAttribute="top" secondItem="x55-Pi-JTr" secondAttribute="top" id="Ydk-8p-ZNN"/>
@@ -1921,8 +1936,9 @@ DQ
                             <constraint firstItem="p7E-7C-IpM" firstAttribute="top" secondItem="x55-Pi-JTr" secondAttribute="bottom" constant="22" id="kMg-HY-mgC"/>
                             <constraint firstAttribute="trailing" secondItem="Ys2-HF-96T" secondAttribute="trailing" constant="70" id="lWp-8K-fte"/>
                             <constraint firstItem="WaU-2o-RV7" firstAttribute="top" secondItem="p7E-7C-IpM" secondAttribute="top" id="n5X-Nv-0v2"/>
+                            <constraint firstItem="W4H-zn-XXh" firstAttribute="top" secondItem="8BZ-hB-KIt" secondAttribute="bottom" constant="15" id="pJb-1V-PcT"/>
                             <constraint firstItem="x55-Pi-JTr" firstAttribute="top" secondItem="Di0-lj-QdY" secondAttribute="bottom" constant="22" id="pfc-QT-ceG"/>
-                            <constraint firstItem="LEn-DR-qeI" firstAttribute="leading" secondItem="FuH-7U-gRD" secondAttribute="trailing" constant="30" id="sJr-7S-S7U"/>
+                            <constraint firstItem="FuH-7U-gRD" firstAttribute="leading" secondItem="efj-QS-inh" secondAttribute="leading" constant="20" id="xgX-b7-tmu"/>
                             <constraint firstItem="LEn-DR-qeI" firstAttribute="trailing" secondItem="8BZ-hB-KIt" secondAttribute="trailing" id="zHP-wN-8w2"/>
                             <constraint firstItem="LEn-DR-qeI" firstAttribute="top" secondItem="8BZ-hB-KIt" secondAttribute="bottom" constant="20" id="zU3-WE-RRA"/>
                         </constraints>
@@ -1933,6 +1949,7 @@ DQ
                         <outlet property="passworldTextField" destination="XrO-M7-fAP" id="quy-mS-GfS"/>
                         <outlet property="phoneNumberTextField" destination="rla-OL-agU" id="1uu-IR-46Q"/>
                         <outlet property="progressTestting" destination="FuH-7U-gRD" id="xBI-JI-6AF"/>
+                        <outlet property="signButton" destination="W4H-zn-XXh" id="OIa-D9-p2j"/>
                         <outlet property="testButton" destination="LEn-DR-qeI" id="Oxk-tV-ful"/>
                     </connections>
                 </viewController>

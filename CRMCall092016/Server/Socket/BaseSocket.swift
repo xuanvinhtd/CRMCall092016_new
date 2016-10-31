@@ -271,7 +271,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                     // Cache result SIPLogin
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(result["RESULT"], forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
-                    defaults.synchronize()
+                    defaults.setObject("1", forKey: CRMCallConfig.UserDefaultKey.StartFirstApp)
                 } else {
                     println("SIPLOGIN FAIL")
                     
@@ -280,7 +280,6 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                     // Cache result SIPLogin
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject("0", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
-                    defaults.synchronize()
                 }
             }
             

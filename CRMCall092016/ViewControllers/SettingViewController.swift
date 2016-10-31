@@ -29,9 +29,11 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var progressTestting: NSProgressIndicator!
     
     @IBOutlet weak var testButton: NSButton!
+    @IBOutlet weak var signButton: NSButton!
     
     private var isTestAgian = true
     private var liveTimer: NSTimer?
+    private var isLoginEnable = false
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -39,6 +41,17 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     }
     
     func initData() {
+        
+        CRMCallManager.shareInstance.isShowSettingPage = true
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let start = defaults.objectForKey(CRMCallConfig.UserDefaultKey.StartFirstApp) as? String {
+            if start == "0" || start == "" {
+                return
+            }
+        } else {
+            return
+        }
         
         // GET SETTING INFO
         let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
@@ -57,8 +70,6 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         idTextField.stringValue = id
         passworldTextField.stringValue = pwd
         phoneNumberTextField.stringValue = phone
-        
-        CRMCallManager.shareInstance.isShowSettingPage = true
     }
     
     // MARK: - View Life cycle
@@ -144,10 +155,14 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             
             dispatch_async(dispatch_get_main_queue(), { 
                 self.showAndStartProgress(false)
+                
+                self.signButton.enabled = self.isLoginEnable
             })
             
             if NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) != "1" {
-                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test fail, please review phone number!!", dismissText: "Cancel", completion: { result in })
+                if let  w = self.view.window {
+                     CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Test fail, please review phone number!!", dismissText: "Ok", completion: { result in })
+                }
                 self.isTestAgian = true
             }
         })
@@ -168,9 +183,11 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             self.saveSettingInfo()
+            if let  w = self.view.window {
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Test success, can receive and call.", dismissText: "Ok", completion: { result in })
+            }
             
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test success, can receive and call.", dismissText: "Cancel", completion: { result in })
-
+            self.isLoginEnable = true
             CRMCallManager.shareInstance.deinitSocket()
         })
         
@@ -178,7 +195,9 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test fail, please review id and password!!", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Test fail, please review id and password!!", dismissText: "Ok", completion: { result in })
+            }
             
             if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
                 CRMCallManager.shareInstance.deinitSocket()
@@ -191,6 +210,7 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
                 self.showAndStartProgress(false)
             })
             
+            self.isLoginEnable = false
             self.isTestAgian = true
         })
         
@@ -198,11 +218,14 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Test fail, please review host name!!", dismissText: "Cancel", completion: { result in })
-            
+            if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Test fail, please review host name!!", dismissText: "Ok", completion: { result in })
+            }
             dispatch_async(dispatch_get_main_queue(), {
                 self.showAndStartProgress(false)
             })
+            
+            self.isLoginEnable = false
             self.isTestAgian = true
         })
         
@@ -226,7 +249,6 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
             defaults.setObject(0, forKey: CRMCallConfig.UserDefaultKey.SaveID)
             defaults.setObject(0, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
             defaults.setObject("0", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
-            defaults.synchronize()
         })
     }
     
@@ -241,6 +263,12 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
     }
     
     // MARK: - Handling event
+    
+    @IBAction func actionShowSignIn(sender: AnyObject) {
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.LoginWindowController)
+    }
+    
+    
     @IBAction func testConnectServer(sender: AnyObject) {
         
         if !CRMCallManager.shareInstance.isInternetConnect {
@@ -249,12 +277,16 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         }
         
         if (CRMCallManager.shareInstance.isShowLoginPage || CRMCallManager.shareInstance.isShowMainPage) || CRMCallManager.shareInstance.isUserLoginSuccess {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please Logout and close login windows", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please Logout and close login windows", dismissText: "Ok", completion: { result in })
+            }
             return
         }
 
         if !isTestAgian {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please wait a minute then check agian!", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please wait a minute then check agian!", dismissText: "Ok", completion: { result in })
+            }
             return
         }
         
@@ -284,10 +316,14 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         self.isTestAgian = false
     }
     
+    
+    
     private func showMessageNotConnectInternet() {
         
         showAndStartProgress(false)
-        CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet", dismissText: "Cancel", completion: { result in })
+        if let w = self.view.window {
+        CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please check connect internet", dismissText: "Ok", completion: { result in })
+        }
     }
     
     private func showAndStartProgress(state: Bool) {
@@ -300,17 +336,30 @@ class SettingViewController: NSViewController, ViewControllerProtocol {
         }
     }
     
+    private func checkSipLogin() -> Bool {
+        if let sip = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) as? String {
+            if sip == "0" || sip == "" {
+                return false
+            }
+        } else {
+            return false
+        }
+        return true
+    }
+    
     private func enableControl(state: Bool) {
         _ = self.hostTextField.stringValue
         _ = self.idTextField.stringValue
         _ = self.phoneNumberTextField.stringValue
         _ = self.passworldTextField.stringValue
+        
         self.testButton.enabled = !state
         self.hostTextField.enabled = !state
         self.idTextField.enabled = !state
         self.phoneNumberTextField.enabled = !state
         self.passworldTextField.enabled = !state
         self.progressTestting.hidden = !state
+        self.signButton.enabled = !state
     }
     
     private func saveSettingInfo() {

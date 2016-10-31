@@ -188,6 +188,7 @@ final class CRMCallManager {
         if countCurrentHistoryCallDialog > 0 {
             countCurrentHistoryCallDialog -= 1
         }
+        println("HistoryCallDialog count: \(countCurrentHistoryCallDialog)")
     }
     
     func closeWindow(withNameScreen name: String) {
@@ -196,6 +197,7 @@ final class CRMCallManager {
                 println("Close window name: \(name)")
                 windowController.close()
                 CRMCallManager.shareInstance.screenManager.removeValueForKey(name)
+                println("Screen count: \(self.screenManager.count)")
             }
         }
     }

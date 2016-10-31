@@ -174,7 +174,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             }
         }
         
-        let idCall = "0_619800951@192.168.4.3"//CRMCallManager.shareInstance.idCallCurrent
+        let idCall = CRMCallManager.shareInstance.idCallCurrent
         
         Cache.shareInstance.getRingInfo(with: NSPredicate(format: "callID = %@", idCall)) { (info) in
             
@@ -347,7 +347,9 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
             
             if !CRMCallManager.shareInstance.isInternetConnect {
-                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet and save again.", dismissText: "Cancel", completion: { result in })
+                if let w = self.view.window {
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please check connect internet and save again.", dismissText: "Ok", completion: { result in })
+                }
                 self.enableControl(true)
             }
         })
@@ -404,17 +406,23 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     @IBAction func actionSave(sender: AnyObject) {
         
         if !CRMCallManager.shareInstance.isInternetConnect {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please check connect internet.", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please check connect internet.", dismissText: "Ok", completion: { result in })
+            }
             return
         }
         
         if self.phoneTextField.stringValue == "" {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please input phone number.", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please input phone number.", dismissText: "Ok", completion: { result in })
+            }
             return
         }
         
         if self.subjectTextField.stringValue == "" {
-            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: self.view.window!, title: "Notification", messageText: "Please input subject.", dismissText: "Cancel", completion: { result in })
+            if let w = self.view.window {
+            CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please input subject.", dismissText: "Ok", completion: { result in })
+            }
             return
         }
         

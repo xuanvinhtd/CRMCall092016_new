@@ -28,6 +28,7 @@ final class CRMCallConfig {
     
     // MARK: - UserDefault key
     struct UserDefaultKey {
+        static let StartFirstApp = "StartFirstApp"
         static let SIPLoginResult = "SIPLoginResult"
         
         static let AutoLogin = "CRMCallAutoLogin"
