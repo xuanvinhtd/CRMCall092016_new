@@ -25,6 +25,9 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
+    private var currentType = ""
+    private var isChangeValuePopUpButton = false
+    
     private var dataDict = [[String: AnyObject]]()
     private var totalPage = 0
     private var currentPage = 0
@@ -112,6 +115,15 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     // MARK: - Handing event
     
+
+    @IBAction func actionSelectType(sender: AnyObject) {
+        if currentType != TypesPopUpbutton.titleOfSelectedItem {
+            isChangeValuePopUpButton = true
+        } else {
+            isChangeValuePopUpButton = false
+        }
+    }
+    
     @IBAction func actionSeach(sender: AnyObject) {
         isReplaceSearch = true
         currentPage = 0
@@ -170,6 +182,13 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
             isReplaceSearch = false
             currentPage += 1
             
+            if isChangeValuePopUpButton { // when change vaule popUp and scroll table
+                isReplaceSearch = true
+                currentPage = 0
+                indexScroll = 0
+                isChangeValuePopUpButton = false
+            }
+            
             searchCustomer()
         }
     }
@@ -219,6 +238,12 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
             types.append(CRMCallHelpers.TypeApi.Contact.rawValue)
         }
         
+        if let type = TypesPopUpbutton.titleOfSelectedItem {
+            currentType = type
+        } else {
+            currentType = CRMCallHelpers.CustomerType.ALL.rawValue
+        }
+        
         let pages  = [String(currentPage), String(offset)]
         var url = CRMCallConfig.API.searchCustomer(withCompany: CRMCallManager.shareInstance.cn, types: types, pages: pages, keyword: keySearchTextFeild.stringValue, sort: CRMCallHelpers.Sort.Name.rawValue, order: CRMCallHelpers.Order.Desc.rawValue)
         
@@ -229,6 +254,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
                 
                 if self.isReplaceSearch {
                     self.dataDict.removeAll()
+                    self.tableViewCustomers.reloadData()
                 }
                 
                 println("-----------> SEARCH CUSTOMER DATA CALL RESPONCE: \(datas)")
@@ -332,7 +358,6 @@ extension CustomerListViewController: NSTableViewDelegate, NSTableViewDataSource
         if let scrollView = self.tableViewCustomers.enclosingScrollView {
             let visibleRect = scrollView.contentView.visibleRect
             let range = self.tableViewCustomers.rowsInRect(visibleRect)
-            println("Range---: \(range)")
             return range
         }
         return NSRange()

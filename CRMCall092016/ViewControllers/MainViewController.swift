@@ -335,7 +335,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         
         //CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
         
-        //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistorySearchDialogViewController)
 //        
 //        dispatch_async(dispatch_get_main_queue(), {
 //            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {

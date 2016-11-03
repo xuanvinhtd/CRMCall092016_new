@@ -162,6 +162,10 @@ final class CRMCallManager {
                 case CRMCallHelpers.NameScreen.SettingViewController:
                     windowController = SettingCallWindowController.createInstance()
                     break
+                    
+                case CRMCallHelpers.NameScreen.HistorySearchDialogViewController:
+                    windowController = HistorySearchDialogWindowController.createInstance()
+                    break
                 default:
                     windowController = HistoryCallWindowController.createInstance()
                     if let viewController = windowController.contentViewController as? HistoryCallViewController {

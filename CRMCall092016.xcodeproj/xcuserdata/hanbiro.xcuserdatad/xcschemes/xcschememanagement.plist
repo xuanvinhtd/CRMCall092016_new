@@ -7,11 +7,16 @@
 		<key>CRMCall092016.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>929B03F21DCAF6FF00783B23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>92E3E30E1D8004C3008033ED</key>
 		<dict>
 			<key>primary</key>

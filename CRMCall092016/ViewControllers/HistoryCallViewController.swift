@@ -116,7 +116,11 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             typeCallLabel.stringValue = "[None]"
         }
         
-        priorityDict = ["1":"★", "2":"★★", "3":"★★★", "4":"★★★★", "5":"★★★★★"]
+        priorityDict = [CRMCallHelpers.Priority.VeryLow.rawValue:"★",
+                        CRMCallHelpers.Priority.Low.rawValue:"★★",
+                        CRMCallHelpers.Priority.Normal.rawValue:"★★★",
+                        CRMCallHelpers.Priority.Hight.rawValue:"★★★★",
+                        CRMCallHelpers.Priority.VeryHight.rawValue:"★★★★★"]
         var values = Array(priorityDict.values)
         values = values.sort()
         priorityPopUpBtn.addItemsWithTitles(values)

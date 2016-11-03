@@ -16,6 +16,15 @@ final class CRMCallHelpers {
     static let storyBoard = NSStoryboard.init(name: "Main", bundle: nil)
     static let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
     
+    enum Priority: String {
+        case All = ""
+        case VeryHight = "5"
+        case Hight = "4"
+        case Normal = "3"
+        case Low = "2"
+        case VeryLow = "1"
+    }
+    
     enum TypeData {
         case UserLogin
         case UserLogout
@@ -68,6 +77,7 @@ final class CRMCallHelpers {
     
     
     enum TypeApi: String {
+        case All = "all"
         case Company = "company"
         case Contact = "contact"
         case Employee = "employee"
@@ -88,6 +98,7 @@ final class CRMCallHelpers {
         static let RingIngWindowController = "RingIngWindowController"
         static let CustomerListViewController = "CustomerListViewController"
         static let SettingViewController = "SettingViewController"
+        static let HistorySearchDialogViewController = "HistorySearchDialogViewController"
     }
     
     static func getUUID() -> String {
