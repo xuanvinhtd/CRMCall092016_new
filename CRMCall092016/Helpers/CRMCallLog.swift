@@ -10,8 +10,8 @@ import Foundation
 
 func println(@autoclosure item: () -> Any) {
     
-    #if DEBUG
+    //#if DEBUG
         Swift.print(item())
-    #endif
+    //#endif
     
 }

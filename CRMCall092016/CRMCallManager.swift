@@ -29,6 +29,8 @@ final class CRMCallManager {
     var session_key = ""
     var cn = ""
     
+    var token = ""
+    
     var isUserLoginSuccess = false
     var isSocketLoginSuccess = false
     

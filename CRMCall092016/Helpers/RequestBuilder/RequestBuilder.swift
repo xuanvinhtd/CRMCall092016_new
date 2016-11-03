@@ -11,7 +11,7 @@ import Foundation
 final class RequestBuilder {
     
     static func login(userId: String, password: String) -> [String: String]{
-        return ["gw_id":userId, "gw_pass":password, "method":"crmcall"]
+        return ["gw_id":userId, "gw_pass":password, "method":"crmcall","token":""]
     }
     
     static func cookies() -> [String: String] {

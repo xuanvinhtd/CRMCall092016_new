@@ -26,7 +26,8 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
     
     private var dataDict = [[String: AnyObject]]()
-    private var indexStart = 0
+    private var totalPage = 0
+    private var currentPage = 0
     private var offset = 30
     private var indexScroll = 0
     private var isReplaceSearch = true
@@ -113,8 +114,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
     
     @IBAction func actionSeach(sender: AnyObject) {
         isReplaceSearch = true
-        indexStart = 0
-        offset = 30
+        currentPage = 0
         indexScroll = 0
         
         searchCustomer()
@@ -164,11 +164,11 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
         let range = getVisibleRow()
         let local = range.location + range.length
 
-        if isReplaceSearch && local == dataDict.count && indexScroll < local {
+        if isReplaceSearch && local == dataDict.count && indexScroll < local && totalPage > currentPage {
             
             indexScroll = local
             isReplaceSearch = false
-            indexStart += (offset + 1)
+            currentPage += 1
             
             searchCustomer()
         }
@@ -219,7 +219,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
             types.append(CRMCallHelpers.TypeApi.Contact.rawValue)
         }
         
-        let pages  = [String(indexStart), String(indexStart + offset)]
+        let pages  = [String(currentPage), String(offset)]
         var url = CRMCallConfig.API.searchCustomer(withCompany: CRMCallManager.shareInstance.cn, types: types, pages: pages, keyword: keySearchTextFeild.stringValue, sort: CRMCallHelpers.Sort.Name.rawValue, order: CRMCallHelpers.Order.Desc.rawValue)
         
         url = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
@@ -232,6 +232,16 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
                 }
                 
                 println("-----------> SEARCH CUSTOMER DATA CALL RESPONCE: \(datas)")
+                if let attrs = datas["attrs"] as? [String: AnyObject] {
+                    
+                    if let _totalPage = attrs["total_page"] as? Int {
+                        self.totalPage = _totalPage
+                    }
+                    
+                    if let _page = attrs["page"] as? Int {
+                        self.currentPage = _page
+                    }
+                }
                 
                 if let data = datas["rows"] as? [[String: AnyObject]] {
                     
@@ -239,11 +249,22 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
                         
                         if let phones = item["phone"] as? [[String: AnyObject]] {
                            
-                            for phone in phones {
+                            if phones.count == 0 {
+                                var phoneItem = [String: AnyObject]()
+                                phoneItem["label"] = ""
+                                phoneItem["type"] = ""
+                                phoneItem["value"] = ""
+                                
                                 var itemConfig = item
-                                itemConfig["phone"] = phone
-                                if (phone["value"] as! String) != "^^" {
+                                itemConfig["phone"] = phoneItem
+                                self.dataDict.append(itemConfig)
+                            } else {
+                                for phone in phones {
+                                    var itemConfig = item
+                                    itemConfig["phone"] = phone
+                                    //if (phone["value"] as! String) != "^^" {
                                     self.dataDict.append(itemConfig)
+                                    // }
                                 }
                             }
                         } else {
@@ -254,7 +275,7 @@ class CustomerListViewController: NSViewController, ViewControllerProtocol {
                             
                             var itemConfig = item
                             itemConfig["phone"] = phoneItem
-
+                            self.dataDict.append(itemConfig)
                         }
                     }
                     
@@ -311,6 +332,7 @@ extension CustomerListViewController: NSTableViewDelegate, NSTableViewDataSource
         if let scrollView = self.tableViewCustomers.enclosingScrollView {
             let visibleRect = scrollView.contentView.visibleRect
             let range = self.tableViewCustomers.rowsInRect(visibleRect)
+            println("Range---: \(range)")
             return range
         }
         return NSRange()

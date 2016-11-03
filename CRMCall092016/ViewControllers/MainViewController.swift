@@ -333,7 +333,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
 //        
 //        NSNotificationCenter.defaultCenter().postNotificationName(CRMCallConfig.Notification.ReConnectSocket, object: nil, userInfo: nil)
         
-        CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
+        //CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
         
         //CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
 //        

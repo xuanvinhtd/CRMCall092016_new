@@ -61,6 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func application(application: NSApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let deviceTokenString = NSString(format: "%@", deviceToken) as String
         println("NOTIFICATION TOKEN: ---> \(deviceTokenString))")
+        CRMCallManager.shareInstance.token = deviceTokenString
     }
     
     func application(application: NSApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

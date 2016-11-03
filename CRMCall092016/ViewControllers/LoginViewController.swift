@@ -442,6 +442,9 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
                 if let message = datas["msg"] as? String {
                     msg = message
                 }
+                
+                println("Message error: \(msg)")
+                
                 if let w = self.view.window {
                     CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle,window: w, title: "Notification", messageText: msg, dismissText: "Ok", completion: { result in })
                 }

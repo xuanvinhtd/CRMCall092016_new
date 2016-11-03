@@ -70,7 +70,7 @@ final class AlamofireManager {
         Manager.request(.POST, url, parameters: parameter)
             .responseJSON { response in
                 
-                print(response.request)
+                print("URL: \(response.request)")
                 
                 if response.result.isSuccess {
                     guard let resultQ = response.result.value as? [String: AnyObject] else {
