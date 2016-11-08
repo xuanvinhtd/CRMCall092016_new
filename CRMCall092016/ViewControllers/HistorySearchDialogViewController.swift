@@ -43,6 +43,12 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
     private var priorityDict = ["":""]
     private var activityDict = ["":""]
     
+    private var offset = 0
+    private var limit = 30
+    private var total = 0
+    private var indexScroll = 0
+    private var isReplaceSearch = true
+    
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -105,6 +111,11 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         staffView.layer?.borderWidth = 1.0
         
         enableControl(true)
+        
+        let clipView = self.tableViewHistory.enclosingScrollView!.contentView
+        NSNotificationCenter.defaultCenter().addObserver(self,selector:#selector(CustomerListViewController.myBoundsChangeNotificationHandler(_:)),
+                                                         name:NSViewBoundsDidChangeNotification,
+                                                         object:clipView);
     }
     
     // MARK: - View life cycle
@@ -148,8 +159,23 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
     // MARK: - Handling event
     @IBAction func actionSearch(sender: AnyObject) {
         
-        enableControl(false)
+        if !CRMCallManager.shareInstance.isInternetConnect {
+            if let w = self.view.window {
+                CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please check connect internet.", dismissText: "Ok", completion: { result in })
+            }
+            return
+        }
         
+        offset = 0
+        limit = 30
+        indexScroll = 0
+        isReplaceSearch = true
+        search()
+    }
+    
+    func search() {
+        enableControl(false)
+
         let types = selectActivity()
         
         var priority = "1"
@@ -159,28 +185,71 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         
         let since = startDay.dateValue.stringFormattedAsRFC3339
         let until = endDay.dateValue.stringFormattedAsRFC3339
-    
-        let urlHistoryCall = CRMCallConfig.API.searchHistoryCall(withCompany: CRMCallManager.shareInstance.cn, customerName: customerNameTextField.stringValue, customerPhone: customerPhoneTextField.stringValue, subject: historyTextField.stringValue, content: notesTextField.stringValue, staffNo: staffExtTextField.stringValue, staffName: staffNameTextField.stringValue, parentName: customerComnanyTextField.stringValue, customerCode: customerCodeTextField.stringValue, priority: priority, since: since, until: until, limit: 30, offset: 0, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types)
+        
+        let urlHistoryCall = CRMCallConfig.API.searchHistoryCall(withCompany: CRMCallManager.shareInstance.cn, customerName: customerNameTextField.stringValue, customerPhone: customerPhoneTextField.stringValue, subject: historyTextField.stringValue, content: notesTextField.stringValue, staffNo: staffExtTextField.stringValue, staffName: staffNameTextField.stringValue, parentName: customerComnanyTextField.stringValue, customerCode: customerCodeTextField.stringValue, priority: priority, since: since, until: until, limit: limit, offset: offset, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types)
         
         AlamofireManager.requestUrlByGET(withURL: urlHistoryCall, parameter: nil) { (datas, success) in
             if success {
                 println("-----------> Search history Call responce <------------ \n \(datas)")
                 
+                if self.isReplaceSearch {
+                    self.dataHistoryDict.removeAll()
+                }
+                
+                if let attrs = datas["attr"] as? [String: AnyObject] {
+                    
+                    if let _totalPage = attrs["total"] as? Int {
+                        self.total = _totalPage
+                    }
+                }
+                
                 guard let data = datas["rows"] as? [[String: AnyObject]] else {
                     println("Cannot get data after register employee success")
+                    self.enableControl(true)
                     return
                 }
                 
-                self.dataHistoryDict = data
+                if self.isReplaceSearch {
+                    self.dataHistoryDict = data
+                } else {
+                    self.dataHistoryDict.appendContentsOf(data)
+                }
+                
+                self.isReplaceSearch = true
                 self.tableViewHistory.reloadData()
                 self.enableControl(true)
             } else {
+                self.enableControl(true)
                 println("---XXXXX---->>> Get Search history Call fail with message: \(datas)")
             }
         }
     }
     
     // MARK: - Other func
+    
+    func myBoundsChangeNotificationHandler(withNotification :NSNotification) {
+        let range = getVisibleRow()
+        let local = range.location + range.length
+        
+        if isReplaceSearch && local == dataHistoryDict.count && indexScroll <= local && total > offset {
+            
+            indexScroll = local
+            isReplaceSearch = false
+            offset += limit
+
+            search()
+        }
+    }
+    
+    func getVisibleRow() -> NSRange {
+        if let scrollView = self.tableViewHistory.enclosingScrollView {
+            let visibleRect = scrollView.contentView.visibleRect
+            let range = self.tableViewHistory.rowsInRect(visibleRect)
+            return range
+        }
+        return NSRange()
+    }
+    
     private func selectActivity() -> Array<String> {
         var types = [""]
         
@@ -236,6 +305,15 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         startDay.enabled = state
         endDay.enabled = state
         
+        _ = customerNameTextField.stringValue
+        _ = customerPhoneTextField.stringValue
+        _ = customerComnanyTextField.stringValue
+        _ = customerCodeTextField.stringValue
+        _ = historyTextField.stringValue
+        _ = notesTextField.stringValue
+        _ = staffNameTextField.stringValue
+        _ = staffExtTextField.stringValue
+        
         customerNameTextField.enabled = state
         customerPhoneTextField.enabled = state
         customerComnanyTextField.enabled = state
@@ -252,6 +330,10 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         
         searchButton.enabled = state
         
+        progressEnable(state)
+    }
+    
+    private func progressEnable(state: Bool) {
         if state {
             progressSearch.stopAnimation(state)
             progressSearch.hidden = state
@@ -274,7 +356,7 @@ extension HistorySearchDialogViewController: NSTableViewDelegate, NSTableViewDat
         let object = dataHistoryDict[row]
         
         if tableColumn?.identifier == "DateID" {
-            let date = object["date_time"] as! String
+            let date = object["date_time"] as? String ?? ""
             let dateStr = NSDate(RFC3339FormattedString: date)
             return dateStr?.stringFormattedDateTime
             

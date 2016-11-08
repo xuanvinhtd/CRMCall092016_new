@@ -137,15 +137,9 @@ final class CRMCallConfig {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/search/1?limit=\(limit)&offset=\(offset)&sort=\(sort)&order=\(order)&since=\(since)&until=\(until)&date_range=\(dateRange)&type=\(type)"
         }
         
-//        static func searchHistoryCall(withCompany cn: String, customerName: String, customerPhone: String, subject: String, content: String, staffNo: String, staffName: String, priority: String, since: String, until: String,limit: Int, offset: Int, sort: String, order: String, type: [String]) -> String {
-//            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/search/\(cn)?limit=\(limit)&offset=\(offset)&sort=\(sort)&order=\(order)&since=\(since)&until=\(until)&type=\(type.joinWithSeparator(","))&staff_no=\(staffNo)&staff_name=\(staffName)&priority=\(priority)&customer_name=\(customerName)&customer_phone=\(customerPhone)"
-//        }
-        
         static func searchHistoryCall(withCompany cn: String, customerName: String, customerPhone: String, subject: String, content: String, staffNo: String, staffName: String, parentName: String, customerCode: String, priority: String, since: String, until: String,limit: Int, offset: Int, sort: String, order: String, type: [String]) -> String {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/search/\(cn)?limit=\(limit)&offset=\(offset)&sort=\(sort)&order=\(order)&since=\(since)&until=\(until)&type=\(type.joinWithSeparator(","))&customer_name=\(customerName)&customer_phone=\(customerPhone)&subject=\(subject)&content=\(content)&staff_no=\(staffNo)&staff_name=\(staffName)&parent_name=\(parentName)&customer_code=\(customerCode)&priority=\(priority)"
         }
-
-
         
         static func searchHistoryCallOfCustomer(withCompany cn: String, customerCode: String, limit: Int, offset: Int, sort: String, order: String, type: [String]) -> String {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/search/\(cn)?limit=\(limit)&offset=\(offset)&sort=\(sort)&order=\(order)&since=&until=&type=\(type.joinWithSeparator(","))&customer_code=\(customerCode)"
