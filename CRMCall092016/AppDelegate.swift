@@ -75,7 +75,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         
-        
             for window in sender.windows{
                 if let w = window as NSWindow? {
                    

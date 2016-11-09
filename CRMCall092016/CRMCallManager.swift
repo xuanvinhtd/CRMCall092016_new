@@ -131,6 +131,22 @@ final class CRMCallManager {
     
     func showWindow(withNameScreen name: String, value: AnyObject) {
         dispatch_async(dispatch_get_main_queue(), {
+            
+            
+            for window in NSApp.windows{
+                if let w = window as NSWindow? {
+                    
+                    if let viewControl = w.windowController  {
+                        if let vc = viewControl.contentViewController {
+                            if vc.isKindOfClass(LoginViewController) {
+                                CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.LoginWindowController] = viewControl
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
             if let windowController = CRMCallManager.shareInstance.screenManager[name] {
                 windowController.showWindow(nil)
             } else {

@@ -44,6 +44,34 @@ class MissCallViewController: NSViewController, ViewControllerProtocol {
     @IBAction func actionOK(sender: AnyObject) {
         
     }
+    
+    func search() {
+        var urlMissCall = CRMCallConfig.API.searchMissCall()
+        
+        urlMissCall = urlMissCall.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        AlamofireManager.requestUrlByGET(withURL: urlMissCall, parameter: nil) { (datas, success) in
+            if success {
+                println("-----------> Search history Call responce <------------ \n \(datas)")
+                
+                
+                if let attrs = datas["attr"] as? [String: AnyObject] {
+                    
+                    if let _totalPage = attrs["total"] as? Int {
+                        //self.total = _totalPage
+                    }
+                }
+                
+                guard let data = datas["rows"] as? [[String: AnyObject]] else {
+                    println("Cannot get data after register employee success")
+                   // self.enableControl(true)
+                    return
+                }
+            } else {
+                println("---XXXXX---->>> Get Search history Call fail with message: \(datas)")
+            }
+        }
+    }
 }
 
 // MARK: - Table deledate and datasource

@@ -188,12 +188,22 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 return
             }
             
+            if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                self.phoneTextField.stringValue = _info.from
+            } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                self.phoneTextField.stringValue = _info.to
+            }
+            
             println("==========> History Call Info Ring <=========== \n \(_info)")
             
             Cache.shareInstance.getCustomerInfo(with:  NSPredicate(format: "idx = %@", idCall), Result: { userInfo in
                 
                 guard let userInfo = userInfo?.first else {
-                    println("Not found Info CallID of \(_info.from) and CallID: \(idCall)")
+                    if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+                         println("Not found Info CallID of \(_info.from) and CallID: \(idCall)")
+                    } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+                         println("Not found Info CallID of \(_info.to) and CallID: \(idCall)")
+                    }
                     self.nameTextField.stringValue = ""
                     return
                 }

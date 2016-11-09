@@ -120,6 +120,10 @@ final class CRMCallConfig {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(cn)/\(contactCode)/phone"
         }
         
+        static func searchMissCall() -> String {
+            return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/customer/management/customer_field/\(1)/\(1)/phone"
+        }
+        
         static func searchHistoryCall(withCompany cn: String, limit: Int, offset: Int, sort: String, order: String, since: String, until: String, dateRange: String, type: String) -> String {
             return "https://\(CRMCallManager.shareInstance.domain)/ngw/_cti/activity/search/1?limit=\(limit)&offset=\(offset)&sort=\(sort)&order=\(order)&since=\(since)&until=\(until)&date_range=\(dateRange)&type=\(type)"
         }

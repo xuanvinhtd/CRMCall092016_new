@@ -195,7 +195,7 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         let since = startDay.dateValue.stringFormattedAsRFC3339
         let until = endDay.dateValue.stringFormattedAsRFC3339
         
-        let urlHistoryCall = CRMCallConfig.API.searchHistoryCall(withCompany: CRMCallManager.shareInstance.cn,       customerName: customerNameTextField.stringValue,
+        var urlHistoryCall = CRMCallConfig.API.searchHistoryCall(withCompany: CRMCallManager.shareInstance.cn,       customerName: customerNameTextField.stringValue,
             customerPhone: customerPhoneTextField.stringValue,
                                                                  subject: historyTextField.stringValue,
                                                                  content: notesTextField.stringValue,
@@ -206,6 +206,8 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
                                                                  offset: offset, sort: CRMCallHelpers.Sort.DateTime.rawValue,
                                                                  order: CRMCallHelpers.Order.Desc.rawValue,
                                                                  type: types)
+        
+        urlHistoryCall = urlHistoryCall.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
         
         AlamofireManager.requestUrlByGET(withURL: urlHistoryCall, parameter: nil) { (datas, success) in
             if success {
