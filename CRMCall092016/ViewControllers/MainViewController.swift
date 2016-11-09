@@ -19,7 +19,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     private var handlerNotificationBusyEvent: AnyObject!
     private var handlerNotificationByeEvent: AnyObject!
     
-    private var handlerNotificationShowPageRingIng: AnyObject!
+    //private var handlerNotificationShowPageRingIng: AnyObject!
     private var handlerNotificationShowPageSigIn: AnyObject!
     private var handlerNotificationSocketDisConnected: AnyObject!
     private var handlerNotificationSocketLogoutSuccess: AnyObject!
@@ -172,25 +172,21 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             }
         })
         
-        handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
-            
-            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                
-//                if CRMCallManager.shareInstance.isExistWindow(withName: CRMCallHelpers.NameScreen.HistoryCallWindowController) {
-//                    CRMCallManager.shareInstance.closeWindow(withNameScreen: CRMCallHelpers.NameScreen.HistoryCallWindowController)
+//        handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
+//            
+//            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+//            
+//            dispatch_async(dispatch_get_main_queue(), {
+//                
+//                if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
+//                    
+//                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController, value: "")
+//                } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
+//                    
+//                    CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
 //                }
-                
-                if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
-                    
-                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController)
-                } else if CRMCallManager.shareInstance.myCurrentDirection == .OutBound {
-                    
-                    CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
-                }
-            })
-        })
+//            })
+//        })
         
         handlerNotificationShowPageSigIn = NSNotificationCenter.defaultCenter().addObserverForName(MainViewController.Notification.ShowPageSigin, object: nil, queue: nil, usingBlock: { notification in
             
@@ -227,9 +223,11 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
             if CRMCallManager.shareInstance.myCurrentDirection == .InBound {
                 let phoneNumber =  userInfo["FROM"] as! String
                 CRMCallManager.shareInstance.crmCallSocket?.getUserInfoRequest(with: callID, phonenumber: phoneNumber)
+                CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.RingIngWindowController, value: "")
             } else {
                 let phoneNumber =  userInfo["TO"] as! String
                 CRMCallManager.shareInstance.crmCallSocket?.getUserInfoRequest(with: callID, phonenumber: phoneNumber)
+                CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
             }
         })
         
@@ -313,7 +311,7 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
     
     func deregisterNotification() {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketDisConnected)
-        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageRingIng)
+        //NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageRingIng)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationShowPageSigIn)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationSocketLogoutSuccess)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationRevicedServerInfor)
@@ -335,7 +333,8 @@ class MainViewController: NSViewController  , ViewControllerProtocol{
         
         //CRMCallManager.shareInstance.showNewWinwdowHistoryCall()
         
-        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistorySearchDialogViewController)
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.HistorySearchDialogViewController, value: lastPhoneCombobox.titleOfSelectedItem!)
+
 //        
 //        dispatch_async(dispatch_get_main_queue(), {
 //            if let historyWindowController = CRMCallManager.shareInstance.screenManager[CRMCallHelpers.NameScreen.RingIngWindowController] {

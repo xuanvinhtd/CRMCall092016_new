@@ -49,7 +49,6 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
     private var indexScroll = 0
     private var isReplaceSearch = true
     
-    
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
         return  CRMCallHelpers.storyBoard.instantiateControllerWithIdentifier("HistorySearchDialogViewControllerID") as! HistorySearchDialogViewController
@@ -85,7 +84,7 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         startDay.dateValue = NSDate()
         endDay.dateValue = NSDate()
         
-        actionSearch("")
+        //actionSearch("")
     }
     
     func configItems() {
@@ -124,7 +123,6 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         
         println("Init screen HistorySearchDialogViewController")
         
-        configItems()
         initData()
     }
     
@@ -134,6 +132,8 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         self.view.window?.title = "History Search"
         
         configItems()
+        
+        actionSearch("")
     }
     
     override func viewDidDisappear() {
@@ -166,6 +166,15 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
             return
         }
         
+        if customerPhoneTextField.stringValue != "" {
+            guard let _ = Int(customerPhoneTextField.stringValue) else {
+                if let w = self.view.window {
+                    CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please input number at phone.", dismissText: "Ok", completion: { result in })
+                }
+                return
+            }
+        }
+        
         offset = 0
         limit = 30
         indexScroll = 0
@@ -186,7 +195,17 @@ class HistorySearchDialogViewController: NSViewController, ViewControllerProtoco
         let since = startDay.dateValue.stringFormattedAsRFC3339
         let until = endDay.dateValue.stringFormattedAsRFC3339
         
-        let urlHistoryCall = CRMCallConfig.API.searchHistoryCall(withCompany: CRMCallManager.shareInstance.cn, customerName: customerNameTextField.stringValue, customerPhone: customerPhoneTextField.stringValue, subject: historyTextField.stringValue, content: notesTextField.stringValue, staffNo: staffExtTextField.stringValue, staffName: staffNameTextField.stringValue, parentName: customerComnanyTextField.stringValue, customerCode: customerCodeTextField.stringValue, priority: priority, since: since, until: until, limit: limit, offset: offset, sort: CRMCallHelpers.Sort.DateTime.rawValue, order: CRMCallHelpers.Order.Desc.rawValue, type: types)
+        let urlHistoryCall = CRMCallConfig.API.searchHistoryCall(withCompany: CRMCallManager.shareInstance.cn,       customerName: customerNameTextField.stringValue,
+            customerPhone: customerPhoneTextField.stringValue,
+                                                                 subject: historyTextField.stringValue,
+                                                                 content: notesTextField.stringValue,
+                                                                 staffNo: staffExtTextField.stringValue,
+                                                                 staffName: staffNameTextField.stringValue, parentName: customerComnanyTextField.stringValue,
+                                                                 customerCode: customerCodeTextField.stringValue, priority: priority,
+                                                                 since: since, until: until, limit: limit,
+                                                                 offset: offset, sort: CRMCallHelpers.Sort.DateTime.rawValue,
+                                                                 order: CRMCallHelpers.Order.Desc.rawValue,
+                                                                 type: types)
         
         AlamofireManager.requestUrlByGET(withURL: urlHistoryCall, parameter: nil) { (datas, success) in
             if success {

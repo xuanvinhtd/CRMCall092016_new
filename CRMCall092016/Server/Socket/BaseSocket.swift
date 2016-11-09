@@ -258,7 +258,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                 println("-------------> UserInfo of Ring <-------------- \n \(result)")
                 //NOTE: CACHE in parseXMLToDictionary func
                 
-                NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.Show, object: nil, userInfo: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(RingIngViewController.Notification.ReceivedDataCaller, object: nil, userInfo: nil)
             }
             
             if typeData == .SIP {
@@ -270,8 +270,8 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                     
                     // Cache result SIPLogin
                     let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(result["RESULT"], forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
-                    defaults.setObject("1", forKey: CRMCallConfig.UserDefaultKey.StartFirstApp)
+                    defaults[CRMCallConfig.UserDefaultKey.SIPLoginResult] = result["RESULT"]
+                    defaults[CRMCallConfig.UserDefaultKey.StartFirstApp] = "1"
                 } else {
                     println("SIPLOGIN FAIL")
                     
@@ -279,7 +279,7 @@ extension BaseSocket: GCDAsyncSocketDelegate {
                     
                     // Cache result SIPLogin
                     let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject("0", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
+                    defaults[CRMCallConfig.UserDefaultKey.SIPLoginResult] = "0"
                 }
             }
             

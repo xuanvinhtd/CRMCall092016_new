@@ -12,7 +12,7 @@ import AVFoundation
 class RingIngViewController: NSViewController, ViewControllerProtocol {
     
     // MARK: - Properties
-    private var handlerNotificationRingCancel: AnyObject!
+    private var handlerNotificationReceivedDataCaller: AnyObject!
     
     @IBOutlet weak var nameCaller: NSTextField!
     @IBOutlet weak var phoneCaller: NSTextField!
@@ -73,26 +73,28 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
             })
             
         }
-        
-        // Play Sound
-//        if let path = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PathLocalSound) as? String {
-//            
-//            let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-//            let documentsDirectory: AnyObject = paths[0]
-//            let dataPath = documentsDirectory.stringByAppendingPathComponent(path)
-//            
-//            let filePathUrl = NSURL.fileURLWithPath(dataPath)
-//            
-//            self.playSound(withUrl: filePathUrl)
-//        } else {
+    }
     
-            if let audioFilePath = NSBundle.mainBundle().pathForResource("RingSound", ofType: "wav") {
-                let audioUrl = NSURL.fileURLWithPath(audioFilePath)
-                self.playSound(withUrl: audioUrl)
-            } else {
-                println("Audio file is not found")
-            }
-       // }
+    func configItems() {
+        // Play Sound
+        //        if let path = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.PathLocalSound) as? String {
+        //
+        //            let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        //            let documentsDirectory: AnyObject = paths[0]
+        //            let dataPath = documentsDirectory.stringByAppendingPathComponent(path)
+        //
+        //            let filePathUrl = NSURL.fileURLWithPath(dataPath)
+        //
+        //            self.playSound(withUrl: filePathUrl)
+        //        } else {
+        
+        if let audioFilePath = NSBundle.mainBundle().pathForResource("RingSound", ofType: "wav") {
+            let audioUrl = NSURL.fileURLWithPath(audioFilePath)
+            self.playSound(withUrl: audioUrl)
+        } else {
+            println("Audio file is not found")
+        }
+        // }
     }
     
     // MARK: - Initialzation
@@ -100,6 +102,9 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
         super.viewDidLoad()
         
         println("Init Screen RingIngViewController")
+        registerNotification()
+        
+        configItems()
         
         initData()
     }
@@ -115,13 +120,28 @@ class RingIngViewController: NSViewController, ViewControllerProtocol {
         if let audio = self.audioPlayer {
             audio.stop()
         }
+        
+        deregisterNotification()
     }
     
     // MARK: - Notification
     struct Notification {
         static let RingCancel = "RingCancel"
         static let RingBusy = "RingBusy"
-        static let Show = "Show"
+        static let ReceivedDataCaller = "ReceivedDataCaller"
+    }
+    
+    func registerNotification() {
+        handlerNotificationReceivedDataCaller = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.ReceivedDataCaller, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            self.initData()
+        })
+    }
+    
+    func deregisterNotification() {
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationReceivedDataCaller)
     }
     
     // MARK: - Sound

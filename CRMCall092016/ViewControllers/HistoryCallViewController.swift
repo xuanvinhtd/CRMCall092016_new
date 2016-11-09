@@ -9,7 +9,6 @@
 import Cocoa
 import Chronos
 import RealmSwift
-import KeychainAccess
 
 class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     
@@ -84,6 +83,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
     private var handlerNotificationInviteResultEvent: AnyObject!
     private var handlerNotificationCancelEvent: AnyObject!
     private var handlerNotificationNotConnectInternet: AnyObject!
+    private var handlerNotificationReceivedDataCaller: AnyObject!
     
     // MARK: - Initialzation
     static func createInstance() -> NSViewController {
@@ -235,8 +235,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                     }
                     self.assignedTextFeild.stringValue = staffNameList.joinWithSeparator(",")
                     
-                    let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
-                    let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
+                    let phoneSetting = KeyChainManager.shareInstance.getValue(withKey: KeyChainManager.Keys.PhoneNumberSetting)
                     
                     self.staffDict = CRMCallHelpers.createDictionaryStaff(withData: userInfo.staffs, phoneNumber: phoneSetting ?? "0")
                     
@@ -392,6 +391,13 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
                 self.timer.cancel()
             })
         })
+        
+        handlerNotificationReceivedDataCaller = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.ReceivedDataCaller, object: nil, queue: nil, usingBlock: { notification in
+            
+            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+            
+            self.initData()
+        })
     }
     
     func deregisterNotification() {
@@ -399,6 +405,7 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationInviteResultEvent)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationCancelEvent)
         NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationNotConnectInternet)
+        NSNotificationCenter.defaultCenter().removeObserver(handlerNotificationReceivedDataCaller)
     }
     
     // MARK: - Handling event
@@ -421,6 +428,13 @@ class HistoryCallViewController: NSViewController, ViewControllerProtocol {
             CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please input phone number.", dismissText: "Ok", completion: { result in })
             }
             return
+        } else {
+            guard let _ = Int(phoneTextField.stringValue) else {
+                if let w = self.view.window {
+                    CRMCallAlert.showNSAlertSheet(with: NSAlertStyle.InformationalAlertStyle, window: w, title: "Notification", messageText: "Please input number at phone.", dismissText: "Ok", completion: { result in })
+                }
+                return
+            }
         }
         
         if self.subjectTextField.stringValue == "" {

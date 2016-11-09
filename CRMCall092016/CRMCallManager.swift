@@ -8,7 +8,6 @@
 
 import Foundation
 import Cocoa
-import KeychainAccess
 
 final class CRMCallManager {
     // MARK: Properties
@@ -126,11 +125,11 @@ final class CRMCallManager {
     
     func showNewWinwdowHistoryCall() {
         let nameScreen = CRMCallHelpers.NameScreen.HistoryCallWindowController + String(countCurrentHistoryCallDialog)
-        showWindow(withNameScreen: nameScreen)
+        showWindow(withNameScreen: nameScreen, value: "")
         countCurrentHistoryCallDialog += 1
     }
     
-    func showWindow(withNameScreen name: String) {
+    func showWindow(withNameScreen name: String, value: AnyObject) {
         dispatch_async(dispatch_get_main_queue(), {
             if let windowController = CRMCallManager.shareInstance.screenManager[name] {
                 windowController.showWindow(nil)
@@ -165,6 +164,9 @@ final class CRMCallManager {
                     
                 case CRMCallHelpers.NameScreen.HistorySearchDialogViewController:
                     windowController = HistorySearchDialogWindowController.createInstance()
+                    if let viewController = windowController.contentViewController as? HistorySearchDialogViewController {
+                        viewController.customerPhoneTextField.stringValue = value as! String
+                    }
                     break
                 default:
                     windowController = HistoryCallWindowController.createInstance()

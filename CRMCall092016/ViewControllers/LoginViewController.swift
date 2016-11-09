@@ -8,7 +8,6 @@
 
 import Foundation
 import Cocoa
-import KeychainAccess
 
 final class LoginViewController: NSViewController, ViewControllerProtocol {
     
@@ -44,9 +43,9 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
     func initData() {
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        let domain = KeyChainManager.shareInstance.getValue(withKey: KeyChainManager.Keys.HostSetting)
         
-        domainTextField.stringValue = keyChain[CRMCallConfig.KeyChainKey.HostSetting] ?? ""
+        domainTextField.stringValue = domain ?? ""
         userIDTextField.stringValue = ""
         passwordTextField.stringValue = ""
 
@@ -60,30 +59,29 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             }
         }
         
-        if let isSaveID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SaveID) as? Int {
+        if let isSaveID = defaults[CRMCallConfig.UserDefaultKey.SaveID] as? Int {
             if isSaveID == 1 {
-                
-                let domain = keyChain[CRMCallConfig.KeyChainKey.Domain]
-                let userID = keyChain[CRMCallConfig.KeyChainKey.UserID]
+                let domain = KeyChainManager.shareInstance.getValue(withKey: KeyChainManager.Keys.Domain)
+                let userID = KeyChainManager.shareInstance.getValue(withKey: KeyChainManager.Keys.UserID)
                 
                 self.domainTextField.stringValue = domain ?? ""
                 self.userIDTextField.stringValue = userID ?? ""
             }
             isSaveIDCheckBox.state = isSaveID
         } else {
-            defaults.setObject(isSaveIDCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.SaveID)
+            defaults[CRMCallConfig.UserDefaultKey.SaveID] = isSaveIDCheckBox.state
         }
         
-        if let isAutoLogin = defaults.objectForKey(CRMCallConfig.UserDefaultKey.AutoLogin) as? Int {
+        if let isAutoLogin = defaults[CRMCallConfig.UserDefaultKey.AutoLogin] as? Int {
             if isAutoLogin == 1 {
                 
-                let domain = keyChain[CRMCallConfig.KeyChainKey.Domain]
-                let user = keyChain[CRMCallConfig.KeyChainKey.UserID]
-                let password = keyChain[CRMCallConfig.KeyChainKey.PasswordUser]
+                let domain = KeyChainManager.shareInstance.getValue(withKey: KeyChainManager.Keys.Domain)
+                let userID = KeyChainManager.shareInstance.getValue(withKey: KeyChainManager.Keys.UserID)
+                let password = KeyChainManager.shareInstance.getValue(withKey: KeyChainManager.Keys.PasswordUser)
                 
                 self.passwordTextField.stringValue = password ?? ""
                 self.domainTextField.stringValue = domain ?? ""
-                self.userIDTextField.stringValue = user ?? ""
+                self.userIDTextField.stringValue = userID ?? ""
                 
                 isLoginManual = false
                 actionLogin("")
@@ -93,7 +91,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             
             isAutoLoginCheckBox.state = isAutoLogin
         } else {
-            defaults.setObject(isAutoLoginCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
+            defaults[CRMCallConfig.UserDefaultKey.AutoLogin] = isAutoLoginCheckBox.state
         }
     }
     
@@ -107,17 +105,14 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         registerNotification()
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        //defaults.setObject("", forKey: CRMCallConfig.UserDefaultKey.StartFirstApp)
-
         
         // CHECK SETTING CALL
-        //let defaults = NSUserDefaults.standardUserDefaults()
-        if let startFirst = defaults.objectForKey(CRMCallConfig.UserDefaultKey.StartFirstApp) as? String {
+        if let startFirst = defaults[CRMCallConfig.UserDefaultKey.StartFirstApp] as? String {
             if startFirst == "0" || startFirst == "" {
                 showAndStartProgress(false)
                 CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please, setting and test phone number", dismissText: "Ok", completion: { (result) in
                     
-                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController, value: "")
                 })
                 
                 return
@@ -126,18 +121,18 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             showAndStartProgress(false)
             CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please, setting and test phone number", dismissText: "Ok", completion: { (result) in
                 
-                CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+                CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController, value: "")
             })
             
             return
         }
         
-        if let sip = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) as? String {
+        if let sip = defaults[CRMCallConfig.UserDefaultKey.SIPLoginResult] as? String {
             if sip == "0" || sip == "" {
                 showAndStartProgress(false)
                 CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please, setting and test phone number", dismissText: "Cancel", completion: { (result) in
                     
-                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+                    CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController, value: "")
                 })
                 
                 return
@@ -146,7 +141,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             showAndStartProgress(false)
             CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please, setting and test phone number", dismissText: "Cancel", completion: { (result) in
                 
-                CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+                CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController, value: "")
             })
             
             return
@@ -166,11 +161,11 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             passwordTextField.stringValue = ""
             
             let defaults = NSUserDefaults.standardUserDefaults()
-            if let isSaveID = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SaveID) as? Int {
+            if let isSaveID = defaults[CRMCallConfig.UserDefaultKey.SaveID] as? Int {
                 isSaveIDCheckBox.state = isSaveID
             }
             
-            if let isAutoLogin = defaults.objectForKey(CRMCallConfig.UserDefaultKey.AutoLogin) as? Int {
+            if let isAutoLogin = defaults[CRMCallConfig.UserDefaultKey.AutoLogin] as? Int {
                 isAutoLoginCheckBox.state = isAutoLogin
             }
         }
@@ -194,13 +189,10 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         CRMCallManager.shareInstance.isShowLoginPage = false
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(isSaveIDCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.SaveID)
-        defaults.setObject(isAutoLoginCheckBox.state, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
+        defaults[CRMCallConfig.UserDefaultKey.SaveID] = isSaveIDCheckBox.state
+        defaults[CRMCallConfig.UserDefaultKey.AutoLogin] = isAutoLoginCheckBox.state
         
-        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
-        keyChain[CRMCallConfig.KeyChainKey.Domain] = domainTextField.stringValue
-        keyChain[CRMCallConfig.KeyChainKey.UserID] = userIDTextField.stringValue
-        keyChain[CRMCallConfig.KeyChainKey.PasswordUser] = passwordTextField.stringValue
+        KeyChainManager.shareInstance.saveUserInfo(withDomain: domainTextField.stringValue, userID: userIDTextField.stringValue, password: passwordTextField.stringValue)
     }
     
     deinit {
@@ -228,7 +220,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
                 println("CRMCallManager.shareInstance.crmCallSocket = nil")
             }
             
-            if NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) != "1" {
+            if (NSUserDefaults.standardUserDefaults()[CRMCallConfig.UserDefaultKey.SIPLoginResult] as! String) != "1" {
                 self.showMessageSetting()
             }
             self.showAndStartProgress(false)
@@ -342,14 +334,12 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         }
         
         //GET SETTING INFO CHECK SETTING READEY
-        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        let valueDict = KeyChainManager.shareInstance.getSettingInfo()
         
-        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
-        let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
-        let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
-        let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
-        
-        guard let _ = phoneSetting, host = hostSetting, _ = idSetting, _ = pwdSetting else {
+        guard let _ = valueDict[KeyChainManager.Keys.PhoneNumberSetting],
+            host = valueDict[KeyChainManager.Keys.HostSetting],
+            _ = valueDict[KeyChainManager.Keys.IDSetting],
+            _ = valueDict[KeyChainManager.Keys.PasswordSetting] else {
             self.showMessageSetting()
             return
         }
@@ -362,7 +352,7 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
             return
         }
         
-        if let sip = defaults.objectForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) as? String {
+        if let sip = defaults[CRMCallConfig.UserDefaultKey.SIPLoginResult] as? String {
             if sip == "0" {
                 showAndStartProgress(false)
                 CRMCallAlert.showNSAlert(with: NSAlertStyle.InformationalAlertStyle, title: "Notification", messageText: "Please setting phone number \nGo to Preferences...", dismissText: "Ok", completion: { (result) in

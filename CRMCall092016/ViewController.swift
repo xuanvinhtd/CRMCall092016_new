@@ -181,15 +181,15 @@ class ViewController: NSViewController {
             }
         })
         
-        handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
-            
-            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                let ringViewController = RingIngViewController.createInstance()
-                self.presentViewControllerAsModalWindow(ringViewController)
-            })
-        })
+//        handlerNotificationShowPageRingIng = NSNotificationCenter.defaultCenter().addObserverForName(RingIngViewController.Notification.Show, object: nil, queue: nil, usingBlock: { notification in
+//            
+//            println("Class: \(NSStringFromClass(self.dynamicType)) recived: \(notification.name)")
+//            
+//            dispatch_async(dispatch_get_main_queue(), {
+//                let ringViewController = RingIngViewController.createInstance()
+//                self.presentViewControllerAsModalWindow(ringViewController)
+//            })
+//        })
     }
     
     private func deRegisterNotification() {

@@ -22,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.settingAppCall()
         
         Fabric.with([Crashlytics.self])
+        NSUserDefaults.standardUserDefaults().registerDefaults(["NSApplicationCrashOnExceptions":true])
         
         // Register push notification
         let type: NSRemoteNotificationType = [NSRemoteNotificationType.Alert,NSRemoteNotificationType.Badge, NSRemoteNotificationType.Sound]
@@ -30,10 +31,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func settingAppCall() {
-        
-        // Cache result SIPLogin
-        //let defaults = NSUserDefaults.standardUserDefaults()
-        //defaults.setObject("3", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
         
         AlamofireManager.startNetworkReachabilityObserver()
         // Config Realm
@@ -51,10 +48,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         // Setting SIP
-        if let _ = NSUserDefaults.standardUserDefaults().objectForKey(CRMCallConfig.UserDefaultKey.SIPLoginResult){
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.hasKey(CRMCallConfig.UserDefaultKey.SIPLoginResult) {
         } else {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject("0", forKey: CRMCallConfig.UserDefaultKey.SIPLoginResult)
+            defaults[CRMCallConfig.UserDefaultKey.SIPLoginResult] = "0"
         }
     }
     
@@ -113,7 +110,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction func showSignInPage(sender: AnyObject) {
         
-        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.LoginWindowController)
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.LoginWindowController, value: "")
     }
     
     @IBAction func showSignOutPage(sender: AnyObject) {
@@ -124,7 +121,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         CRMCallManager.shareInstance.isUserLoginSuccess = false
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(0, forKey: CRMCallConfig.UserDefaultKey.AutoLogin)
+        defaults[CRMCallConfig.UserDefaultKey.AutoLogin] = 0
         
         NSNotificationCenter.defaultCenter().postNotificationName(MainViewController.Notification.ShowPageSigin, object: nil, userInfo: nil)
     }
@@ -138,7 +135,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
         
-        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.StaffAvailabilityWindowController)
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.StaffAvailabilityWindowController, value: "")
     }
     
     @IBAction func showMissedCalls(sender: AnyObject) {
@@ -210,7 +207,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
                 println("url = \(fileUrl) to url = \(toUrl)")
                 
-                NSUserDefaults.standardUserDefaults().setObject("Sound/\(nameFile)", forKey: CRMCallConfig.UserDefaultKey.PathLocalSound)
+                NSUserDefaults.standardUserDefaults()[CRMCallConfig.UserDefaultKey.PathLocalSound] = "Sound/\(nameFile)"
 
                 if fileManager.fileExistsAtPath(toUrl.absoluteString) {
                     do {
@@ -233,7 +230,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     
     @IBAction func showSettingCall(sender: AnyObject) {
-        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController)
+        CRMCallManager.shareInstance.showWindow(withNameScreen: CRMCallHelpers.NameScreen.SettingViewController, value: "")
     }
     
     @IBAction func showCRMCall(sender: AnyObject) {

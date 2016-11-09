@@ -9,7 +9,6 @@
 import Foundation
 import Cocoa
 import RealmSwift
-import KeychainAccess
 
 final class CRMCallHelpers {
     
@@ -102,28 +101,27 @@ final class CRMCallHelpers {
     }
     
     static func getUUID() -> String {
-        if let uuid = NSUserDefaults.standardUserDefaults().stringForKey(CRMCallConfig.UUIDKey) {
-            return uuid
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if defaults.hasKey(CRMCallConfig.UUIDKey) {
+            return defaults[CRMCallConfig.UUIDKey] as! String
         } else {
             let uuidObject = CFUUIDCreate(kCFAllocatorDefault)
             let uuid = CFUUIDCreateString(kCFAllocatorDefault, uuidObject)
-            NSUserDefaults.standardUserDefaults().setObject(uuid, forKey: CRMCallConfig.UUIDKey)
+            defaults[CRMCallConfig.UUIDKey] = uuid
             return uuid as String
         }
     }
     
     static func reGetIdAndHost() {
         //GET SETTING INFO
-        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        let valueDict = KeyChainManager.shareInstance.getSettingInfo()
         
-        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
-        let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
-        let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
-        let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
-        
-        guard let _ = phoneSetting, host = hostSetting, _ = idSetting, _ = pwdSetting else {
-            println("Not found info setting")
-            return
+        guard let _ = valueDict[KeyChainManager.Keys.PhoneNumberSetting],
+                host = valueDict[KeyChainManager.Keys.HostSetting],
+                _ = valueDict[KeyChainManager.Keys.IDSetting],
+                _ = valueDict[KeyChainManager.Keys.PasswordSetting] else {
+                println("Not found info setting")
+                return
         }
         
         if CRMCallManager.shareInstance.isSocketLoginSuccess == false {
@@ -145,16 +143,14 @@ final class CRMCallHelpers {
     
     static func reLoginSocket() {
         // GET SETTING INFO
-        let keyChain = Keychain(service: CRMCallConfig.KeyChainKey.ServiceName)
+        let valueDict = KeyChainManager.shareInstance.getSettingInfo()
         
-        let phoneSetting = keyChain[CRMCallConfig.KeyChainKey.PhoneNumberSetting]
-        let hostSetting = keyChain[CRMCallConfig.KeyChainKey.HostSetting]
-        let idSetting = keyChain[CRMCallConfig.KeyChainKey.IDSetting]
-        let pwdSetting = keyChain[CRMCallConfig.KeyChainKey.PasswordSetting]
-        
-        guard let phone = phoneSetting, host = hostSetting, id = idSetting, pwd = pwdSetting else {
-            println("Please, call setting and again. \nGo to Preferences...")
-            return
+        guard let phone = valueDict[KeyChainManager.Keys.PhoneNumberSetting],
+            host = valueDict[KeyChainManager.Keys.HostSetting],
+            id = valueDict[KeyChainManager.Keys.IDSetting],
+            pwd = valueDict[KeyChainManager.Keys.PasswordSetting] else {
+                println("Please, call setting and again. \nGo to Preferences...")
+                return
         }
         
         if let crmCallSocket = CRMCallManager.shareInstance.crmCallSocket {
@@ -174,9 +170,6 @@ final class CRMCallHelpers {
         
         return nil
     }
-    
-    // MARK: - Reachability 
-
     
     // MARK: - CREATE DICTIONARY STAFF, PURPOSE, CUSTOMER
     

@@ -37,19 +37,6 @@ final class CRMCallConfig {
         static let PathLocalSound = "PathLocalSound"
     }
     
-    struct KeyChainKey {
-        
-        static let ServiceName = "com.hanbiro.CRMCall2016"
-        static let HostSetting = "HostSetting"
-        static let IDSetting = "IDSetting"
-        static let PasswordSetting = "PasswordSetting"
-        static let PhoneNumberSetting = "PhoneNumberSetting"
-        
-        static let Domain = "Domain"
-        static let UserID = "UserID"
-        static let PasswordUser = "PasswordUser"
-    }
-    
     // MARK: Tab
     struct Tab {
         static let Default = 0
