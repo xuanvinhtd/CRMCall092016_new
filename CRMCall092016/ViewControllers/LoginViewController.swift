@@ -154,11 +154,11 @@ final class LoginViewController: NSViewController, ViewControllerProtocol {
         super.viewDidAppear()
         self.view.window?.title = "Login"
         
-        domainTextField.becomeFirstResponder()
-        
-        domainTextField.nextKeyView = userIDTextField
-        userIDTextField.nextKeyView = passwordTextField
-        passwordTextField.nextKeyView = domainTextField
+//        domainTextField.becomeFirstResponder()
+//        
+//        domainTextField.nextKeyView = userIDTextField
+//        userIDTextField.nextKeyView = passwordTextField
+//        passwordTextField.nextKeyView = domainTextField
         
         // Init again
         if CRMCallManager.shareInstance.isShowLoginPage {
